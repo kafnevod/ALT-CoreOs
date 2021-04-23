@@ -14,5 +14,5 @@
 ---------------------|--------------------|--------------------------------------------
 ignition v2.9.0 | [ignition 2.9.0-alt1](http://git.altlinux.org/gears/i/ignition.git)
 ostree v2021.2 | [ostree 2020.8-alt1](http://git.altlinux.org/gears/o/ostree.git)
-butane v0.11.0 | Отсутствует 
-rps-ostree v2021.4 | Отсутствует
+butane v0.11.0 | Отсутствует | Проблем с переносом быть не должно - простой конфртор форматов.
+rpm-ostree v2021.4 | Отсутствует | Необходима интеграция RPM@ALTLinux и (возможно) с `mkimages-profiles`
