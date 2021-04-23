@@ -11,6 +11,7 @@
 [dracut](https://github.com/dracutdevs/dracut) | C | [Dracut:  Introduction and Overview](https://events.static.linuxfound.org/images/stories/pdf/lcjp2012_cong_wang.pdf), [Dracut](https://wiki.gentoo.org/wiki/Dracut)| Инструмент для создания образа initramfs путем копирования инструментов и файлов из установленной системы и объединения их с фреймворком dracut (/usr/lib/dracut/modules.d)  
 [Bubblewrap](https://github.com/containers/bubblewrap/) | С | [Bubblewrap](https://wiki.archlinux.org/index.php/Bubblewrap) | setuid реализация user namespaces
 [polkit](https://gitlab.freedesktop.org/polkit/polkit/) | C | [PolicyKit](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/policykit) | polkit -  набор инструментов для поддержки авторизации.
+[toolbox container](https://github.com/containers/toolbox) | GO | [doc](https://github.com/containers/toolbox/tree/main/doc) | Toolbox -  инструмент для операционных систем Linux, который позволяет использовать контейнерные среды командной строки. Он построен на основе Podman и других стандартных контейнерных технологий от OCI. 
 
 ### Сравнение   
 Продукт Fedora Core | Наличие в sisyphus | Комментарий
@@ -22,3 +23,4 @@ Bubblewrap v0.4.1 | [Bubblewrap	0.4.1-alt2](http://git.altlinux.org/gears/b/bubb
 polkit 0.118 | [polkit 	0.118-alt2](http://git.altlinux.org/gears/p/polkit.git?p=polkit.git;a=summary)
 butane v0.11.0 | Отсутствует | Проблем с переносом быть не должно - простой конвертор форматов.
 rpm-ostree v2021.4 | Отсутствует | Необходима интеграция RPM@ALTLinux и (возможно) с `mkimages-profiles`
+toolbox container 0.0.99.1  | Отсутствует |
