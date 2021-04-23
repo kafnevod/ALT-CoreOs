@@ -1,8 +1,8 @@
 # Адаптация
 
-## Поддержка новой структуры каталогов файловой системы
-
-[Adapting existing mainstream distributions](https://ostreedev.github.io/ostree/adapting-existing/)
+- Поддержка новой структуры каталогов файловой системы
+  [Adapting existing mainstream distributions](https://ostreedev.github.io/ostree/adapting-existing/)
+- Перенос (или линковка?) базы пакетов из /var/lib/rpm в /usr/lib/rpm 
 
 
 ## Ссылки
