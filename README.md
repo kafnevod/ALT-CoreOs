@@ -11,3 +11,5 @@
   * [Fedora CoreOS Documentation](https://docs.fedoraproject.org/en-US/fedora-coreos/)
 - **Fedora IoT**
   * [Fedora IoT Fedora IoT](https://docs.fedoraproject.org/en-US/iot/)
+    - [Layered Packages](https://docs.fedoraproject.org/en-US/iot/adding-layered/)
+    - [Container Support](https://docs.fedoraproject.org/en-US/iot/container-support/)
