@@ -1,5 +1,10 @@
 # Адаптация
 
+## Создание новой структуры каталогов 
+
+[Adapting existing mainstream distributions](https://ostreedev.github.io/ostree/adapting-existing/)
+
+
 ## Ссылки
 - **ostee**
   * [OSTree Overview](https://ostreedev.github.io/ostree/)   
