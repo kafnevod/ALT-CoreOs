@@ -1,6 +1,6 @@
 # Адаптация
 
-## Создание новой структуры каталогов 
+## Поддержка новой структуры каталогов файловой системы
 
 [Adapting existing mainstream distributions](https://ostreedev.github.io/ostree/adapting-existing/)
 
