@@ -18,7 +18,7 @@
 ---------------------|--------------------|--------------------------------------------
 ignition v2.9.0 | [ignition 2.9.0-alt1](http://git.altlinux.org/gears/i/ignition.git)
 ostree v2021.2 | [ostree 2020.8-alt1](http://git.altlinux.org/gears/o/ostree.git)
-dracut 053 | [ dracut 053-alt1](http://git.altlinux.org/gears/d/dracut.git) 
+dracut 053 | [ dracut 053-alt1](http://git.altlinux.org/gears/d/dracut.git) | Будет ли dracut замещать make-initrd или будет использоваться совместно с ним?
 Bubblewrap v0.4.1 | [Bubblewrap	0.4.1-alt2](http://git.altlinux.org/gears/b/bubblewrap.git)
 polkit 0.118 | [polkit 	0.118-alt2](http://git.altlinux.org/gears/p/polkit.git?p=polkit.git;a=summary)
 butane v0.11.0 | Отсутствует | Проблем с переносом быть не должно - простой конвертор форматов.
