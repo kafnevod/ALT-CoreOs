@@ -16,7 +16,9 @@
 ### Ignition
 
 Файл формата ignition (JSON-файл с суффиксом .ign) обеспечивает:
-- разбиение дисков на партиции (storag.disks.device.patrition, storage.filesystems);
+ - разбиение дисков на партиции (storag.disks.device.patrition, storage.filesystems);
+ - создание защифрованных носителей (boot_device.luks) данные в формате [LUKS](https://coreos.github.io/butane/examples/#luks-encrypted-storage);
+ - создание [программных RAID-массивов](https://coreos.github.io/butane/examples/#mirrored-boot-disk) (boot_device.mirror);
  - создание пользователей (passwd.users) и групп (passwd.groups);
  - запуск и конфигурирование сервисов (systems.units) включая docker-контейнеры;
  - добавление или замена директориев (storage.directories) и(конфигурационных) файлов (storage.files, storage.links), что позволяет сконфигурировать:
