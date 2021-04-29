@@ -74,19 +74,43 @@ drwxr-sr-x   2 root     root            0 Apr 12 20:43 etc
 ```
 .coreos-aleph-version.json
 boot
-    /boot
+    /boot -> .
     /bootupd-state.json
-    /efi
-    /grub2
+    /efi/...
+    /grub2/...
     /ignition.firstboot
-    /loader
-    /loader.1
-    /lost+found
-    /ostree
+    /loader-> loader.1
+    /loader.1/entries/ostree-1-fedora-coreos.conf
+    /lost+found/
+    /ostree/fedora-coreos-7bbc78c7f5c49e3bd679517942d74bf1c3024647716b30a01aae83bb4102244b/
+        initramfs-5.10.19-200.fc33.x86_64.img
+        vmlinuz-5.10.19-200.fc33.x86_64
 ostree
-      /boot.1
-      /boot.1.1
-      /deploy
+      /boot.1 -> boot.1.1
+      /boot.1.1/fedora-coreos/7bbc78c7f5c49e3bd679517942d74bf1c3024647716b30a01aae83bb4102244b/0/
+          boot/
+          dev/
+          etc/
+          ...
+          usr/
+          var/
+      /deploy/fedora-coreos/
+          deploy/0fc4a4c205dbcdfd6ba68912bfbf2c90911e4a2341b3dda0a254ab6541224b83.0
+              boot/
+              dev/
+              etc/
+              ...
+              usr/
+          var/
+              lib/
+              log/
+              tmp/
       /repo
+          config
+          extensions
+          objects
+          refs
+          state
+          tmp 
 ```
 
