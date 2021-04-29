@@ -30,7 +30,7 @@
 - программой конфигурации;
 - программой [butane](https://coreos.github.io/butane/) на основе созданного в пользовательском редакторе или автоматически [файла формата YML](https://coreos.github.io/butane/examples/). 
 
-### coreos=installer
+### coreos-installer
 
 Платформа | Форматы 
 -----------|----------
@@ -47,3 +47,46 @@ OpenStack | qcow2.xz
 QEMU | qcow2.xz
 VMware | ova
 Vultr | raw.xz
+
+
+### Структура live-составных частей
+
+- fedora-coreos-33.20210328.3.0-live-kernel-x86_64:        Linux kernel x86 boot executable RO-rootFS, swap_dev 0xA, Normal VGA
+- fedora-coreos-33.20210328.3.0-live-initramfs.x86_64.img:
+```
+drwxrwxr-x   3 root     root            0 Jan  1  1970 .
+-rw-rw-r--   1 root     root            2 Jan  1  1970 early_cpio
+drwxrwxr-x   3 root     root            0 Jan  1  1970 kernel
+drwxrwxr-x   3 root     root            0 Jan  1  1970 kernel/x86
+drwxrwxr-x   2 root     root            0 Jan  1  1970 kernel/x86/microcode
+-rw-rw-r--   1 root     root        30546 Jan  1  1970 kernel/x86/microcode/AuthenticAMD.bin
+-rw-rw-r--   1 root     root      3623936 Jan  1  1970 kernel/x86/microcode/GenuineIntel.bin
+```
+- fedora-coreos-33.20210328.3.0-live-rootfs.x86_64.img:
+```
+-rw-r--r--   1 root     root     696107008 Apr 12 20:52 root.squashfs
+drwxr-sr-x   2 root     root            0 Apr 12 20:43 etc
+-rw-r--r--   1 root     root           16 Apr 12 20:43 etc/coreos-live-rootfs
+-rw-------   1 root     root      5701465 Apr 12 20:44 fedora-coreos-33.20210328.3.0-metal.x86_64.raw.osmet
+-rw-------   1 root     root      5507327 Apr 12 20:46 fedora-coreos-33.20210328.3.0-metal4k.x86_64.raw.osmet
+```
+  * root.squashfs:
+```
+.coreos-aleph-version.json
+boot
+    /boot
+    /bootupd-state.json
+    /efi
+    /grub2
+    /ignition.firstboot
+    /loader
+    /loader.1
+    /lost+found
+    /ostree
+ostree
+      /boot.1
+      /boot.1.1
+      /deploy
+      /repo
+```
+
