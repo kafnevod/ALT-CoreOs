@@ -11,12 +11,19 @@
   
 
 
-## Ignition
+## Установка дистрибутива
 
-Файл формата ignition (суффикс .ign) обеспечивает:
+### Ignition
+
+Файл формата ignition (JSON-файл с суффиксом .ign) обеспечивает:
 - разбиение дисков на партиции (storag.disks.device.patrition, storage.filesystems);
  - создание пользователей (passwd.users) и групп (passwd.groups);
-  - запуск и конфигурирование сервисов (systems.units) включая docker-контейнеры;
-  - добавление или замена директориев (storage.directories) и(конфигурационных) файлов (storage.files, storage.links), что позволяет сконфигурировать:
+ - запуск и конфигурирование сервисов (systems.units) включая docker-контейнеры;
+ - добавление или замена директориев (storage.directories) и(конфигурационных) файлов (storage.files, storage.links), что позволяет сконфигурировать:
     * сетевые интерфейсы (storage.files.path=/etc/NetworkManager/system-connections/...);  
     * параметры ядра (rpm-ostree kargs ..., storage.files.path=/etc/sysctl.d/...).
+    * ...
+   
+Файл имеет формат JSON и формируется обычно двумя способами:
+- программой конфигурации;
+- программой [butane](https://coreos.github.io/butane/) на основе созданного в пользовательском редакторе или автоматически [файла формата YML](https://coreos.github.io/butane/examples/). 
