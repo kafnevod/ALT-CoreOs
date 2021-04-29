@@ -2,6 +2,7 @@
 
 В данном репозитории будут размещаться мои соображения по интеграции технологии Fedora CoreOs в дистрибутивы ALT
 
+- [Описание дистрибутива Fedore CoreOs](Fedora-CoreOs.md)
 - [Сравнение программного обеспечения Fedora Core и дистрибутивов ALT](softwareCompare.md)
 - [Адаптация](adaptation.md)
 
