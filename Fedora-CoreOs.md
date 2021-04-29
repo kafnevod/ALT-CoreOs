@@ -32,6 +32,8 @@
 
 ### coreos-installer
 
+[Документация](https://coreos.github.io/coreos-installer/)
+
 Платформа | Форматы 
 -----------|----------
 Bare Metal | iso, pxe,  4k.raw.xz, row.xz
