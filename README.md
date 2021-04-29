@@ -7,6 +7,7 @@
 - [Адаптация](adaptation.md)
 
 ## Ссылки:
+- [Установка Fedora CoreOs потоков Stable, Testing, Next](https://getfedora.org/ru/coreos);
 - [User Documentation](https://docs.fedoraproject.org/en-US/docs/)
 - **Fedora CoreOS**
   * [Fedora CoreOS Documentation](https://docs.fedoraproject.org/en-US/fedora-coreos/)
