@@ -29,3 +29,21 @@
 Файл имеет формат JSON и формируется обычно двумя способами:
 - программой конфигурации;
 - программой [butane](https://coreos.github.io/butane/) на основе созданного в пользовательском редакторе или автоматически [файла формата YML](https://coreos.github.io/butane/examples/). 
+
+### coreos=installer
+
+Платформа | Форматы 
+-----------|----------
+Bare Metal | iso, pxe,  4k.raw.xz, row.xz
+Alibaba Cloud (Aliyun) | qcow2.xz
+Amazon Web Services | Напрямую с https://builds.coreos.fedoraproject.org/
+Azure | vhd.xz
+DigitalOcean | Напрямую с https://builds.coreos.fedoraproject.org/
+Exoscale| qcow2.xz, напрямую с https://builds.coreos.fedoraproject.org/
+Google Cloud Platform (GCP) | Напрямую с https://builds.coreos.fedoraproject.org/
+IBM Cloud | qcow2.xz
+libvirt | qcow2.xz
+OpenStack | qcow2.xz
+QEMU | qcow2.xz
+VMware | ova
+Vultr | raw.xz
