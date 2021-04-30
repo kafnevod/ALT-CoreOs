@@ -9,4 +9,4 @@
 - [Managing content in OSTree repositories](contentmanage.md);
 - [Related Projects](related.md);
 - [Contributing](contributing.md);
-- [OSTree Contributing Tutorial](conttibubingTutorial.md);
+- [OSTree Contributing Tutorial](contribubingTutorial.md);
