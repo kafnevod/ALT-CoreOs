@@ -8,20 +8,21 @@
     - Contributing
     - Licensing
 
-This project is now known as “libostree”, though it is still appropriate to use the previous name: “OSTree” (or “ostree”). The focus is on projects which use libostree’s shared library, rather than users directly invoking the command line tools (except for build systems). However, in most of the rest of the documentation, we will use the term “OSTree”, since it’s slightly shorter, and changing all documentation at once is impractical. We expect to transition to the new name over time.
+Этот проект теперь известен как «libostree», хотя по-прежнему уместно использовать предыдущее название: «OSTree» (или «ostree»). Основное внимание уделяется проектам, которые используют общую библиотеку libostree, а не пользователям, напрямую вызывающим инструменты командной строки (за исключением систем сборки). Однако в большей части остальной документации мы будем использовать термин «OSTree», поскольку он немного короче, и изменять сразу всю документацию нецелесообразно. Мы ожидаем перехода на новое имя со временем.
 
-As implied above, libostree is both a shared library and suite of command line tools that combines a “git-like” model for committing and downloading bootable filesystem trees, along with a layer for deploying them and managing the bootloader configuration.
+Как упоминалось выше, libostree - это как совместно используемая библиотека, так и набор инструментов командной строки, которые объединяют «git-подобную» модель для фиксации и загрузки деревьев загрузочных файловых систем, а также уровень их развертывания и управления конфигурацией загрузчика.
 
-The core OSTree model is like git in that it checksums individual files and has a content-addressed-object store. It’s unlike git in that it “checks out” the files via hardlinks, and they thus need to be immutable to prevent corruption. Therefore, another way to think of OSTree is that it’s just a more polished version of Linux VServer hardlinks.
+Базовая модель OSTree похожа на git тем, что в ней проверяются суммы отдельных файлов и есть хранилище объектов с адресацией к содержимому. В отличие от git, он «проверяет» файлы с помощью жестких ссылок, и поэтому они должны быть неизменными, чтобы предотвратить повреждение. Таким образом  OSTree можно представить как  более совершенную версию жестких ссылок (hard links) Linux VServer. 
 
-**Features:**
+**Особенности:**
 
-    Transactional upgrades and rollback for the system
-    Replicating content incrementally over HTTP via GPG signatures and “pinned TLS” support
-    Support for parallel installing more than just 2 bootable roots
-    Binary history on the server side (and client)
-    Introspectable shared library API for build and deployment systems
-    Flexible support for multiple branches and repositories, supporting projects like flatpak which use libostree for applications, rather than hosts.
+- Транзакционные обновления и откат для операционной системы
+- Инкрементальная репликация контента через HTTP с помощью подписей GPG и поддержки «прикрепленного (pinned) TLS»
+- Поддержка параллельной установки двух и более загрузочных корневых файловых систем
+- Бинарная история на стороне сервера (и клиента) 
+- Общий API для систем сборки и развертывания 
+- Гибкая поддержка нескольких веток и репозиториев
+
 
 ## Operating systems and distributions using OSTree
 
