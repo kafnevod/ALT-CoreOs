@@ -53,14 +53,15 @@ On an OSTree-deployed system, the “system repository” is /ostree/repo. It ca
 Like git, OSTree uses the terminology “references” (abbreviated “refs”) which are text files that name (refer to) particular commits. See the Git Documentation for information on how git uses them. Unlike git though, it doesn’t usually make sense to have a “master” branch. There is a convention for references in OSTree that looks like this: exampleos/buildmaster/x86_64-runtime and exampleos/buildmaster/x86_64-devel-debug. These two refs point to two different generated filesystem trees. In this example, the “runtime” tree contains just enough to run a basic system, and “devel-debug” contains all of the developer tools and debuginfo.
 
 The ostree supports a simple syntax using the caret ^ to refer to the parent of a given commit. For example, exampleos/buildmaster/x86_64-runtime^ refers to the previous build, and exampleos/buildmaster/x86_64-runtime^^ refers to the one before that.
-The summary file
+
+### The summary file
 
 A later addition to OSTree is the concept of a “summary” file, created via the ostree summary -u command. This was introduced for a few reasons. A primary use case is to be compatible with Metalink, which requires a single file with a known checksum as a target.
 
-### The summary file primarily contains two mappings:
+The summary file primarily contains two mappings:
 
-    A mapping of the refs and their checksums, equivalent to fetching the ref file individually
-    A list of all static deltas, along with their metadata checksums
+-    A mapping of the refs and their checksums, equivalent to fetching the ref file individually
+-    A list of all static deltas, along with their metadata checksums
 
 This currently means that it grows linearly with both items. On the other hand, using the summary file, a client can enumerate branches.
 
