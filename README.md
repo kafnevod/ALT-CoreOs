@@ -15,3 +15,5 @@
   * [Fedora IoT Fedora IoT](https://docs.fedoraproject.org/en-US/iot/)
     - [Layered Packages](https://docs.fedoraproject.org/en-US/iot/adding-layered/)
     - [Container Support](https://docs.fedoraproject.org/en-US/iot/container-support/)
+- OSTREE
+  * [Документация](https://ostreedev.github.io/ostree/)
