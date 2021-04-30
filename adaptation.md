@@ -9,7 +9,7 @@
 
 ## Использование файловой истемы xfs
 
-Судя по всему использование файловой ситемы xfs для работы с ostree эта решение Redhat.
+Судя по всему использование файловой ситемы xfs для работы с ostree эта решение RedHat.
 ostree [поддерживает различные типы файловых систем](https://ostreedev.github.io/ostree/):
 > Because OSTree operates at the Unix filesystem layer, it works on top of any filesystem or block storage layout; it’s possible to replicate a given filesystem tree from an OSTree repository into plain ext4, BTRFS, XFS, or in general any Unix-compatible filesystem that supports hard links. Note: OSTree will transparently take advantage of some BTRFS features if deployed on it.
 
