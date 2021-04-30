@@ -6,7 +6,7 @@
 - [Adapting existing mainstream distributions](distributions.md);
 - [OSTree data formats](dataformats.md);
 - [Writing a buildsystem and managing repositories](buildandmanage.md);
-- [Managing content in OSTree repositories](conyentmanage.md);
+- [Managing content in OSTree repositories](contentmanage.md);
 - [Related Projects](related.md);
 - [Contributing](contributing.md);
 - [OSTree Contributing Tutorial](conttibubingTutorial.md);
