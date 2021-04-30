@@ -77,11 +77,11 @@ Many package managers store their state in /var; but since in the OSTree model t
 To install a set of new packages (without removing any existing ones), enumerate the set of packages in the currently booted deployment, and perform dependency resolution to compute the complete set of new packages. Download and unpack these new packages to a temporary directory.
 
 Now, because we are merely installing new packages and not removing anything, we can make the major optimization of reusing our existing filesystem tree, and merely layering the composed filesystem tree of these new packages on top. A command like this:
-
-ostree commit -b osname/releasename/description
---tree=ref=$osname/$releasename/$description
---tree=dir=/var/tmp/newpackages.13A8D0/
-
+```
+ostree commit -b osname/releasename/description \
+    --tree=ref=$osname/$releasename/$description \
+    --tree=dir=/var/tmp/newpackages.13A8D0/
+```
 will create a new commit in the $osname/$releasename/$description branch. The OSTree SHA256 checksum of all the files in /var/tmp/newpackages.13A8D0/ will be computed, but we will not re-checksum the present existing tree. In this layering model, earlier directories will take precedence, but files in later layers will silently override earlier layers.
 
 Then to actually deploy this tree for the next boot: ostree admin deploy $osname/$releasename/$description
