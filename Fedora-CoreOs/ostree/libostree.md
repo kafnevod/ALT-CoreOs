@@ -24,23 +24,28 @@
 - Гибкая поддержка нескольких веток и репозиториев
 
 
-## Operating systems and distributions using OSTree
+## Операционные системы и дистрибутивы, использующие OSTree 
 
-Endless OS uses libostree for their host system as well as flatpak. See their eos-updater and deb-ostree-builder projects.
+[Endless OS](https://endlessos.com/) использует libostree для своей хост-системы, а также flatpak. См. [eхos-updater](https://github.com/endlessm/eos-updater)
+и [deb-ostree-builder](https://github.com/dbnicholson/deb-ostree-builder). 
 
-Fedora derivatives use rpm-ostree (noted below); there are 3 variants using OSTree:
+Три подпроекта Fedora используют rpmostree: 
+- [Fedora CoreOS](https://getfedora.org/en/coreos/)
+- [Fedora Silverblue](https://silverblue.fedoraproject.org/)
+- [Fedora IoT](https://getfedora.org/iot/)
 
-    Fedora CoreOS
-    Fedora Silverblue
-    Fedora IoT
+Red Hat Enterprise Linux CoreOS - это производная от Fedora CoreOS, используемая в [OpenShift 4](https://www.openshift.com/try). 
+[machine-config-operator](https://github.com/openshift/machine-config-operator/blob/master/docs/OSUpgrades.md) управляет обновлениями. RHEL CoreOS также является преемником RHEL At
 
-Red Hat Enterprise Linux CoreOS is a derivative of Fedora CoreOS, used in OpenShift 4. The machine-config-operator manages upgrades. RHEL CoreOS is also the successor to RHEL Atomic Host, which uses rpm-ostree as well.
+omic Host, который также использует rpm-ostree. 
 
-GNOME Continuous is where OSTree was born - as a high performance continuous delivery/testing system for GNOME.
+[GNOME Continuous](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous) - это то место, где возник проект OSTree - как высокопроизводительная система непрерывной доставки / тестирования для GNOME. 
 
-Liri OS has the option to install their distribution using ostree.
+[Liri OS](https://liri.io/download/silverblue/) под Fedora Silverblue поддерживает возможность установить свой дистрибутив с помощью ostree. 
 
-TorizonCore uses libostree and Aktualizr as the base for OTA updates from compatible platforms, including Torizon OTA.
+[TorizonCore](https://developer.toradex.com/knowledge-base/torizoncore-overview) использует libostree и 
+Aktualizr в качестве основы для обновлений OTA с совместимых платформ, 
+включая [Torizon OTA](https://developer.toradex.com/knowledge-base/torizon-update-system). 
 
 ## Distribution build tools
 
