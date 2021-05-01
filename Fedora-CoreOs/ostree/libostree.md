@@ -68,12 +68,12 @@ Fedora [coreos-assemblyr](https://github.com/coreos/coreos-assembler) - это �
 
 ## Language bindings
 
-libostree is accessible via GObject Introspection; any language which has implemented the GI binding model should work. For example, Both pygobject and gjs are known to work and further are actually used in libostree’s test suite today.
+libostree доступен через [GObject Introspection](https://gi.readthedocs.io/en/latest/). 
+Любой язык, в котором реализована GI binding model, должен работать. Например, известно, что как pygobject, так и gjs работают, и сегодня они фактически используются в наборе тестов libostree.
 
-Some bindings take the approach of using GI as a lower level and write higher level manual bindings on top; this is more common for statically compiled languages. Here’s a list of such bindings:
-
-    ostree-go
-    ostree-rs
+Некоторые bindings используют GI в качестве нижнего уровня и записывают ручные bindings более высокого уровня сверху; это более характерно для статически компилируемых языков. Ниже список  привязок:
+- ostree-go
+- ostree-rs
 
 ## Building
 
