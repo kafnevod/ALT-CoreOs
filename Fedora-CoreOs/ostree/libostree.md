@@ -57,13 +57,14 @@ Aktualizr в качестве основы для обновлений OTA с с
 
 Fedora [coreos-assemblyr](https://github.com/coreos/coreos-assembler) - это инструмент сборки, используемый для создания производных от Fedora CoreOS. 
 
-## Projects linking to libostree
+## Проекты, связанные с libostree
 
-rpm-ostree is used by the Fedora-derived operating systems listed above. It is a full hybrid image/package system. By default it uses libostree to atomically replicate a base OS (all dependency resolution is done on the server), but it supports “package layering”, where additional RPMs can be layered on top of the base. This brings a “best of both worlds”” model for image and package systems.
+[rpm-ostree](https://github.com/coreos/rpm-ostree) используется перечисленными выше операционными системами, производными от Fedora. Это полная гибридная система образов / пакетов. По умолчанию он использует libostree для атомарной репликации базовой ОС (все разрешение зависимостей выполняется на сервере), но он поддерживает «многоуровневый пакет», при котором дополнительные RPM пакеты в виде отдельного слоя 
+могут быть размещены поверх базовой, совмещая преемущества обоих подходов.
 
-eos-updater is a daemon that implements updates on EndlessOS.
+[eos-updater](https://github.com/endlessm/eos-updater) - это демон, который выполняет обновления в EndlessOS.
 
-flatpak uses libostree for desktop application containers. Unlike most of the other systems here, flatpak does not use the “libostree host system” aspects (e.g. bootloader management), just the “git-like hardlink dedup”. For example, flatpak supports a per-user OSTree repository.
+[Flatpak](https://github.com/flatpak/flatpak) использует libostree для контейнеров настольных приложений. В отличие от большинства других систем здесь, flatpak не использует аспекты «хост-системы libostree» (например, управление загрузчиком), а только «дедупликацию жестких ссылок, подобную git». Например, flatpak поддерживает репозиторий OSTree для каждого пользователя. 
 
 ## Language bindings
 
