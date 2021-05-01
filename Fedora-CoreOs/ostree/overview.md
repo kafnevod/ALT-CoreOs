@@ -6,50 +6,45 @@
     Comparison with block/image replication
     Atomic transitions between parallel-installable read-only filesystem trees
         Licensing for this document:
+## Введение
 
-## Introduction
+OSTree - это система обновления для операционных систем на базе Linux, которая выполняет атомарное обновление полных деревьев файловых систем. Это не пакетная система; скорее, он предназначен для их дополнения. Основная модель - это составление пакетов на сервере, а затем их репликация  клиентам.
 
-OSTree is an upgrade system for Linux-based operating systems that performs atomic upgrades of complete filesystem trees. It is not a package system; rather, it is intended to complement them. A primary model is composing packages on a server, and then replicating them to clients.
+Базовую архитектуру можно кратко охарактеризовать как «git для двоичных файлов операционной системы». Он работает в пользовательском пространстве и будет работать поверх любой файловой системы Linux. По своей сути, это хранилище объектов с адресацией к содержимому, похожее на git, с ветвями (branches) (или «refs») для отслеживания значимых деревьев файловых систем в хранилище. Точно так же можно проверить или зафиксировать (commit) эти ветки.
 
-The underlying architecture might be summarized as “git for operating system binaries”. It operates in userspace, and will work on top of any Linux filesystem. At its core is a git-like content-addressed object store with branches (or “refs”) to track meaningful filesystem trees within the store. Similarly, one can check out or commit to these branches.
+На вершине этого уровня находится конфигурация загрузчика, управление / и т.д., а также другие функции для выполнения обновления, помимо репликации файлов.
 
-Layered on top of that is bootloader configuration, management of /etc, and other functions to perform an upgrade beyond just replicating files.
+Вы можете использовать OSTree автономно в чистой модели репликации, но другой подход заключается в добавлении диспетчера пакетов поверх, создавая таким образом гибридную систему дерева / пакетов. 
 
-You can use OSTree standalone in the pure replication model, but another approach is to add a package manager on top, thus creating a hybrid tree/package system.
 
-## Hello World example
+## Пример Hello World
 
-OSTree is mostly used as a library, but a quick tour of using its CLI tools can give a general idea of how it works at its most basic level.
+OSTree в основном используется как библиотека, но краткий обзор использования его инструментов CLI может дать общее представление о том, как он работает на самом базовом уровне.
 
-You can create a new OSTree repository using init:
-
+Вы можете создать новый репозиторий OSTree с помощью init: 
 ```
 $ ostree --repo=repo init
 ```
 
-This will create a new repo directory containing your repository. Feel free to inspect it.
-
-Now, let’s prepare some data to add to the repo:
+Это создаст новый каталог repo, содержащий ваш репозиторий. 
+Теперь давайте подготовим данные для добавления в репо: 
 ```
 $ mkdir tree
 $ echo "Hello world!" > tree/hello.txt
 ```
-
-We can now import our tree/ directory using the commit command:
+Теперь мы можем импортировать наше дерево / каталог с помощью команды commit: 
 ```
 $ ostree --repo=repo commit --branch=foo tree/
 ```
+Это создаст новую ветку foo, указывающую на полное дерево, импортированное из tree /. Фактически, теперь мы могли удалить дерево /, если бы захотели.
 
-This will create a new branch foo pointing to the full tree imported from tree/. In fact, we could now delete tree/ if we wanted to.
-
-To check that we indeed now have a foo branch, you can use the refs command:
+Чтобы убедиться, что у нас действительно есть ветка foo, вы можете использовать команду refs: 
 ```
 $ ostree --repo=repo refs
 foo
 ```
 
-We can also inspect the filesystem tree using the ls and cat commands:
-
+Мы также можем просмотреть дерево файловой системы с помощью команд ls и cat: 
 ```
 $ ostree --repo=repo ls foo
 d00775 1000 1000      0 /
@@ -58,8 +53,7 @@ $ ostree --repo=repo cat foo /hello.txt
 Hello world!
 ```
 
-And finally, we can check out our tree from the repository:
-
+И, наконец, мы можем проверить наше дерево из репозитория: 
 ```
 $ ostree --repo=repo checkout foo tree-checkout/
 $ cat tree-checkout/hello.txt
