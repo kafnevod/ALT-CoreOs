@@ -47,15 +47,15 @@ omic Host, который также использует rpm-ostree.
 Aktualizr в качестве основы для обновлений OTA с совместимых платформ, 
 включая [Torizon OTA](https://developer.toradex.com/knowledge-base/torizon-update-system). 
 
-## Distribution build tools
+## Инструменты сборки дистрибутива
 
-meta-updater is a layer available for OpenEmbedded systems.
+[meta-updater](https://github.com/advancedtelematic/meta-updater) - это слой, доступный для [OpenEmbedded](http://www.openembedded.org/wiki/Main_Page)-систем.
 
-QtOTA is Qt’s over-the-air update framework which uses libostree.
+[QtOTA](https://doc.qt.io/archives/QtOTA/) - это среда беспроводного обновления Qt, использующая libostree.
 
-The BuildStream build and integration tool supports importing and exporting from libostree repos.
+Инструмент сборки и интеграции [BuildStream](https://github.com/apache/buildstream/) поддерживает импорт и экспорт из репозиториев libostree.
 
-Fedora coreos-assembler is the build tool used to generate Fedora CoreOS derivatives.
+Fedora [coreos-assemblyr](https://github.com/coreos/coreos-assembler) - это инструмент сборки, используемый для создания производных от Fedora CoreOS. 
 
 ## Projects linking to libostree
 
