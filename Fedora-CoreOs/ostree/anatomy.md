@@ -20,16 +20,23 @@
 И что наиболее важно, его объекты содержимого включают атрибуты uid, gid и extended (но без timestamps). 
 
 
-### Commit objects
+### Объекты коммит
 
-A commit object contains metadata such as a timestamp, a log message, and most importantly, a reference to a dirtree/dirmeta pair of checksums which describe the root directory of the filesystem. Also like git, each commit in OSTree can have a parent. It is designed to store a history of your binary builds, just like git stores a history of source control. However, OSTree also makes it easy to delete data, under the assumption that you can regenerate it from source code.
+Коммит-объект  содержит метаданные, такие как временная метка, сообщение журнала и, что наиболее важно, ссылку на  dirtree/dirmeta c контрольными суммами, которые описывают корневой каталог файловой си### Объекты Dirtree
 
-### Dirtree objects
+dirtree содержит отсортированный массив пар (имя файла, контрольная сумма) для контент-объектов  и второй отсортированный массив (имя файла, контрольная сумма dirtree, контрольная сумма dirmeta), которые являются подкаталогами. Этот тип объектов хранится в виде файлов с расширением .dirtree в каталоге объектов. стемы. 
+Также, как и в git, у каждого коммита в OSTree может быть родитель. 
+Он предназначен для хранения истории ваших двоичных сборок, точно так же, как git хранит историю управления версиями. 
+Однако OSTree также упрощает удаление данных при условии, что вы можете восстановить их из исходного кода. 
 
-A dirtree contains a sorted array of (filename, checksum) pairs for content objects, and a second sorted array of (filename, dirtree checksum, dirmeta checksum), which are subdirectories. This type of object is stored as files ending with .dirtree in the objects directory.
+### Объекты Dirtree
 
-### Dirmeta objects
+dirtree содержит отсортированный массив пар (имя файла, контрольная сумма) для контент-объектов  и второй отсортированный массив (имя файла, контрольная сумма dirtree, контрольная сумма dirmeta), которые являются подкаталогами. Этот тип объектов хранится в виде файлов с расширением .dirtree в каталоге объектов. 
 
+### Объекты Dirmeta
+В git древовидные объекты содержат метаданные, такие как права доступа для своих потомков. 
+Но OSTree разбивает это на отдельный объект, чтобы избежать дублирования расширенных списков атрибутов. 
+Эти типы объектов хранятся в виде файлов с суффиксом *.dirmeta в каталоге объектов. 
 In git, tree objects contain the metadata such as permissions for their children. But OSTree splits this into a separate object to avoid duplicating extended attribute listings. These type of objects are stored as files ending with .dirmeta in the objects directory.
 
 ### Content objects
