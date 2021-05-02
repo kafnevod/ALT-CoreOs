@@ -68,10 +68,16 @@ OSTree позволяет переключаться между конфигур
 заполняем его новым содержимым, а затем атомарно меняем местами символическую ссылку. 
 В любой момент старое содержимое может быть удалено сборщиком мусора. 
 
-## The /ostree/boot directory
+## Каталог /ostree/boot
 
-However, we want to optimize for the case where the set of kernel/initramfs/devicetree sets is the same between both the old and new deployment lists. This happens when doing an upgrade that does not include the kernel; think of a simple translation update. OSTree optimizes for this case because on some systems /boot may be on a separate medium such as flash storage not optimized for significant amounts of write traffic. Related to this, modern OSTree has support for having /boot be a read-only mount by default - it will automatically remount read-write just for the portion of time necessary to update the bootloader configuration.
+Однако мы хотим выполнить оптимизацию для случая, когда набор  `kernel/initramfs/devicetree` одинаков как для старого, так и для нового списков развертывания. 
+Это происходит при обновлении без ядра. 
+OSTree оптимизируется и для этого случая, потому что в некоторых системах `/boot` может быть на отдельном носителе, таком как флэш-память, не оптимизированная для значительных объемов трафика записи. 
+В связи с этим современный OSTree поддерживает монтирование `/boot` по умолчанию только для чтения - оно автоматически перемонтирует чтение-запись только на время, необходимое для обновления конфигурации загрузчика.
 
-To implement this, OSTree also maintains the directory /ostree/boot.$bootversion, which is a set of symbolic links to the deployment directories. The $bootversion here must match the version of /boot. However, in order to allow atomic transitions of this directory, this is also a swapped directory, so just like /boot, it has a version of 0 or 1 appended.
+Для реализации этого OSTree также поддерживает каталог `/ostree/boot.$bootversion`, который представляет собой набор символических ссылок на каталоги развертывания. 
+Здесь `$bootversion` должна соответствовать версии `/boot`. 
+Однако, чтобы разрешить атомарные переходы этого каталога, это также переключаемый каталог, поэтому, как и  в `/boot`, к нему добавлены версии 0 или 1.
 
-Each bootloader entry has a special ostree= argument which refers to one of these symbolic links. This is parsed at runtime in the initramfs.
+Каждая запись загрузчика имеет специальный аргумент `ostree=`, который ссылается на одну из этих символических ссылок. 
+Это анализируется во время выполнения в initramfs. 
