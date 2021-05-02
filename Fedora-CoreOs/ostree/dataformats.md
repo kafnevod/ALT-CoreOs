@@ -12,11 +12,12 @@
     Fallback objects
         Licensing for this document:
 
-## On the topic of “smart servers”
+## По теме «умных серверов»
 
-One really crucial difference between OSTree and git is that git has a “smart server”. Even when fetching over https://, it isn’t just a static webserver, but one that e.g. dynamically computes and compresses pack files for each client.
+Одно действительно важное различие между OSTree и git состоит в том, что у git есть «умный сервер». Даже при загрузке по https: // это не просто статический веб-сервер, а тот, который, например, динамически вычисляет и сжимает файлы пакетов для каждого клиента.
 
-In contrast, the author of OSTree feels that for operating system updates, many deployments will want to use simple static webservers, the same target most package systems were designed to use. The primary advantages are security and compute efficiency. Services like Amazon S3 and CDNs are a canonical target, as well as a stock static nginx server.
+Напротив, автор OSTree считает, что для обновлений операционной системы многие развертывания захотят использовать простые статические веб-серверы, те же цели, для которых было разработано большинство систем пакетов. Основными преимуществами являются безопасность и эффективность вычислений. Такие сервисы, как Amazon S3 и CDN, являются канонической целью, 
+также как и источником - стандартный статический сервер nginx. 
 
 ## The archive format
 
