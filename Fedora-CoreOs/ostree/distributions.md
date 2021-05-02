@@ -1,5 +1,4 @@
-# Adapting existing mainstream distributions
-
+# Адаптация существующих основных дистрибутивов 
     System layout
     Booting and initramfs technology
     /usr/lib/passwd
@@ -23,27 +22,28 @@ Because OSTree only preserves /var across upgrades (each deployment’s chroot d
     /tmp → /sysroot/tmp
 
 Furthermore, since /var is empty by default, your operating system will need to dynamically create the targets of these at boot. A good way to do this is using systemd-tmpfiles, if your OS uses systemd. For example:
-```
-d /var/log/journal 0755 root root -
-L /var/home - - - - ../sysroot/home
-d /var/opt 0755 root root -
-d /var/srv 0755 root root -
-d /var/roothome 0700 root root -
-d /var/usrlocal 0755 root root -
-d /var/usrlocal/bin 0755 root root -
-d /var/usrlocal/etc 0755 root root -
-d /var/usrlocal/games 0755 root root -
-d /var/usrlocal/include 0755 root root -
-d /var/usrlocal/lib 0755 root root -
-d /var/usrlocal/man 0755 root root -
-d /var/usrlocal/sbin 0755 root root -
-d /var/usrlocal/share 0755 root root -
-d /var/usrlocal/src 0755 root root -
-d /var/mnt 0755 root root -
-d /run/media 0755 root root -
-```
+- d /var/log/journal 0755 root root -
+- L /var/home - - - - ../sysroot/home
+- d /var/opt 0755 root root -
+- d /var/srv 0755 root root -
+- d /var/roothome 0700 root root -
+- d /var/usrlocal 0755 root root -
+- d /var/usrlocal/bin 0755 root root -
+- d /var/usrlocal/etc 0755 root root -
+- d /var/usrlocal/games 0755 root root -
+- d /var/usrlocal/include 0755 root root -
+- d /var/usrlocal/lib 0755 root root -
+- d /var/usrlocal/man 0755 root root -
+- d /var/usrlocal/sbin 0755 root root -
+- d /var/usrlocal/share 0755 root root -
+- d /var/usrlocal/src 0755 root root -
+- d /var/mnt 0755 root root -
+- d /run/media 0755 root root -
 
-Particularly note here the double indirection of /home. By default, each deployment will share the global toplevel /home directory on the physical root filesystem. It is then up to higher levels of management tools to keep /etc/passwd or equivalent synchronized between operating systems. Each deployment can easily be reconfigured to have its own home directory set simply by making /var/home a real directory.
+Особо обратите внимание на двойную переадресацию на `/home`. 
+По умолчанию каждое развертывание будет совместно использовать глобальный каталог верхнего уровня `/home` в физической корневой файловой системе. 
+Затем инструменты управления более высокого уровня должны поддерживать синхронизацию `/etc/passwd` или его эквивалента между операционными системами. 
+Каждое развертывание можно легко перенастроить, чтобы установить собственный домашний каталог, просто сделав `/var/home` настоящим каталогом.
 
 ## Booting and initramfs technology
 
