@@ -9,12 +9,16 @@
         Refs
         The summary file
             Licensing for this document:
+## Основные типы объектов и модель данных
 
-## Core object types and data model
+Основные идеи и модели OSTree позаимствованы из git;.
+Стоит потратить некоторое время на то, чтобы ознакомиться с [Git Internals](http://git-scm.com/book/en/v2), так как этот раздел предполагает некоторые знания о том, как работает git.
 
-OSTree is deeply inspired by git; the core layer is a userspace content-addressed versioning filesystem. It is worth taking some time to familiarize yourself with Git Internals, as this section will assume some knowledge of how git works.
+Типы объектов OSTree похожи на git; у него есть объекты фиксации (commit) и объекты содержимого (content). 
+В Git есть объекты-каталогов, тогда как OSTree разбивает их на «dirtree» и «dirnmeta». 
+В  отличие от git, контрольные суммы OSTree - это SHA256. 
+И что наиболее важно, его объекты содержимого включают атрибуты uid, gid и extended (но без timestamps). 
 
-Its object types are similar to git; it has commit objects and content objects. Git has “tree” objects, whereas OSTree splits them into “dirtree” and “dirmeta” objects. But unlike git, OSTree’s checksums are SHA256. And most crucially, its content objects include uid, gid, and extended attributes (but still no timestamps).
 
 ### Commit objects
 
