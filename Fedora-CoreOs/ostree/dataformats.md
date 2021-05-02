@@ -19,31 +19,38 @@
 Напротив, автор OSTree считает, что для обновлений операционной системы многие развертывания захотят использовать простые статические веб-серверы, те же цели, для которых было разработано большинство систем пакетов. Основными преимуществами являются безопасность и эффективность вычислений. Такие сервисы, как Amazon S3 и CDN, являются канонической целью, 
 также как и источником - стандартный статический сервер nginx. 
 
-## The archive format
+## Формат archive
 
-In the repo section, the concept of objects was introduced, where file/content objects are checksummed and managed individually. (Unlike a package system, which operates on compressed aggregates).
+В разделе [Анатомия репозитория OSTree](anatomy.md)  была представлена ​​концепция объектов, в которых объекты file/content суммируются по контрольной сумме и управляются индивидуально. (В отличие от системы пакетов, которая работает со сжатыми агрегатами).
 
-The archive format simply gzip-compresses each content object. Metadata objects are stored uncompressed. This means that it’s easy to serve via static HTTP. Note: the repo config file still uses the historical term archive-z2 as mode. But this essentially indicates the modern archive format.
+Формат archive просто сжимает каждый контентный объект с помощью gzip. 
+Объекты метаданных хранятся без сжатия. 
+Это означает, что данный формат легко поддерживать через статический HTTP сервер. 
+> Примечание: в конфигурационном файле репо по-прежнему используется исторический термин archive-z2 в качестве режима. Но это, по сути, указывает на современный формат archive.
 
-When you commit new content, you will see new .filez files appearing in objects/.
+Когда вы делаете новый коммит на новый контент, вы увидите новые файлы `.filez` в  подкаталогах каталога `objects/`.
 
-## archive efficiency
+## Эффективность формата archive
 
-The advantages of archive:
+Преимущества формата archive:
 
-    It’s easy to understand and implement
-    Can be served directly over plain HTTP by a static webserver
-    Clients can download/unpack updates incrementally
-    Space efficient on the server
+- Легко понять и реализовать
+- Может обслуживаться статическим веб-сервером напрямую по обычному протоколу HTTP.
+- Клиенты могут скачивать/распаковывать обновления постепенно
+- Эффективное использование пространства на сервере
 
-The biggest disadvantage of this format is that for a client to perform an update, one HTTP request per changed file is required. In some scenarios, this actually isn’t bad at all, particularly with techniques to reduce HTTP overhead, such as HTTP/2.
+Самым большим недостатком этого формата является то, что для выполнения обновления клиентом требуется один HTTP-запрос на каждый измененный файл. 
+В некоторых сценариях это на самом деле совсем неплохо, особенно с методами уменьшения накладных расходов HTTP, такими как HTTP / 2.
 
-In order to make this format work well, you should design your content such that large data that changes infrequently (e.g. graphic images) are stored separately from small frequently changing data (application code).
+Чтобы этот формат работал хорошо, вы должны разрабатывать свой контент таким образом, чтобы большие данные, 
+которые нечасто изменяются (например, графические изображения), хранились отдельно от небольших, 
+часто меняющихся данных (кода приложения).
 
-Other disadvantages of archive:
+Другие недостатки формата archive:
 
-    It’s quite bad when clients are performing an initial pull (without HTTP/2),
-    One doesn’t know the total size (compressed or uncompressed) of content before downloading everything
+- Это очень плохо, когда клиенты выполняют начальное опрашивание (без HTTP / 2),
+- Никто не знает общий размер (сжатый или несжатый) контента перед загрузкой всего объема
+
 
 ## Aside: the bare and bare-user formats
 
