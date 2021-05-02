@@ -6,11 +6,14 @@
         The system /boot
             Licensing for this document:
 
-## Overview
+## Обзор
 
-Built on top of the OSTree versioning filesystem core is a layer that knows how to deploy, parallel install, and manage Unix-like operating systems (accessible via ostree admin). The core content of these operating systems are treated as read-only, but they transparently share storage.
+Выше системы управления версиями OSTree находится уровень, который знает, как развертывать, параллельно устанавливать и управлять Unix-подобными операционными системами (доступными через администратора ostree). 
+Основное содержимое этих операционных систем обрабатывается как доступное только для чтения (read only), но есть прозрачный механизм использования разднляемого хранилища 
+доступного в режиме чтения-записи.
 
-A deployment is physically located at a path of the form /ostree/deploy/$stateroot/deploy/$checksum. OSTree is designed to boot directly into exactly one deployment at a time; each deployment is intended to be a target for chroot() or equivalent.
+Развертывание физически расположено в `/ostree/deploy/$stateroot/deploy/$checksum`. 
+OSTree предназначен для  загрузки одного `deployment` из нескольких; каждое развертывание является корневым каталогом для `chroot()` или его эквивалента. 
 
 ### “stateroot” (AKA “osname”): Group of deployments that share /var
 
