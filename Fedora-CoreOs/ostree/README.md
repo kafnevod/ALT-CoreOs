@@ -5,7 +5,7 @@
 - [Atomic Upgrades](atomic.md);
 - [Adapting existing mainstream distributions](distributions.md);
 - [OSTree data formats](dataformats.md);
-- [Writing a buildsystem and managing repositories](buildandmanage.md);
+- [Writing a buildsystem and managing repositories](buildandnmanage.md);
 - [Managing content in OSTree repositories](contentmanage.md);
 - [Related Projects](related.md);
 - [Contributing](contributing.md);
