@@ -86,13 +86,16 @@ OSTree ортогонален механизмам виртуализации н
 
 На практике для пользователей конфигураций с «голым железом» (metal bare) наиболее полезной будет модель OSTree. 
 
-## Atomic transitions between parallel-installable read-only filesystem trees
+## Атомарные переходы между устанавливаемыми параллельно деревьями файловых систем только для чтения
 
-Another deeply fundamental difference between both package managers and image-based replication is that OSTree is designed to parallel-install multiple versions of multiple independent operating systems. OSTree relies on a new toplevel ostree directory; it can in fact parallel install inside an existing OS or distribution occupying the physical / root.
+Еще одно фундаментальное различие между менеджерами пакетов и репликацией на основе образов состоит в том, что OSTree предназначен для параллельной установки нескольких версий нескольких независимых операционных систем. OSTree использует отдельный каталог ostree верхнего уровня; фактически он может быть установлен параллельно внутри существующей ОС или дистрибутива, занимающего физический `/ ` корневой каталог.
 
-On each client machine, there is an OSTree repository stored in /ostree/repo, and a set of “deployments” stored in /ostree/deploy/$STATEROOT/$CHECKSUM. Each deployment is primarily composed of a set of hardlinks into the repository. This means each version is deduplicated; an upgrade process only costs disk space proportional to the new files, plus some constant overhead.
+На каждой клиентской машине есть репозиторий OSTree, хранящийся в `/ostree/repo`, и множество «развертываний», хранящийся в `/ostree/deploy/$STATEROOT/$CHECKSUM`. Каждое развертывание (`deploy`) в основном состоит из набора жестких ссылок на репозиторий. Это означает, что каждая версия дедуплицирована (одинаковые файлы разных развертываний хранятся в единичном экземпляре); процесс обновления требует только дискового пространства, пропорционального количеству новых файлов, плюс постоянные накладные расходы.
 
-The model OSTree emphasizes is that the OS read-only content is kept in the classic Unix /usr; it comes with code to create a Linux read-only bind mount to prevent inadvertent corruption. There is exactly one /var writable directory shared between each deployment for a given OS. The OSTree core code does not touch content in this directory; it is up to the code in each operating system for how to manage and upgrade state.
+Модель OSTree требует, чтобы содержимое ОС, доступное только для чтения, хранится в классическом Unix  каталоге `/usr`; он включает с код обеспечивающий 
+`read-only bind mount` каталога `/usr`, чтобы предотвратить случайное повреждение. 
+Существует ровно один доступный для записи каталог / var, совместно используемый каждым развертыванием данной ОС. 
+Основной код OSTree не касается содержимого в этом каталоге; то, как управлять состоянием и обновлять его, зависит от кода каждой операционной системы.
 
-Finally, each deployment has its own writable copy of the configuration store /etc. On upgrade, OSTree will perform a basic 3-way diff, and apply any local changes to the new copy, while leaving the old untouched.
-
+Наконец, каждое развертывание имеет свою собственную доступную для записи копию хранилища конфигурации `/etc`. 
+При обновлении OSTree выполнит базовое трехстороннее сравнение (3-way diff) и применит любые локальные изменения к новой копии, оставляя старую нетронутой. 
