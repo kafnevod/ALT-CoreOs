@@ -5,13 +5,23 @@
     Adapting existing package managers
         Licensing for this document:
 
-## System layout
+## Схема файловой системы
 
-First, OSTree encourages systems to implement UsrMove This is simply to avoid the need for more bind mounts. By default OSTree’s dracut hook creates a read-only bind mount over /usr; you can of course generate individual bind-mounts for /bin, all the /lib variants, etc. So it is not intended to be a hard requirement.
+Прежде всего, OSTree стимулирует системы внедрять UsrMove. 
+Данный подход предлагается для того, чтобы избежать необходимости в дополнительных `bind mounts`. 
+По умолчанию `dracut hook` в OSTree создает `bind mounts` в режиме только для чтения только для каталога `/usr`; 
+вы, конечно, можете создать отдельные bind-mounts для `/bin`, всех вариантов `/lib` и т. д. 
+Так что это не является жестким требованием.
 
-Remember, because by default the system is booted into a chroot equivalent, there has to be some way to refer to the actual physical root filesystem. Therefore, your operating system tree should contain an empty /sysroot directory; at boot time, OSTree will make this a bind mount to the physical / root directory. There is precedent for this name in the initramfs context. You should furthermore make a toplevel symbolic link /ostree which points to /sysroot/ostree, so that the OSTree tool at runtime can consistently find the system data regardless of whether it’s operating on a physical root or inside a deployment.
+Помните, поскольку по умолчанию система загружается в chroot-эквиваленте, должен быть какой-то способ обратиться к реальной физической корневой файловой системе. 
+Следовательно, дерево вашей операционной системы должно содержать пустой каталог `/sysroot`; 
+во время загрузки OSTree сделает через bind-mount этот каталог привязанным к физическому / корневому каталогу. 
+Есть прецедент использования этого имени в контексте initramfs. 
 
-Because OSTree only preserves /var across upgrades (each deployment’s chroot directory will be garbage collected eventually), you will need to choose how to handle other toplevel writable directories specified by the Filesystem Hierarchy Standard. Your operating system may of course choose not to support some of these such as /usr/local, but following is the recommended set:
+Кроме того, вы должны создать символическую ссылку `/ostree` верхнего уровня, которая указывает на `/sysroot/ostree`, чтобы инструмент OSTree во время выполнения мог постоянно находить системные данные независимо от того, работает ли он в физическом корне или внутри развертывания.
+
+Поскольку OSTree при обновлении сохраняет только `/var`  (chroot-каталог каждого развертывания в конечном итоге будет собираться мусором), вам нужно будет выбрать, как поддерживать другие доступные для записи каталоги верхнего уровня, указанные в [Стандарте иерархии файловой системы](https://www.pathname.com/fhs/). 
+Ваша операционная система, конечно, может не поддерживать некоторые из них, такие как `/usr/local`, но рекомендуется следующий набор: 
 
     /home → /var/home
     /opt → /var/opt
@@ -21,7 +31,8 @@ Because OSTree only preserves /var across upgrades (each deployment’s chroot d
     /mnt → /var/mnt
     /tmp → /sysroot/tmp
 
-Furthermore, since /var is empty by default, your operating system will need to dynamically create the targets of these at boot. A good way to do this is using systemd-tmpfiles, if your OS uses systemd. For example:
+Более того, поскольку `/var` по умолчанию пуст, ваша операционная система должна будет динамически создавать их целевые объекты при загрузке. 
+Хороший способ сделать это - использовать systemd-tmpfiles, если ваша ОС использует systemd. Например: 
 - d /var/log/journal 0755 root root -
 - L /var/home - - - - ../sysroot/home
 - d /var/opt 0755 root root -
