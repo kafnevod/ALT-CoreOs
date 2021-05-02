@@ -56,22 +56,24 @@
 Затем инструменты управления более высокого уровня должны поддерживать синхронизацию `/etc/passwd` или его эквивалента между операционными системами. 
 Каждое развертывание можно легко перенастроить, чтобы установить собственный домашний каталог, просто сделав `/var/home` настоящим каталогом.
 
-## Booting and initramfs technology
+## Загрузка и технология initramfs
 
-OSTree comes with optional dracut+systemd integration code which follows this logic:
+OSTree поставляется с дополнительным кодом интеграции dracut + systemd, который следует следующей логике:
+- Анализ аргумента командной строки `ostree=kernel` в `initramfs`
+- Монтирование (bind mount) каталога `/usr` в режиме только для чтения 
+- Монтирование каталога `/sysroot` развертывания к физическому `/`
+- Использование mount (MS_MOVE), для того, чтобы корень развертывания выглядел как корневая файловая система
 
-    Parse the ostree= kernel command line argument in the initramfs
-    Set up a read-only bind mount on /usr
-    Bind mount the deployment’s /sysroot to the physical /
-    Use mount(MS_MOVE) to make the deployment root appear to be the root filesystem
+После этих шагов systemd переключает root.
 
-After these steps, systemd switches root.
+Если вы не используете `dracut` или `systemd`, использование OSTree по-прежнему возможно, но вам придется написать код интеграции. 
+См. Существующие исходные коды в [src/switchroot](https://github.com/ostreedev/ostree/tree/master/src/switchroot) в качестве справки.
 
-If you are not using dracut or systemd, using OSTree should still be possible, but you will have to write the integration code. See the existing sources in src/switchroot as a reference.
+Патчи для поддержки других технологий initramfs и систем инициализации, если они будут достаточно чистыми, скорее всего, будут приняты апстримом.
 
-Patches to support other initramfs technologies and init systems, if sufficiently clean, will likely be accepted upstream.
-
-A further specific note regarding sysvinit: OSTree used to support recording device files such as the /dev/initctl FIFO, but no longer does. It’s recommended to just patch your initramfs to create this at boot.
+Еще одно конкретное замечание относительно sysvinit: 
+В OSTree  для поддержки файлов записывающих устройств, таких как `/dev/initctl` использовался FIFO, но в настоящий момен он больше не поддерживается. 
+Рекомендуется просто пропатчить ваш `initramfs`, чтобы он создавался при загрузке. 
 
 ## /usr/lib/passwd
 
