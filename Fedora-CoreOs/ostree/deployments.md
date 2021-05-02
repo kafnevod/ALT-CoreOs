@@ -31,17 +31,33 @@ OSTree не трогает содержимое каталога `/var`.
 (например, `/var/cache/$daemonname`) 
 и для управления обновлением форматов данных внутри этих каталогов. 
 
-## Contents of a deployment
 
-A deployment begins with a specific commit (represented as a SHA256 hash) in the OSTree repository in /ostree/repo. This commit refers to a filesystem tree that represents the underlying basis of a deployment. For short, we will call this the “tree”, to distinguish it from the concept of a deployment.
+## Содержимое развертывания (deployment)
 
-First, the tree must include a kernel (and optionally an initramfs). The current standard locations for these are /usr/lib/modules/$kver/vmlinuz and /usr/lib/modules/$kver/initramfs.img. The “boot checksum” will be computed automatically. This follows the current Fedora kernel layout, and is the current recommended path. However, older versions of libostree don’t support this; you may need to also put kernels in the previous (legacy) paths, which are vmlinuz(-.*)?-$checksum in either /boot or /usr/lib/ostree-boot. The checksum should be a SHA256 hash of the kernel contents; it must be pre-computed before storing the kernel in the repository. Optionally, the directory can also contain an initramfs, stored as initramfs(-.*)?-$checksum and/or a device tree, stored as devicetree(-.*)?-$checksum. If an initramfs or devicetree exist, the checksum must include all of the kernel, initramfs and devicetree contents. OSTree will use this to determine which kernels are shared. The rationale for this is to avoid computing checksums on the client by default.
+Развертывание начинается с определенной коммита (представленного как хэш SHA256) в репозитории OSTree в `/ostree/repo`. 
+Этот коммит располагается в поддереве файловой системы, которое представляет собой корневой директорий развертывания (deployment). 
+Для краткости мы будем называть это «поддеревом», чтобы отличать его от концепции развертывания (deployment).
 
-The deployment should not have a traditional UNIX /etc; instead, it should include /usr/etc. This is the “default configuration”. When OSTree creates a deployment, it performs a 3-way merge using the old default configuration, the active system’s /etc, and the new default configuration. In the final filesystem tree for a deployment then, /etc is a regular writable directory.
+Во-первых, поддерево должно включать ядро ​​(и, возможно, initramfs). 
+Текущие стандартные расположения для них - это `/usr/lib/modules/$kver/vmlinuz` и `/usr/lib/modules/$kver/initramfs.img`. 
+«boot checksum» будет вычислена автоматически. 
+Это соответствует текущей структуре ядра Fedora и является текущим рекомендуемым подходом. 
+Однако более старые версии libostree это не поддерживают; 
+вам также может потребоваться поместить ядра в предыдущие (устаревшие) пути, которые представляют собой контрольную сумму `vmlinuz(-. *)?-$checksum` в `/boot` или `/usr/lib/ostree-boot`. 
+Контрольная сумма должна быть хэшем SHA256 содержимого ядра; она должна быть предварительно вычислена перед сохранением ядра в репозитории. 
+Каталог также может также содержать initramfs, хранящийся как  `initramfs(-.*)?-$checkum`, и/или дерево устройств, хранящийся как `devicetree(-.*)?-$checkum`. 
+Если существует initramfs или devicetree, контрольная сумма должна включать все содержимое ядра, initramfs и devicetree. 
+OSTree будет использовать это, чтобы определить, какие ядра используются совместно. Причина в том, чтобы избежать вычисления контрольных сумм на клиенте по умолчанию.
 
-Besides the exceptions of /var and /etc then, the rest of the contents of the tree are checked out as hard links into the repository. It’s strongly recommended that operating systems ship all of their content in /usr, but this is not a hard requirement.
+В развертывании не должно быть традиционных UNIX-каталогов `/etc`; вместо этого он должен включать `/usr/etc`. Это «конфигурация по умолчанию». 
+Когда OSTree создает развертывание, он выполняет трехстороннее слияние (3-way merge), используя старую конфигурацию по умолчанию, каталог /etc активной системы и новую конфигурацию по умолчанию. В конечном дереве файловой системы для развертывания (deployment) `/etc` является обычным каталогом с возможностью записи.
 
-Finally, a deployment may have a .origin file, stored next to its directory. This file tells ostree admin upgrade how to upgrade it. At the moment, OSTree only supports upgrading a single refspec. However, in the future OSTree may support a syntax for composing layers of trees, for example.
+Помимо исключений `/var` и `/etc`, остальное содержимое каталогов дерева фиксируется как жесткие (hard) ссылки в репозиторий. Настоятельно рекомендуется, чтобы операционные системы отправляли все свое содержимое в `/usr`, но это не является жестким требованием.
+
+Наконец, развертывание может иметь файл `.origin`, хранящийся рядом с его каталогом. 
+Этот файл сообщает ostree admin upgrade, как его обновить. 
+На данный момент OSTree поддерживает обновление только одного `refspec`. 
+Однако в будущем OSTree может поддерживать синтаксис для создания слоев деревьев. 
 
 ## The system /boot
 
