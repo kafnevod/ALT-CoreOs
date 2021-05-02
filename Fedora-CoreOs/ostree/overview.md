@@ -70,18 +70,21 @@ Hello world!
 
 Однако вполне возможно использовать OSTree под системой пакетов, где содержимое /usr вычисляется на клиенте. Например, при установке пакета вместо изменения текущей файловой системы диспетчер пакетов может собрать новое дерево файловой системы, которое накладывает новые пакеты поверх базового дерева, записать его в локальный репозиторий OSTree, а затем настроить его. для следующей загрузки (*реализовано в rmv-ostree Fedora Core*). Для поддержки этой модели OSTree предоставляет (интроспективную) разделяемую библиотеку C. 
 
+## Сравнение с репликацией блоков / образов (image based)
 
-## Comparison with block/image replication
+OSTree имеет некоторое сходство с «тупой» репликацией и развертываниями без сохранения состояния, например с моделью, распространенной в «облачных» развертываниях, где узлы загружаются с диска (фактически) только для чтения, а пользовательские данные хранятся на разных томах. Преимущество такой репликации, реализованной как в OSTree, так и в облачной модели, состоит в том, что она надежна и предсказуема.
 
-OSTree shares some similarity with “dumb” replication and stateless deployments, such as the model common in “cloud” deployments where nodes are booted from an (effectively) readonly disk, and user data is kept on a different volumes. The advantage of “dumb” replication, shared by both OSTree and the cloud model, is that it’s reliable and predictable.
+Но в отличие от многих image based развертываний,  OSTree поддерживает ровно два постоянных каталога с возможностью записи, которые сохраняются при обновлении: `/etc` и `/var`.
 
-But unlike many default image-based deployments, OSTree supports exactly two persistent writable directories that are preserved across upgrades: /etc and /var.
+Поскольку OSTree работает на уровне файловой системы Unix, он работает поверх любой файловой системы или структуры блочного хранилища; можно реплицировать заданное дерево файловой системы из репозитория OSTree в обычный *ext4*, BTRFS, XFS (*реализовано в Fedora Core Os*) или вообще любую Unix-совместимую файловую систему, которая поддерживает жесткие (hard) ссылки. 
 
-Because OSTree operates at the Unix filesystem layer, it works on top of any filesystem or block storage layout; it’s possible to replicate a given filesystem tree from an OSTree repository into plain ext4, BTRFS, XFS, or in general any Unix-compatible filesystem that supports hard links. Note: OSTree will transparently take advantage of some BTRFS features if deployed on it.
+> Примечание. Для файловой системы BTRFS OSTree поддерживает дополнительные функции, реализованные в BTRFS.
 
-OSTree is orthogonal to virtualization mechanisms like AMIs and qcow2 images, though it’s most useful though if you plan to update stateful VMs in-place, rather than generating new images.
+OSTree ортогонален механизмам виртуализации на основе образов виртуальных машин типа AMI и qcow2.
+Его преимущаство в том, что он позволает настраивать развернутые на узлах стандартные образы сгенерированные для каждого узла.
+не загружая полностью AMI или qcow2 образы сгенерированные   
 
-In practice, users of “bare metal” configurations will find the OSTree model most useful.
+На практике для пользователей конфигураций с «голым железом» (metal bare) наиболее полезной будет модель OSTree. 
 
 ## Atomic transitions between parallel-installable read-only filesystem trees
 
