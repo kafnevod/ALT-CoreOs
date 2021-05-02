@@ -1,4 +1,4 @@
-# Deployments
+# Разворачивания (Deployments)
 
     Overview
         “stateroot” (AKA “osname”): Group of deployments that share /var
@@ -59,10 +59,13 @@ OSTree будет использовать это, чтобы определит
 На данный момент OSTree поддерживает обновление только одного `refspec`. 
 Однако в будущем OSTree может поддерживать синтаксис для создания слоев деревьев. 
 
-## The system /boot
+## Загрузка системв - каталог /boot
 
-While OSTree parallel installs deployments cleanly inside the /ostree directory, ultimately it has to control the system’s /boot directory. The way this works is via the Boot Loader Specification, which is a standard for bootloader-independent drop-in configuration files.
+Кроме поддержки разворачиваний в каталоге `ostree/deploy` OSTree  должен управлять системным каталогом `/boot` для начальной загрузки системы. 
+Это подеоорживается через спецификацию загрузчика, которая является стандартом для файлов конфигурации, не зависящих от загрузчика.
 
-When a tree is deployed, it will have a configuration file generated of the form /boot/loader/entries/ostree-$stateroot-$checksum.$serial.conf. This configuration file will include a special ostree= kernel argument that allows the initramfs to find (and chroot() into) the specified deployment.
+Когда дерево развернуто, у него будет сгенерированный файл конфигурации вида  `/boot/loader/entries/ostree-$stateroot-$checksum.$serial.conf`. 
+Этот файл конфигурации будет включать специальный аргумент `ostree = kernel`, который позволяет `initramfs` найти (и `chroot()` в) указанное развертывание.
 
-At present, not all bootloaders implement the BootLoaderSpec, so OSTree contains code for some of these to regenerate native config files (such as /boot/syslinux/syslinux.conf) based on the entries.
+В настоящее время не все загрузчики реализуют BootLoaderSpec, поэтому OSTree содержит код для некоторых из них для восстановления собственных файлов конфигурации 
+(таких как `/boot/syslinux/syslinux.conf`). 
