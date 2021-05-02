@@ -80,19 +80,22 @@ bare репозиторий - это репозиторий, в котором �
 Ostree поддерживает простой синтаксис с использованием символа ^ для ссылки на родительский элемент данного коммита. 
 Например, `exampleos/buildmaster/x86_64-runtime^` относится к предыдущей сборке, а `exampleos/buildmaster/x86_64-runtime^^` относится к предыдущей. 
 
-### The summary file
+### Сводный (summary) файл
 
-A later addition to OSTree is the concept of a “summary” file, created via the ostree summary -u command. This was introduced for a few reasons. A primary use case is to be compatible with Metalink, which requires a single file with a known checksum as a target.
+Более поздним дополнением к OSTree является концепция «сводного» (summary) файла, созданного с помощью команды `ostree summary -u`. 
+Это было введено по нескольким причинам. 
+Основной вариант использования - совместимость с Metalink, для которого в качестве цели требуется один файл с известной контрольной суммой.
 
-The summary file primarily contains two mappings:
+Сводный файл в основном содержит два сопоставления:
 
--    A mapping of the refs and their checksums, equivalent to fetching the ref file individually
--    A list of all static deltas, along with their metadata checksums
+- Привязка ссылок (refs) и их контрольных сумм, что эквивалентно получению ref-файла индивидуально
+- Список всех статических дельт с контрольными суммами их метаданных
 
-This currently means that it grows linearly with both items. On the other hand, using the summary file, a client can enumerate branches.
+В настоящее время это означает, что он растет линейно с обоими элементами. 
+С другой стороны, используя сводный summary-файл, клиент может "пронумеровать" ветки.
 
-Further, fetching the summary file over e.g. pinned TLS creates a strong end-to-end verification of the commit or static delta.
+Кроме того, загрузка сводного summary-файла, например, с прикрепленным TLS создает надежную end-to-end проверку коммитов или статической дельты.
 
-The summary file can also be GPG signed (detached). This is currently the only way to provide GPG signatures (transitively) on deltas.
+Сводный summary-файл также может быть подписан GPG (detached). В настоящее время это единственный способ поддержать подписи GPG (транзитивно) для дельт.
 
-If a repository administrator creates a summary file, they must thereafter run ostree summary -u to update it whenever a ref is updated or a static delta is generated.
+Если администратор репозитория создает summary-файл, он должен затем запустить `ostree summary -u`, чтобы обновлять его всякий раз, когда обновляется ссылка или создается статическая дельта. 
