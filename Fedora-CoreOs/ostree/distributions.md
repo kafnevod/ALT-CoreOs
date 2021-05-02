@@ -72,12 +72,22 @@ OSTree поставляется с дополнительным кодом ин�
 Патчи для поддержки других технологий initramfs и систем инициализации, если они будут достаточно чистыми, скорее всего, будут приняты апстримом.
 
 Еще одно конкретное замечание относительно sysvinit: 
-В OSTree  для поддержки файлов записывающих устройств, таких как `/dev/initctl` использовался FIFO, но в настоящий момен он больше не поддерживается. 
+В OSTree  для поддержки файлов записывающих устройств, таких как `/dev/initctl` использовался FIFO, но в настоящий момент он больше не поддерживается. 
 Рекомендуется просто пропатчить ваш `initramfs`, чтобы он создавался при загрузке. 
 
-## /usr/lib/passwd
+## / usr / lib / passwd
 
-Unlike traditional package systems, OSTree trees contain numeric uid and gids. Furthermore, it does not have a %post type mechanism where useradd could be invoked. In order to ship an OS that contains both system users and users dynamically created on client machines, you will need to choose a solution for /etc/passwd. The core problem is that if you add a user to the system for a daemon, the OSTree upgrade process for /etc will simply notice that because /etc/passwd differs from the previous default, it will keep the modified config file, and your new OS user will not be visible. The solution chosen for the Gnome Continuous operating system is to create /usr/lib/passwd, and to include a NSS module nss-altfiles which instructs glibc to read from it. Then, the build system places all system users there, freeing up /etc/passwd to be purely a database of local users. See also a more recent effort from Systemd Stateless
+В отличие от традиционных систем пакетов, деревья OSTree содержат числовые идентификаторы uid и gid. 
+Кроме того, у OSTree нет механизма типа `%post`, где можно было бы вызвать useradd. 
+Чтобы установить ОС, которая содержит как системных пользователей, так и пользователей, динамически создаваемых на клиентских машинах, 
+вам нужно будет подобрать решение для `/etc/passwd`. 
+Основная проблема заключается в том, что если вы добавите пользователя в систему для демона, процесс обновления OSTree для `/etc` просто заметит, 
+что, поскольку `/etc/passwd` отличается от предыдущего по умолчанию, он сохранит измененный файл конфигурации, 
+а ваш новый Пользователь ОС не будет виден. 
+Решение, выбранное для операционной системы [Gnome Continuous](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous), - создать `/usr/lib/passwd` и включить модуль NSS [nss-altfiles](https://github.com/aperezdc/nss-altfiles), 
+который инструктирует glibc читать из него. 
+Затем система сборки помещает туда всех пользователей системы, освобождая `/etc/passwd` до чисто базы данных локальных пользователей. 
+См. Также недавнюю работу [Systemd Stateless](http://0pointer.de/blog/projects/stateless.html). 
 
 ## Adapting existing package managers
 
