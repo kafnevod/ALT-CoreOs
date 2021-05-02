@@ -60,15 +60,16 @@ $ cat tree-checkout/hello.txt
 Hello world!
 ```
 
-## Comparison with “package managers”
+## Сравнение с «менеджерами пакетов» rpm, dpkg, ...
 
-Because OSTree is designed for deploying core operating systems, a comparison with traditional “package managers” such as dpkg and rpm is illustrative. Packages are traditionally composed of partial filesystem trees with metadata and scripts attached, and these are dynamically assembled on the client machine, after a process of dependency resolution.
+Поскольку OSTree разработан для развертывания основных операционных систем, сравнение с традиционными «менеджерами пакетов», такими как dpkg и rpm, является показательным. Пакеты традиционно состоят из частичных деревьев файловых систем с прикрепленными метаданными и скриптами, которые динамически собираются на клиентском компьютере после процесса разрешения зависимостей.
 
-In contrast, OSTree only supports recording and deploying complete (bootable) filesystem trees. It has no built-in knowledge of how a given filesystem tree was generated or the origin of individual files, or dependencies, descriptions of individual components. Put another way, OSTree only handles delivery and deployment; you will likely still want to include inside each tree metadata about the individual components that went into the tree. For example, a system administrator may want to know what version of OpenSSL was included in your tree, so you should support the equivalent of rpm -q or dpkg -L.
+Напротив, OSTree поддерживает только запись и развертывание полных (загрузочных) деревьев файловых систем. Он не имеет встроенных знаний о том, как было сгенерировано данное дерево файловой системы, или о происхождении отдельных файлов, или о зависимостях, и о описаниях отдельных компонентов. Другими словами, OSTree занимается только доставкой и развертыванием; вы, вероятно, по-прежнему захотите включить в каждое дерево метаданные об отдельных компонентах, которые вошли в дерево. Например, системный администратор может захотеть узнать, какая версия OpenSSL была включена в ваше дерево, поэтому вы должны поддерживать эквивалент rpm -q (*в Fedora CoreOs это rpm-ostree*) или dpkg -L.
 
-The OSTree core emphasizes replicating read-only OS trees via HTTP, and where the OS includes (if desired) an entirely separate mechanism to install applications, stored in /var if they’re system global, or /home for per-user application installation. An example application mechanism is http://docker.io/
+Ядро OSTree делает упор на репликацию деревьев ОС, доступных только для чтения, через HTTP, и где ОС включает (при желании) полностью отдельный механизм для установки приложений, хранящихся в / var, если они являются глобальными для системы, или / home для установки приложений для каждого пользователя. . Пример механизма приложения - http://docker.io/
 
-However, it is entirely possible to use OSTree underneath a package system, where the contents of /usr are computed on the client. For example, when installing a package, rather than changing the currently running filesystem, the package manager could assemble a new filesystem tree that layers the new packages on top of a base tree, record it in the local OSTree repository, and then set it up for the next boot. To support this model, OSTree provides an (introspectable) C shared library.
+Однако вполне возможно использовать OSTree под системой пакетов, где содержимое /usr вычисляется на клиенте. Например, при установке пакета вместо изменения текущей файловой системы диспетчер пакетов может собрать новое дерево файловой системы, которое накладывает новые пакеты поверх базового дерева, записать его в локальный репозиторий OSTree, а затем настроить его. для следующей загрузки (*реализовано в rmv-ostree Fedora Core*). Для поддержки этой модели OSTree предоставляет (интроспективную) разделяемую библиотеку C. 
+
 
 ## Comparison with block/image replication
 
