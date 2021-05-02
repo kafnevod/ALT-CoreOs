@@ -69,13 +69,16 @@ bare репозиторий - это репозиторий, в котором �
 Он может быть прочитан любым uid, но записан только пользователем root. 
 Команда ostree по умолчанию работает с системным репозиторием; вы можете указать аргумент --repo, чтобы переопределить это, или установить переменную среды $OSTREE_REPO. 
 
+### Ссылки (Refs)
 
+Как и git, OSTree использует терминологию «ссылки» (сокращенно «refs»), которые представляют собой текстовые файлы с именами (ссылками) на определенные коммиты. 
+См. Документацию Git для получения информации о том, как git их использует. Однако, в отличие от git, обычно не имеет смысла иметь «главную» master-ветку. 
+В OSTree существует соглашение для ссылок, которое выглядит следующим образом: `exampleos/buildmaster/x86_64-runtime` и `exampleos/buildmaster/x86_64-devel-debug`. 
+Эти две ссылки указывают на два разных сгенерированных дерева файловых систем. В этом примере дерево «среды выполнения» runtime содержит ровно столько, чтобы запустить базовую систему, 
+а «devel-debug» содержит все инструменты разработчика и информацию об отладке.
 
-### Refs
-
-Like git, OSTree uses the terminology “references” (abbreviated “refs”) which are text files that name (refer to) particular commits. See the Git Documentation for information on how git uses them. Unlike git though, it doesn’t usually make sense to have a “master” branch. There is a convention for references in OSTree that looks like this: exampleos/buildmaster/x86_64-runtime and exampleos/buildmaster/x86_64-devel-debug. These two refs point to two different generated filesystem trees. In this example, the “runtime” tree contains just enough to run a basic system, and “devel-debug” contains all of the developer tools and debuginfo.
-
-The ostree supports a simple syntax using the caret ^ to refer to the parent of a given commit. For example, exampleos/buildmaster/x86_64-runtime^ refers to the previous build, and exampleos/buildmaster/x86_64-runtime^^ refers to the one before that.
+Ostree поддерживает простой синтаксис с использованием символа ^ для ссылки на родительский элемент данного коммита. 
+Например, `exampleos/buildmaster/x86_64-runtime^` относится к предыдущей сборке, а `exampleos/buildmaster/x86_64-runtime^^` относится к предыдущей. 
 
 ### The summary file
 
