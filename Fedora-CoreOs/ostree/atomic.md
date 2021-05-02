@@ -9,50 +9,55 @@
     The /ostree/boot directory
         Licensing for this document:
 
-## You can turn off the power anytime you want…
+# Вы можете выключить питание в любое время…
 
-OSTree is designed to implement fully atomic and safe upgrades; more generally, atomic transitions between lists of bootable deployments. If the system crashes or you pull the power, you will have either the old system, or the new one.
+OSTree предназначен для реализации полностью атомарных и безопасных обновлений; в более общем смысле, атомарные переходы между списками загрузочных развертываний. Если система выйдет из строя или вы отключите питание, у вас будет либо старая система, либо новая. 
 
-## Simple upgrades via HTTP
+## Простое обновление через HTTP
 
-First, the most basic model OSTree supports is one where it replicates pre-generated filesystem trees from a server over HTTP, tracking exactly one ref, which is stored in the .origin file for the deployment. The command ostree admin upgrade implements this.
+Прежде всего, самая базовая модель, которую поддерживает OSTree, - это модель, в которой он реплицирует предварительно сгенерированные деревья файловых систем с сервера по протоколу HTTP, отслеживая ровно одну ссылку, которая хранится в файле `.origin` для развертывания. Это реализует команда `ostree admin upgrade`.
 
-To begin a simple upgrade, OSTree fetches the contents of the ref from the remote server. Suppose we’re tracking a ref named exampleos/buildmaster/x86_64-runtime. OSTree fetches the URL http://example.com/repo/refs/heads/exampleos/buildmaster/x86_64-runtime, which contains a SHA256 checksum. This determines the tree to deploy, and /etc will be merged from currently booted tree.
+Чтобы начать простое обновление, OSTree получает содержимое ссылки с удаленного сервера. Предположим, мы отслеживаем ссылку с именем `exampleos/buildmaster/x86_64-runtime`. OSTree получает URL `http://example.com/repo/refs/heads/exampleos/buildmaster/x86_64-runtime`, который содержит контрольную сумму SHA256. Это определяет дерево для развертывания, и `/etc` будет объединен с загруженным в данный момент деревом.
 
-If we do not have this commit, then we perform a pull process. At present (without static deltas), this involves quite simply just fetching each individual object that we do not have, asynchronously. Put in other words, we only download changed files (zlib-compressed). Each object has its checksum validated and is stored in /ostree/repo/objects/.
+Если у нас нет этого коммита, мы выполняем процесс извлечения. В настоящее время (без статических дельт) для этого достаточно просто получить каждый отдельный объект, которого у нас нет, в асинхронном режиме. Другими словами, мы загружаем только измененные файлы (сжатые zlib). Контрольная сумма каждого объекта проверена и хранится в `/ostree/repo/objects/`. 
 
-Once the pull is complete, we have downloaded all the objects that we need to perform a deployment.
+После завершения извлечения мы загрузи все объекты, необходимые для развертывания. 
 
-## Upgrades via external tools (e.g. package managers)
+## Обновления с помощью внешних инструментов (например, менеджеров пакетов)
 
-As mentioned in the introduction, OSTree is also designed to allow a model where filesystem trees are computed on the client. It is completely agnostic as to how those trees are generated; they could be computed with traditional packages, packages with post-deployment scripts on top, or built by developers directly from revision control locally, etc.
+Как упоминалось во введении, OSTree также поддерживает модель, в которой деревья файловых систем формируются на клиенте. 
+Совершенно безразлично, как эти деревья генерируются; они могут быть сформированы с помощью традиционных пакетов, пакетов с сценариями после развертывания из корневого директория или построены разработчиками непосредственно из локального контроля версий и т. д.
 
-At a practical level, most package managers today (dpkg and rpm) operate “live” on the currently booted filesystem. The way they could work with OSTree is to, instead, take the list of installed packages in the currently booted tree, and compute a new filesystem from that. A later chapter describes in more details how this could work: Adapting Existing Systems.
+На практическом уровне большинство менеджеров пакетов сегодня (`dpkg` и `rpm`) работают «вживую» с файловой системой, загруженной в данный момент. Вместо этого они могли бы работать с OSTree, взяв список установленных пакетов в текущем загруженном дереве и сформировав из него новую файловую систему. В следующей главе более подробно описывается, как это может работать: [Адаптация существующих систем](distributions.md).
 
-For the purposes of this section, let’s assume that we have a newly generated filesystem tree stored in the repo (which shares storage with the existing booted tree). We can then move on to checking it back out of the repo into a deployment.
+Для целей этого раздела предположим, что у нас есть вновь сгенерированное дерево файловой системы, хранящееся в репозитории (которое разделяет хранилище с существующим загруженным деревом). 
+Затем мы можем перейти к проверке его из репозитория в развертывание. 
 
-## Assembling a new deployment directory
+## Сборка нового каталога развертывания
 
-Given a commit to deploy, OSTree first allocates a directory for it. This is of the form /boot/loader/entries/ostree-$stateroot-$checksum.$serial.conf. The $serial is normally 0, but if a given commit is deployed more than once, it will be incremented. This is supported because the previous deployment may have configuration in /etc that we do not want to use or overwrite.
+Получив коммит для развертывания, OSTree сначала выделяет для него каталог. 
+Он имеет вид `/boot/loader/entries/ostree-$stateroot-$checksum.$serial.conf`. `$serial` обычно равен 0, но если данная фиксация развернута более одного раза, она будет увеличиваться. 
+Это делается для того, чтобы предыдущее развертывание могло иметь конфигурацию в `/etc`, которую мы не хотим использовать или перезаписывать.
 
-Now that we have a deployment directory, a 3-way merge is performed between the (by default) currently booted deployment’s /etc, its default configuration, and the new deployment (based on its /usr/etc).
+Теперь, когда у нас есть каталог развертывания, выполняется трехстороннее слияние между (по умолчанию) загруженным в данный момент развертыванием `/etc`, его конфигурацией по умолчанию и новым развертыванием (на основе его `/usr/etc`).
 
-How it works is:
+Как это работает:
+- Файлы в текущем загруженном развертывании `/etc`, которые были изменены из `/usr/etc` по умолчанию (того же развертывания), сохраняются.
+- Файлы в текущем загруженном развертывании `/etc`, которые не были изменены из `/usr/etc` по умолчанию (того же развертывания), обновляются до новых значений по умолчанию из `/usr/etc`? нового развертывания.
 
-    Files in the currently booted deployment’s /etc which were modified from the default /usr/etc (of the same deployment) are retained.
-    Files in the currently booted deployment’s /etc which were not modified from the default /usr/etc (of the same deployment) are upgraded to the new defaults from the new deployment’s /etc/etc.
+Проще говоря, это означает, что как только вы изменяете или добавляете файл в `/etc`, этот файл будет зафиксирован на все последующие развертывания 
+(хотя есть крайний случай, когда ваша модификация в конечном итоге точно соответствует будущему файлу по умолчанию, тогда файл с этого момента будет обновляться в последующих развертываниях).
 
-Roughly, this means that as soon as you modify or add a file in /etc, this file will be propagated forever as is (though there is a corner-case, where if your modification eventually exactly matches a future default file, then the file will go back to following future default updates from that point on).
+Вы можете использовать команду `ostree admin config-diff`, чтобы увидеть различия между загруженным развертыванием `/etc` и настройками по умолчанию в OSTree. 
 
-You can use ostree admin config-diff to see the differences between your booted deployment’s /etc and the OSTree defaults. A command like diff {/usr,}/etc will additional print line-level differences.
 
 ## Atomically swapping boot configuration
 
 At this point, a new deployment directory has been created as a hardlink farm; the running system is untouched, and the bootloader configuration is untouched. We want to add this deployment to the “deployment list”.
 
 To support a more general case, OSTree supports atomic transitioning between arbitrary sets of deployments, with the restriction that the currently booted deployment must always be in the new set. In the normal case, we have exactly one deployment, which is the booted one, and we want to add the new deployment to the list. A more complex command might allow creating 100 deployments as part of one atomic transaction, so that one can set up an automated system to bisect across them.
-T
-## he bootversion
+
+## The bootversion
 
 OSTree allows swapping between boot configurations by implementing the “swapped directory pattern” in /boot. This means it is a symbolic link to one of two directories /ostree/boot.[0|1]. To swap the contents atomically, if the current version is 0, we create /ostree/boot.1, populate it with the new contents, then atomically swap the symbolic link. Finally, the old contents can be garbage collected at any point.
 
