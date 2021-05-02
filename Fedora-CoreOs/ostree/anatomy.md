@@ -1,4 +1,4 @@
-# Anatomy of an OSTree repository
+# Анатомия репозитория OSTree 
 
     Core object types and data model
         Commit objects
