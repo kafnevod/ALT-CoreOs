@@ -75,7 +75,7 @@ OSTree поставляется с дополнительным кодом ин�
 В OSTree  для поддержки файлов записывающих устройств, таких как `/dev/initctl` использовался FIFO, но в настоящий момент он больше не поддерживается. 
 Рекомендуется просто пропатчить ваш `initramfs`, чтобы он создавался при загрузке. 
 
-## / usr / lib / passwd
+## /usr/lib/passwd
 
 В отличие от традиционных систем пакетов, деревья OSTree содержат числовые идентификаторы uid и gid. 
 Кроме того, у OSTree нет механизма типа `%post`, где можно было бы вызвать useradd. 
@@ -89,24 +89,41 @@ OSTree поставляется с дополнительным кодом ин�
 Затем система сборки помещает туда всех пользователей системы, освобождая `/etc/passwd` до чисто базы данных локальных пользователей. 
 См. Также недавнюю работу [Systemd Stateless](http://0pointer.de/blog/projects/stateless.html). 
 
-## Adapting existing package managers
+## Адаптация существующих менеджеров пакетов
 
-The largest endeavor is likely to be redesigning your distribution’s package manager to be on top of OSTree, particularly if you want to keep compatibility with the “old way” of installing into the physical /. This section will use examples from both dpkg and rpm as the author has familiarity with both; but the abstract concepts should apply to most traditional package managers.
+Самым большой работой, вероятно, будет переработка диспетчера пакетов вашего дистрибутива, чтобы он работал поверх OSTree, особенно если вы хотите сохранить совместимость со «старым способом» установки в физический `/`. В этом разделе будут использоваться примеры как из `dpkg`, так и из `rpm`, поскольку автор знаком с обоими; 
+но абстрактные концепции могут применяться и к большинству других традиционных менеджеров пакетов.
 
-There are many levels of possible integration; initially, we will describe the most naive implementation which is the simplest but also the least efficient. We will assume here that the admin is booted into an OSTree-enabled system, and wants to add a set of packages.
+Есть много уровней возможной интеграции; 
+Сначала мы опишем наиболее простую, но и наименее эффективную реализацию. 
+Здесь мы предположим, что администратор загружен в систему с поддержкой OSTree и хочет добавить набор пакетов.
 
-Many package managers store their state in /var; but since in the OSTree model that directory is shared between independent versions, the package database must first be found in the per-deployment /usr directory. It becomes read-only; remember, all upgrades involve constructing a new filesystem tree, so your package manager will also need to create a copy of its database. Most likely, if you want to continue supporting non-OSTree deployments, simply have your package manager fall back to the legacy /var location if the one in /usr is not found.
+Многие менеджеры пакетов хранят свое состояние в `/var`; но поскольку в модели OSTree этот каталог является общим для независимых версий, 
+база данных пакетов сначала должна быть перемещена в каталог `/usr` для каждого развертывания. 
+Он становится доступным только для чтения; помните, что все обновления включают построение нового дерева файловой системы, 
+поэтому вашему менеджеру пакетов также потребуется создать копию своей базы данных. 
+Скорее всего, если вы хотите продолжить поддержку развертываний, отличных от OSTree, просто попросите ваш менеджер пакетов вернуться к устаревшему расположению `/var`, 
+если тот, который находится в `/usr`, не найден.
 
-To install a set of new packages (without removing any existing ones), enumerate the set of packages in the currently booted deployment, and perform dependency resolution to compute the complete set of new packages. Download and unpack these new packages to a temporary directory.
+Чтобы установить набор новых пакетов (без удаления каких-либо существующих), перечислите набор пакетов в текущем загруженном развертывании и 
+выполните разрешение зависимостей для вычисления полного набора новых пакетов. 
+Загрузите и распакуйте эти новые пакеты во временный каталог.
 
-Now, because we are merely installing new packages and not removing anything, we can make the major optimization of reusing our existing filesystem tree, and merely layering the composed filesystem tree of these new packages on top. A command like this:
+Теперь, поскольку мы просто устанавливаем новые пакеты и ничего не удаляем, 
+мы можем провести основную оптимизацию, повторно используя существующее дерево файловой системы и 
+просто разместив построенное дерево файловой системы этих новых пакетов поверх существующей. Вот такая команда:
 ```
-ostree commit -b osname/releasename/description \
+ostree commit -b osname/$releasename/$description \
     --tree=ref=$osname/$releasename/$description \
     --tree=dir=/var/tmp/newpackages.13A8D0/
 ```
-will create a new commit in the $osname/$releasename/$description branch. The OSTree SHA256 checksum of all the files in /var/tmp/newpackages.13A8D0/ will be computed, but we will not re-checksum the present existing tree. In this layering model, earlier directories will take precedence, but files in later layers will silently override earlier layers.
+создаст новый коммит в ветке `$osname/$releasename/$description`. 
+Контрольная сумма OSTree SHA256 для всех файлов в `/var/tmp/newpackages.13A8D0/` будет вычислена, 
+но мы не будем пересчитывать контрольную сумму существующего дерева. 
+В этой многоуровневой модели более ранние каталоги будут иметь приоритет, но файлы на более поздних уровнях будут замещать более ранние уровни.
 
-Then to actually deploy this tree for the next boot: ostree admin deploy $osname/$releasename/$description
-
-This is essentially what rpm-ostree does to support its package layering model.
+Затем, чтобы развернуть это дерево для следующей загрузки вызовем крманду: 
+```
+ostree admin deploy $osname/$releasename/$description
+```
+По сути, это то, что делает rpm-ostree для поддержки своей модели многоуровневых пакетов. 
