@@ -15,15 +15,21 @@
 Развертывание физически расположено в `/ostree/deploy/$stateroot/deploy/$checksum`. 
 OSTree предназначен для  загрузки одного `deployment` из нескольких; каждое развертывание является корневым каталогом для `chroot()` или его эквивалента. 
 
-### “stateroot” (AKA “osname”): Group of deployments that share /var
+### «stateroot» (также известный как «osname»): группа развертываний (deployments) с общим / var
 
-Each deployment is grouped in exactly one “stateroot” (also known as an “osname”); the former term is preferred.
+Каждое развертывание сгруппировано ровно в один «stateroot» (также известный как «osname»); первый термин предпочтительнее.
 
-From above, you can see that a stateroot is physically represented in the /ostree/deploy/$stateroot directory. For example, OSTree can allow parallel installing Debian in /ostree/deploy/debian and Red Hat Enterprise Linux in /ostree/deploy/rhel (subject to operating system support, present released versions of these operating systems may not support this).
+stateroot физически представлен в каталоге `/ostree/deploy/$stateroot`. 
+Таким образом, OSTree может обеспечить параллельную установку Debian в `/ostree/deploy/debian` и Red Hat Enterprise Linux в `/ostree/deploy/rhel`
+(при условии поддержки операционной системы, существующие выпущенные версии этих операционных систем могут не поддерживать это).
 
-Each stateroot has exactly one copy of the traditional Unix /var, stored physically in /ostree/deploy/$stateroot/var. OSTree provides support tools for systemd to create a Linux bind mount that ensures the booted deployment sees the shared copy of /var.
+Каждый stateroot имеет ровно одну копию каталога `/var`, физически хранящуюся в `/ostree/deploy/$stateroot/var`. 
+OSTree предоставляет инструменты поддержки для systemd для создания `bind mound`, которая гарантирует, что загружаемое развертывание (deploy) видит общую копию каталога /var.
 
-OSTree does not touch the contents of /var. Operating system components such as daemon services are required to create any directories they require there at runtime (e.g. /var/cache/$daemonname), and to manage upgrading data formats inside those directories.
+OSTree не трогает содержимое каталога `/var`. 
+Компоненты операционной системы, такие как службы демонов, необходимы для создания любых каталогов, которые им нужны в каталоге `/var` во время выполнения 
+(например, `/var/cache/$daemonname`) 
+и для управления обновлением форматов данных внутри этих каталогов. 
 
 ## Contents of a deployment
 
