@@ -88,27 +88,30 @@ OSTree изначально был ориентирован на `continuous del
 
 Наконец, фактическое содержимое можно найти в deltas `deltas/$fromprefix/$fromsuffix-$to`. 
 
-## Static delta internal structure
+## Статическая дельта - внутренняя структура
 
-A delta is itself a directory. Inside, there is a file called superblock which contains metadata. The rest of the files will be integers bearing packs of content.
+Дельта сама по себе является каталогом. Внутри находится файл под названием `superblock`, содержащий метаданные. 
+Остальные файлы будут целыми числами, содержащими пакеты содержимого.
 
-The file format of static deltas should be currently considered an OSTree implementation detail. Obviously, nothing stops one from writing code which is compatible with OSTree today. However, we would like the flexibility to expand and change things, and having multiple codebases makes that more problematic. Please contact the authors with any requests.
+Формат файла статических дельт в настоящее время следует рассматривать как деталь реализации OSTree. 
+Очевидно, ничто не мешает писать код, совместимый с OSTree сегодня. Однако нам нужна гибкость, позволяющая расширять и изменять вещи, а наличие нескольких баз кода делает это более проблематичным. Пожалуйста, свяжитесь с авторами по любыми вопросам.
 
-That said, one critical thing to understand about the design is that delta payloads are a bit more like “restricted programs” than they are raw data. There’s a “compilation” phase which generates output that the client executes.
+Тем не менее, одна важная вещь, которую необходимо понять при проектировании, заключается в том, что дельта-данные немного больше похожи на «ограниченные программы», чем на необработанные данные. Есть фаза «компиляции», на которой генерируются выходные данные, которые выполняет клиент.
 
-This “updates as code” model allows for multiple content generation strategies. The design of this was inspired by that of Chromium: ChromiumOS Autoupdate.
-The delta superblock
+Эта модель «обновления как код» позволяет использовать несколько стратегий создания контента. Его дизайн был вдохновлен дизайном Chromium: ChromiumOS Autoupdate.
 
-The superblock contains:
+### Дельта суперблок
 
-    arbitrary metadata
-    delta generation timestamp
-    the new commit object
-    An array of recursive deltas to apply
-    An array of per-part metadata, including total object sizes (compressed and uncompressed),
-    An array of fallback objects
+Суперблок содержит:
 
-Let’s define a delta part, then return to discuss details:
+    произвольные метаданные
+    отметка времени генерации дельты
+    новый коммит
+    Массив рекурсивных дельт для применения
+    Массив метаданных по частям, включая общие размеры объектов (сжатые и несжатые),
+    Массив резервных (fallback) объектов
+
+Давайте определим дельта-часть, а затем вернемся к обсуждению деталей: 
 
 ### A delta part
 
