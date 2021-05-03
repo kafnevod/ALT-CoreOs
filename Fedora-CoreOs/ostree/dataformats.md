@@ -52,11 +52,14 @@
 - Никто не знает общий размер (сжатый или несжатый) контента перед загрузкой всего объема
 
 
-## Aside: the bare and bare-user formats
+## bare and bare-user форматы
 
-The most common operation is to pull from an archive repository into a bare or bare-user formatted repository. These latter two are not compressed on disk. In other words, pulling to them is similar to unpacking (but not installing) an RPM/deb package.
+Самая распространенная в OSTree операция - `pull` из репозитория формата `archive` в репозитории формата `bare` и `user bare`. 
+Последние два формата хранят данные на диске в исходном несжатом виде.
+Другими словами, операция 'pull'  аналогична операции разжатия ((но не установке)) файлов rpm/deb-пакетов
 
-The bare-user format is a bit special in that the uid/gid and xattrs from the content are ignored. This is primarily useful if you want to have the same OSTree-managed content that can be run on a host system or an unprivileged container.
+Формат `bare-user`  немного особенный, поскольку в нем игнорируются идентификаторы uid / gid и xattrs из содержимого. 
+Это в первую очередь полезно, если вы хотите иметь тот же контент, управляемый OSTree, который можно запускать в хост-системе или непривилегированном контейнере. 
 
 ## Static deltas
 
