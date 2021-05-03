@@ -125,8 +125,12 @@ OSTree изначально был ориентирован на `continuous del
 
 Сгенерированный bsdiff включается в большой двоичный объект и обрабатывается определенным программным кодом при разворачивании. 
 
-## Fallback objects
+## Fallback объекты
 
-It’s possible for there to be large-ish files which might be resistant to bsdiff. A good example is that it’s common for operating systems to use an “initramfs”, which is itself a compressed filesystem. This “internal compression” defeats bsdiff analysis.
+Файловая система может включать файлы большого размера, "устойчивые" к bsdiff. 
+Хорошим примером является то, что операционные системы часто используют initramfs, который сам по себе является сжатой файловой системой. 
+Это «внутреннее сжатие» делает bsdiff неэффективным.
 
-For these types of objects, the delta superblock contains an array of “fallback objects”. These objects aren’t included in the delta parts - the client simply fetches them from the underlying .filez object.
+Для этих типов объектов дельта-суперблок содержит массив Fallback-объектов». 
+Эти объекты не входят в состав дельта-частей - клиент просто извлекает их из нижележащего объекта `.filez`. 
+
