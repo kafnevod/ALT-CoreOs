@@ -52,7 +52,7 @@
 - Никто не знает общий размер (сжатый или несжатый) контента перед загрузкой всего объема
 
 
-## bare and bare-user форматы
+## bare и bare-user форматы
 
 Самая распространенная в OSTree операция - `pull` из репозитория формата `archive` в репозитории формата `bare` и `user bare`. 
 Последние два формата хранят данные на диске в исходном несжатом виде.
@@ -61,27 +61,32 @@
 Формат `bare-user`  немного особенный, поскольку в нем игнорируются идентификаторы uid / gid и xattrs из содержимого. 
 Это в первую очередь полезно, если вы хотите иметь тот же контент, управляемый OSTree, который можно запускать в хост-системе или непривилегированном контейнере. 
 
-## Static deltas
+## Статические дельты
 
-OSTree itself was originally focused on a continuous delivery model, where client systems are expected to update regularly. However, many OS vendors would like to supply content that’s updated e.g. once a month or less often.
+OSTree изначально был ориентирован на `continuous delivery` модель, при которой клиентские системы должны регулярно обновляться. 
+Однако многие поставщики ОС хотели бы предоставлять обновленный контент, например раз в месяц или реже.
 
-For this model, we can do a lot better to support batched updates than a basic archive repo. However, we still want to preserve the model of “static webserver only”. Given this, OSTree has gained the concept of a “static delta”.
+Для этой модели мы можем намного лучше поддерживать пакетные обновления, чем базовое архивное репо. Однако мы по-прежнему хотим сохранить модель «только статический веб-сервер». 
+Учитывая это, в рамках OSTree разработана концепция «статической дельты».
 
-These deltas are targeted to be a delta between two specific commit objects, including “bsdiff” and “rsync-style” deltas within a content object. Static deltas also support from NULL, where the client can more efficiently download a commit object from scratch - this is mostly useful when using OSTree for containers, rather than OS images. For OS images, one tends to download an installer ISO or qcow2 image which is a single file that contains the tree data already.
+Эти дельты нацелены на то, чтобы быть разницей между двумя конкретными коммитами, включая дельты «bsdiff» и «rsync-style» в объекте содержимого. 
+Статические дельты также поддерживаются от NULL, когда клиент может более эффективно загружать объект фиксации с нуля - это в основном полезно при использовании OSTree для контейнеров, а не образов ОС. 
+Для образов ОС обычно загружают установочный ISO-образ или образ qcow2, который представляет собой отдельный файл, который уже содержит данные дерева.
 
-Effectively, we’re spending server-side storage (and one-time compute cost), and gaining efficiency in client network bandwidth.
+По сути, мы тратим ресурсы  на стороне сервера (и единовременные затраты на вычисления) и повышаем эффективность использования полосы пропускания клиентской сети. 
 
-## Static delta repository layout
+## Статический макет дельта-репозитория
 
-Since static deltas may not exist, the client first needs to attempt to locate one. Suppose a client wants to retrieve commit ${new} while currently running ${current}.
+Поскольку статические дельты могут не существовать, клиенту сначала нужно попытаться найти их. 
+Предположим, клиент хочет получить фиксацию ${new} во время выполнения ${current}.
 
-In order to save space, these two commits are “modified base64” - the / character is replaced with _.
+В целях экономии места эти два коммита представляют собой «измененный base64» - символ `/` заменяется на `_`.
 
-Like the commit objects, a “prefix directory” is used to make management easier for filesystem tools.
+Как и коммиты, «каталог префиксов» используется для упрощения управления инструментами файловой системы.
 
-A delta is named $(mbase64 $from)-$(mbase64 $to), for example GpTyZaVut2jXFPWnO4LJiKEdRTvOw_mFUCtIKW1NIX0-L8f+VVDkEBKNc1Ncd+mDUrSVR4EyybQGCkuKtkDnTwk, which in SHA256 format is 1a94f265a56eb768d714f5a73b82c988a11d453bcec3f985502b48296d4d217d-2fc7fe5550e410128d73535c77e98352b495478132c9b4060a4b8ab640e74f09.
+Дельта подучает имя $ (mbase64 $from)-$(mbase64 $to), например, GpTyZaVut2jXFPWnO4LJiKEdRTvOw_mFUCtIKW1NIX0-L8f+VVDkEBKNc1Ncd+mDUrSVR4EyybQGCkuKtkDnTwk, которая в формате SHA256 представляется как 1a94f265a56eb768d714f5a73b82c988a11d453bcec3f985502b48296d4d217d-2fc7fe5550e410128d73535c77e98352b495478132c9b4060a4b8ab640e74f09.
 
-Finally, the actual content can be found in deltas/$fromprefix/$fromsuffix-$to.
+Наконец, фактическое содержимое можно найти в deltas `deltas/$fromprefix/$fromsuffix-$to`. 
 
 ## Static delta internal structure
 
