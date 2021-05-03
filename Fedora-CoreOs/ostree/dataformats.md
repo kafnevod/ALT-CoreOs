@@ -113,17 +113,17 @@ OSTree изначально был ориентирован на `continuous del
 
 Давайте определим дельта-часть, а затем вернемся к обсуждению деталей: 
 
-### A delta part
+### Дельта-часть
 
-A delta part is a combination of a raw blob of data, plus a very restricted bytecode that operates on it. Say for example two files happen to share a common section. It’s possible for the delta compilation to include that section once in the delta data blob, then generate instructions to write out that blob twice when generating both objects.
+Дельта-часть - это комбинация необработанного большого двоичного объекта данных и очень ограниченного байт-кода, который работает с ним. Скажем, например, два файла имеют общий раздел. Дельта-компиляция может включить этот раздел один раз в большой двоичный объект дельта-данных, а затем сгенерировать инструкции для записи этого большого двоичного объекта дважды при создании обоих объектов.
 
-Realistically though, it’s very common for most of a delta to just be “stream of new objects” - if one considers it, it doesn’t make sense to have too much duplication inside operating system content at this level.
+На самом деле, очень часто дельта представляет собой просто «поток новых объектов» - если учесть это, не имеет смысла иметь слишком много дублирования внутри содержимого операционной системы на этом уровне.
 
-So then, what’s more interesting is that OSTree static deltas support a per-file delta algorithm called bsdiff that most notably works well on executable code.
+Итак, что более интересно, так это то, что статические дельты OSTree поддерживают алгоритм дельты для каждого файла, называемый bsdiff, который особенно хорошо работает с исполняемым кодом.
 
-The current delta compiler scans for files with matching basenames in each commit that have a similar size, and attempts a bsdiff between them. (It would make sense later to have a build system provide a hint for this - for example, files within a same package).
+Текущий дельта-компилятор сканирует файлы с совпадающими базовыми именами в каждой фиксации, которые имеют аналогичный размер, и пытается выполнить bsdiff между ними. (Позже будет иметь смысл, чтобы система сборки предоставляла подсказку для этого - например, файлы в одном пакете).
 
-A generated bsdiff is included in the payload blob, and applying it is an instruction.
+Сгенерированный bsdiff включается в большой двоичный объект и обрабатывается определенным программным кодом при разворачивании. 
 
 ## Fallback objects
 
