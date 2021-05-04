@@ -116,20 +116,20 @@ ostree --repo=build-repo commit -b exampleos/x86_64/standard --link-checkout-spe
 Чтобы это сопоставление было точным, нам нужен `rofiles-fuse`, чтобы гарантировать, что любые измененные файлы имеют новые `inodes` (и, следовательно, новую контрольную сумму). 
 
 
-## Migrating content between repositories
+## Перенос содержимого между репозиториями
 
-Now that we have content in our build-repo repository (in bare-user mode), we need to move the exampleos/x86_64/standard branch content into the repository just named repo (in archive mode) for export, which will involve zlib compression of new objects. We likely want to generate static deltas after that as well.
+Теперь, когда у нас есть контент в нашем репозитории сборки-репозитория (в режиме простого пользователя), нам нужно переместить содержимое ветки exampleos / x86_64 / standard в репозиторий с именем repo (в режиме архива) для экспорта, что будет включать сжатие zlib. новых объектов. Скорее всего, после этого мы захотим сгенерировать статические дельты.
 
-Let’s copy the content:
-```
+Скопируем контент:
+``
 ostree --repo=repo pull-local build-repo exampleos/x86_64/standard
-```
+``
 
-Clients can now incrementally download new objects - however, this would also be a good time to generate a delta from the previous commit.
-```
+Теперь клиенты могут постепенно загружать новые объекты - однако это также подходящее время для генерации дельты из предыдущей фиксации.
+``
 ostree --repo=repo static-delta generate exampleos/x86_64/standard
-```
+``
 
-## More sophisticated repository management
+## Более сложное управление репозиторием
 
-Next, see Repository Management for the next steps in managing content in OSTree repositories.
+Затем см. Управление репозиториями, чтобы узнать о следующих шагах по управлению контентом в репозиториях OSTree.
