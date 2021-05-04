@@ -25,35 +25,39 @@ ostree --repo=repo init --mode=archive
 
 Вы можете экспортировать это через статический веб-сервер и настроить клиентов на загрузки дерева с него. 
 
-## Writing your own OSTree buildsystem
+## Написание собственной системы сборки OSTree
 
-There exist many, many systems that basically follow this pattern:
+Существует очень много систем, которые в основном следуют шаблону:
 ```
 $pkg --installroot=/path/to/tmpdir install foo bar baz
 $imagesystem commit --root=/path/to/tmpdir
 ```
 
-For various values of $pkg such as yum, apt-get, etc., and values of $imagesystem could be simple tarballs, Amazon Machine Images, ISOs, etc.
+Для различных значений `$pkg`, таких как `yum`, `apt-get` и т. д., 
+и значениями `$imagesystem` могут быть простые архивы tar, образы машин Amazon, ISO и т. Д.
 
-Now obviously in this document, we’re going to talk about the situation where $imagesystem is OSTree. The general idea with OSTree is that wherever you might store a series of tarballs for applications or OS images, OSTree is likely going to be better. For example, it supports GPG signatures, binary deltas, writing bootloader configuration, etc.
+Теперь поговорим о ситуации, когда $imagesystem - это OSTree. Общая идея OSTree заключается в том, что где бы вы ни хранили серию архивов приложений или образов ОС, OSTree, 
+очевидно, будет лучшим решением. 
+Например, он поддерживает подписи GPG, двоичные дельты, запись конфигурации загрузчика и т. д.
 
-OSTree does not include a package/component build system simply because there already exist plenty of good ones - rather, it is intended to provide an infrastructure layer.
+OSTree не включает систему сборки пакетов / компонентов просто потому, что уже существует множество хороших систем - скорее, он предназначен для обеспечения поддержки уровня инфраструктуры.
 
-The above mentioned rpm-ostree compose tree chooses RPM as the value of $pkg - so binaries are built as RPMs, then committed as a whole into an OSTree commit.
+Вышеупомянутый менеджер компоновки rpm-ostree выбирает RPM в качестве значения `$pkg` - поэтому двоичные файлы создаются как RPM, а затем передаются в целом в коммит OSTree.
 
-But let’s discuss building our own. If you’re just experimenting, it’s quite easy to start with the command line. We’ll assume for this purpose that you have a build process that outputs a directory tree - we’ll call this tool $pkginstallroot (which could be yum --installroot or debootstrap, etc.).
+Но давайте поговорим о создании менеджера пакетов. 
+Если вы просто экспериментируете, довольно легко начать с командной строки. Для этого предположим, что у вас есть процесс сборки, который выводит дерево каталогов - 
+мы назовем этот инструмент $pkginstallroot (это может быть yum --installroot или debootstrap и т. д.).
 
-Your initial prototype is going to look like:
+Ваш первоначальный прототип будет выглядеть так:
 ```
 $pkginstallroot /path/to/tmpdir
 ostree --repo=repo commit -s 'build' -b exampleos/x86_64/standard --tree=dir=/path/to/tmpdir
 ```
 
-Alternatively, if your build system can generate a tarball, you can commit that tarball into OSTree. For example, OpenEmbedded can output a tarball, and one can commit it via:
+В качестве альтернативы, если ваша система сборки может создавать архив, вы можете зафиксировать этот архив в OSTree. Например, OpenEmbedded может выводить архив, и его можно зафиксировать с помощью:
 ```
 ostree commit -s 'build' -b exampleos/x86_64/standard --tree=tar=myos.tar
 ```
-
 ## Constructing trees from unions
 
 The above is a very simplistic model, and you will quickly notice that it’s slow. This is because OSTree has to re-checksum and recompress the content each time it’s committed. (Most of the CPU time is spent in compression which gets thrown away if the content turns out to be already stored).
