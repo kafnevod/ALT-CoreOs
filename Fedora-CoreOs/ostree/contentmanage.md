@@ -59,28 +59,37 @@ ostree --repo=repo pull --mirror exampleos:exampleos/x86_64/standard
 
 Затем вам нужно будет продвигать контент с «разработчика» на «продакшн». Об этом поговорим позже, но сначала поговорим о «продакшн». otion inside our “dev” repository.
 
-## Promoting content along OSTree branches - “buildmaster”, “smoketested”
 
-Besides multiple repositories, OSTree also supports multiple branches inside one repository, equivalent to git’s branches. We saw in an earlier section an example branch name like exampleos/x86_64/standard. Choosing the branch name for your “prod” repository is absolutely critical as client systems will reference it. It becomes an important part of your face to the world, in the same way the “master” branch in a git repository is.
+## Продвижение контента по веткам OSTree - «buildmaster», «smoketested»
 
-But with your “dev” repository internally, it can be very useful to use OSTree’s branching concepts to represent different stages in a software delivery pipeline.
+Помимо нескольких репозиториев, OSTree также поддерживает несколько веток внутри одного репозитория, что эквивалентно ветвям git. 
+В предыдущем разделе мы видели пример имени ветки, например exampleos/x86_64/standard. 
+Выбор имени ветки для репозитория «prod» крайне важен, поскольку клиентские системы будут ссылаться на него. 
+Он становится важной частью вашего лица для мира, точно так же, как «главная» ветвь в репозитории git.
 
-Deriving from exampleos/x86_64/standard, let’s say our “dev” repository contains exampleos/x86_64/buildmaster/standard. We choose the term “buildmaster” to represent something that came straight from git master. It may not be tested very much.
+Но с вашим внутренним репозиторием «dev» может быть очень полезно использовать концепции ветвления OSTree для представления различных этапов конвейера доставки программного обеспечения.
 
-Our next step should be to hook up a testing system (Jenkins, Buildbot, etc.) to this. When a build (commit) passes some tests, we want to “promote” that commit. Let’s create a new branch called smoketested to say that some basic sanity checks pass on the complete system. This might be where human testers get involved, for example.
+Унаследованный от exampleos/x86_64/standard, скажем, наш репозиторий «dev» содержит exampleos/x86_64/buildmaster/standard. 
+Мы выбрали термин «buildmaster», чтобы обозначить то, что пришло прямо из git master. Этот контент может не очень гдубоко тестироваться.
 
-This is a basic way to “promote” the buildmaster commit that passed testing:
-```
+Следующим нашим шагом должно быть подключение к нему системы тестирования (Jenkins, Buildbot и т. д.). 
+Когда сборка (коммит) проходит несколько тестов, мы хотим «продвинуть» этот коммит. 
+Давайте создадим новую ветвь с названием Smoketested, чтобы сказать, что некоторые базовые проверки работоспособности проходят всю систему. 
+Здесь могут быть задействованы, например, тестеры.
+
+Данная команда - основной способ «продвинуть» коммит buildmaster, прошедший тестирование:
+``
 ostree commit -b exampleos/x86_64/smoketested/standard -s 'Passed tests' --tree=ref=aec070645fe53...
-```
+``
 
-Here we’re generating a new commit object (perhaps include in the commit log links to build logs, etc.), but we’re reusing the content from the buildmaster commit aec070645fe53 that passed the smoketests.
+Здесь мы генерируем новый коммит (возможно, включаем в журнал фиксации ссылки на журналы сборки и т. д.), но мы повторно используем содержимое из фиксации buildmaster aec070645fe53, прошедшей smoketested тесты.
 
-For a more sophisticated implementation of this model, see the do-release-tags script, which includes support for things like propagating version numbers across commit promotion.
+Для более сложной реализации этой модели см. Сценарий do-release-tags, который включает поддержку таких вещей, как распространение номеров версий при продвижении фиксации.
 
-We can easily generalize this model to have an arbitrary number of stages like exampleos/x86_64/stage-1-pass/standard, exampleos/x86_64/stage-2-pass/standard, etc. depending on business requirements and logic.
+Мы можем легко обобщить эту модель, чтобы иметь произвольное количество этапов, таких как exampleos exampleos/x86_64/stage-1-pass/standard, exampleos/x86_64/stage-2-pass/standard и т. д., в зависимости от бизнес-требований и логики.
 
-In this suggested model, the “stages” are increasingly expensive. The logic is that we don’t want to spend substantial time on e.g. network performance tests if something basic like a systemd unit file fails on bootup.
+В предлагаемой модели «этапы» становятся все более дорогими. 
+Логика в том, что мы не хотим тратить много времени, например, на проверка производительности сети, если что-то базовое, например файл модуля systemd, не работает при загрузке. 
 
 ## Promoting content between OSTree repositories
 
