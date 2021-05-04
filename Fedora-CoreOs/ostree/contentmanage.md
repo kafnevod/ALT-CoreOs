@@ -42,17 +42,22 @@ ostree --repo=repo pull --mirror exampleos:exampleos/x86_64/standard
 См. также сценарий `rsync-repos` в [ostree-relng-scripts](https://github.com/ostreedev/ostree-releng-scripts). 
 
 
-## Separate development vs release repositories
+## Раздельная разаработка vs релизы репозиториев
 
-By default, OSTree accumulates server side history. This is actually optional in that your build system can (using the API) write a commit with no parent. But first, we’ll investigate the ramifications of server side history.
+По умолчанию OSTree накапливает историю на стороне сервера. 
+На самом деле это необязательно, поскольку ваша система сборки может (используя API) создать коммит без родителя. 
+Но сначала мы исследуем разветвления истории на стороне сервера.
 
-Many content vendors will want to separate their internal development with what is made public to the world. Therefore, you will want (at least) two OSTree repositories, we’ll call them “dev” and “prod”.
+Многие поставщики контента захотят отделить свою внутреннюю разработку от того, что становится общедоступным. 
+Следовательно, вам понадобятся (как минимум) два репозитория OSTree, мы назовем их «dev» и «prod».
 
-To phrase this another way, let’s say you have a continuous delivery system which is building from git and committing into your “dev” OSTree repository. This might happen tens to hundreds of times per day. That’s a substantial amount of history over time, and it’s unlikely most of your content consumers (i.e. not developers/testers) will be interested in all of it.
+Другими словами, допустим, у вас есть система непрерывной доставки, которая строится из git и фиксируется в репозитории OSTree для разработчиков. 
+Это может происходить от десятков до сотен раз в день. 
+Это значительный объем истории с течением времени, и маловероятно, что большинство ваших потребителей контента (т. е. Не разработчиков/тестировщиков) заинтересуются всем этим.
 
-The original vision of OSTree was to fulfill this “dev” role, and in particular the “archive” format was designed for it.
+Первоначальное видение OSTree заключалось в том, чтобы выполнять эту роль «разработчика», и, в частности, для этого был разработан формат «archive».
 
-Then, what you’ll want to do is promote content from “dev” to “prod”. We’ll discuss this later, but first, let’s talk about promotion inside our “dev” repository.
+Затем вам нужно будет продвигать контент с «разработчика» на «продакшн». Об этом поговорим позже, но сначала поговорим о «продакшн». otion inside our “dev” repository.
 
 ## Promoting content along OSTree branches - “buildmaster”, “smoketested”
 
