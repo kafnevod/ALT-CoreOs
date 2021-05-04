@@ -90,18 +90,18 @@ ostree commit -b exampleos/x86_64/smoketested/standard -s 'Passed tests' --tree=
 
 В предлагаемой модели «этапы» становятся все более дорогими. 
 Логика в том, что мы не хотим тратить много времени, например, на проверка производительности сети, если что-то базовое, например файл модуля systemd, не работает при загрузке. 
+## Продвижение контента между репозиториями OSTree
 
-## Promoting content between OSTree repositories
+Теперь у нас есть внутренний поток непрерывной доставки (continuous delivery stream flowing), он тестируется и работает. 
+Мы хотим периодически брать последний коммит на exampleos/x86_64/stage-3-pass/standard и выставлять его в нашем репозитории «prod» как exampleos/x86_64/standard с гораздо меньшей историей.
 
-Now, we have our internal continuous delivery stream flowing, it’s being tested and works. We want to periodically take the latest commit on exampleos/x86_64/stage-3-pass/standard and expose it in our “prod” repository as exampleos/x86_64/standard, with a much smaller history.
+У нас будут другие бизнес-требования, такие как написание примечаний к выпуску (и, возможно, их размещение в сообщении о фиксации OSTree) и т. д.
 
-We’ll have other business requirements such as writing release notes (and potentially putting them in the OSTree commit message), etc.
+В Build Systems мы увидели, как команду `pull-local` можно использовать для переноса контента из репозитория «build» (в режиме простого пользователя) в архивный репозиторий для передачи в клиентские системы.
 
-In Build Systems we saw how the pull-local command can be used to migrate content from the “build” repository (in bare-user mode) into an archive repository for serving to client systems.
+После этого раздела у нас теперь есть три репозитория, назовем их repo-build, repo-dev и repo-prod. Мы извлекаем контент из repo-build в repo-dev (который включает, помимо прочего, сжатие gzip, поскольку это изменение формата).
 
-Following this section, we now have three repositories, let’s call them repo-build, repo-dev, and repo-prod. We’ve been pulling content from repo-build into repo-dev (which involves gzip compression among other things since it is a format change).
-
-When using pull-local to migrate content between two archive repositories, the binary content is taken unmodified. Let’s go ahead and generate a new commit in our prod repository:
+При использовании pull-local для переноса содержимого между двумя архивными репозиториями двоичное содержимое берется без изменений. Давайте продолжим и сгенерируем новый коммит в нашем репозитории prod:
 ```
 checksum=$(ostree --repo=repo-dev rev-parse exampleos/x86_64/stage-3-pass/standard`)
 ostree --repo=repo-prod pull-local repo-dev ${checksum}
@@ -110,11 +110,13 @@ ostree --repo=repo-prod commit -b exampleos/x86_64/standard \
 	   --tree=ref=${checksum}
 ```
 
-There are a few things going on here. First, we found the latest commit checksum for the “stage-3 dev”, and told pull-local to copy it, without using the branch name. We do this because we don’t want to expose the exampleos/x86_64/stage-3-pass/standard branch name in our “prod” repository.
+Здесь происходит несколько вещей. Сначала мы нашли последнюю контрольную сумму фиксации для «stage-3 dev» и сказали pull-local скопировать ее без использования имени ветки. 
+Мы делаем это, потому что не хотим раскрывать имя ветки exampleos/x86_64/stage-3-pass/standard в нашем репозитории prod.
 
-Next, we generate a new commit in prod that’s referencing the exact binary content in dev. If the “dev” and “prod” repositories are on the same Unix filesystem, (like git) OSTree will make use of hard links to avoid copying any content at all - making the process very fast.
+Затем мы генерируем новую фиксацию в prod, которая ссылается на точное двоичное содержимое в dev. Если репозитории «dev» и «prod» находятся в одной файловой системе Unix, (например, git) OSTree будет использовать жесткие ссылки, чтобы вообще избежать копирования любого контента, что делает процесс очень быстрым.
 
-Another interesting thing to notice here is that we’re adding an version metadata string to the commit. This is an optional piece of metadata, but we are encouraging its use in the OSTree ecosystem of tools. Commands like ostree admin status show it by default.
+Еще одна интересная вещь, на которую стоит обратить внимание, - это то, что мы добавляем строку метаданных версии в коммит. Это необязательный элемент метаданных, но мы поощряем его использование в экосистеме инструментов OSTree. Такие команды, как статус администратора ostree, показывают его по умолчанию. 
+
 
 ## Derived data - static deltas and the summary file
 
