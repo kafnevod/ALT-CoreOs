@@ -145,26 +145,32 @@ ostree --repo=repo-prod summary -u
 
 Есть еще немного информации о дизайне сводного файла в Repo. 
 
-## Pruning our build and dev repositories
+## Удаление  репозиториев build и dev
 
-First, the OSTree author believes you should not use OSTree as a “primary content store”. The binaries in an OSTree repository should be derived from a git repository. Your build system should record proper metadata such as the configuration options used to generate the build, and you should be able to rebuild it if necessary. Art assets should be stored in a system that’s designed for that (e.g. Git LFS).
+Во-первых, автор OSTree считает, что вам не следует использовать OSTree в качестве «основного хранилища контента». 
+Бинарные файлы в репозитории OSTree должны быть получены из репозитория git. 
+Ваша система сборки должна записывать правильные метаданные, такие как параметры конфигурации, используемые для создания сборки, 
+и вы должны иметь возможность при необходимости перестроить ее. 
+Art assets должны храниться в системе, предназначенной для этого (например, Git LFS).
 
-Another way to say this is that five years down the line, we are unlikely to care about retaining the exact binaries from an OS build on Wednesday afternoon three years ago.
+Другими словами, через пять лет мы вряд ли будем заботиться о сохранении точных двоичных файлов из сборки ОС в среду днем ​​три года назад.
 
-We want to save space and prune our “dev” repository.
-```
+Мы хотим сэкономить место и сократить наш репозиторий «для разработчиков».
+``
 ostree --repo=repo-dev prune --refs-only --keep-younger-than="6 months ago"
-```
+``
 
-That will truncate the history older than 6 months. Deleted commits will have “tombstone markers” added so that you know they were explicitly deleted, but all content in them (that is not referenced by a still retained commit) will be garbage collected.
+Это приведет к усечению истории старше 6 месяцев. 
+К удаленным коммитам будут добавлены «маркеры надгробий», чтобы вы знали, что они были явно удалены, но все содержимое в них (на которое не ссылается все еще сохраненный коммит) будет собрано мусороcборщиком. 
 
-## Generating “scratch” deltas for efficient initial downloads
 
-In general, the happy path for OSTree downloads is via static deltas. If you are in a situation where you want to download an OSTree commit from an uninitialized repo (or one with unrelated history), you can generate “scratch” (aka --empty deltas) which bundle all objects for that commit.
+## Создание «временных» дельт для эффективных начальных загрузок
 
-The tradeoff here is increasing server disk space in return for many fewer client HTTP requests.
+В общем, удачный путь для загрузки OSTree - через статические дельты. Если вы находитесь в ситуации, когда вы хотите загрузить фиксацию OSTree из неинициализированного репо (или репозитория с несвязанной историей), вы можете сгенерировать “scratch” (также известную как --empty deltas), которая объединяет все объекты для этой фиксации.
 
-For example:
+Компромисс здесь заключается в увеличении дискового пространства на сервере в обмен на гораздо меньшее количество клиентских HTTP-запросов.
+
+Например:
 ```
 $ ostree --repo=/path/to/repo static-delta generate --empty --to=exampleos/x86_64/testing-devel
 $ ostree --repo=/path/to/repo summary -u
