@@ -90,6 +90,7 @@ ostree commit -b exampleos/x86_64/smoketested/standard -s 'Passed tests' --tree=
 
 В предлагаемой модели «этапы» становятся все более дорогими. 
 Логика в том, что мы не хотим тратить много времени, например, на проверка производительности сети, если что-то базовое, например файл модуля systemd, не работает при загрузке. 
+
 ## Продвижение контента между репозиториями OSTree
 
 Теперь у нас есть внутренний поток непрерывной доставки (continuous delivery stream flowing), он тестируется и работает. 
@@ -118,29 +119,31 @@ ostree --repo=repo-prod commit -b exampleos/x86_64/standard \
 Еще одна интересная вещь, на которую стоит обратить внимание, - это то, что мы добавляем строку метаданных версии в коммит. Это необязательный элемент метаданных, но мы поощряем его использование в экосистеме инструментов OSTree. Такие команды, как статус администратора ostree, показывают его по умолчанию. 
 
 
-## Derived data - static deltas and the summary file
+## Производные данные - статические дельты и файл сводки
 
-As discussed in Formats, the archive repository we use for “prod” requires one HTTP fetch per client request by default. If we’re only performing a release e.g. once a week, it’s appropriate to use “static deltas” to speed up client updates.
+Как обсуждалось в разделе «Форматы», репозиторий архивов, который мы используем для «prod», по умолчанию требует по одному HTTP-запросу для каждого клиентского запроса. 
+Если мы выполняем только релиз, например раз в неделю целесообразно использовать «статические дельты» для ускорения обновлений клиентов.
 
-So once we’ve used the above command to pull content from repo-dev into repo-prod, let’s generate a delta against the previous commit:
+Итак, как только мы использовали указанную выше команду для извлечения контента из repo-dev в repo-prod, давайте сгенерируем дельту относительно предыдущего коммита:
 ```
 ostree --repo=repo-prod static-delta generate exampleos/x86_64/standard
 ```
 
-We may also want to support client systems upgrading from two commits previous.
+Мы также можем захотеть поддержать обновление клиентских систем после двух предыдущих коммитов.
 ```
 ostree --repo=repo-prod static-delta generate --from=exampleos/x86_64/standard^^ --to=exampleos/x86_64/standard
 ```
 
-Generating a full permutation of deltas across all prior versions can get expensive, and there is some support in the OSTree core for static deltas which “recurse” to a parent. This can help create a model where clients download a chain of deltas. Support for this is not fully implemented yet however.
+Создание полной перестановки дельт во всех предыдущих версиях может оказаться дорогостоящим, и в ядре OSTree есть некоторая поддержка статических дельт, которые «рекурсивно передаются» родительскому объекту. 
+Это может помочь создать модель, в которой клиенты загружают цепочку дельт. Однако поддержка этого еще не реализована полностью.
 
-Regardless of whether or not you choose to generate static deltas, you should update the summary file:
+Независимо от того, выбрали ли вы создание статических дельт, вам следует обновить файл сводки:
 
 ostree --repo=repo-prod summary -u
 
-(Remember, the summary command cannot be run concurrently, so this should be triggered serially by other jobs).
+(Помните, что команда Summary не может выполняться одновременно, поэтому она должна запускаться последовательно другими заданиями).
 
-There is some more information on the design of the summary file in Repo.
+Есть еще немного информации о дизайне сводного файла в Repo. 
 
 ## Pruning our build and dev repositories
 
