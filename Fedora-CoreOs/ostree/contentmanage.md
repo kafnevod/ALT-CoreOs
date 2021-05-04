@@ -9,28 +9,38 @@
     Generating “scratch” deltas for efficient initial downloads
         Licensing for this document:
 
-Once you have a build system going, if you actually want client systems to retrieve the content, you will quickly feel a need for “repository management”.
+Если у вас запущена система сборки и вы действительно хотите, чтобы клиентские системы извлекали контент, вам потребуется «управлении репозиторием».
 
-The command line tool ostree does cover some core functionality, but doesn’t include very high level workflows. One reason is that how content is delivered and managed has concerns very specific to the organization. For example, some operating system content vendors may want integration with a specific errata notification system when generating commits.
+Инструмент командной строки ostree охватывает некоторые основные функции, но не включает рабочие процессы очень высокого уровня. 
+Одна из причин заключается в том, что то, как контент доставляется и управляется, очень специфичен для каждой организации. 
+Например, некоторые поставщики содержимого операционной системы могут захотеть интегрироваться с определенной системой уведомления об ошибках при создании коммитов.
 
-In this section, we will describe some high level ideas and methods for managing content in OSTree repositories, mostly independent of any particular model or tool. That said, there is an associated upstream project ostree-releng-scripts which has some scripts that are intended to implement portions of this document.
+В этом разделе мы опишем некоторые высокоуровневые идеи и методы управления контентом в репозиториях OSTree, в основном независимые от какой-либо конкретной модели или инструмента. 
+Тем не менее, существует связанный вышестоящий проект [ostree-relng-scripts](https://github.com/ostreedev/ostree-releng-scripts), 
+в котором есть несколько скриптов, предназначенных для реализации частей этого документа.
 
-Another example of software which can assist in managing OSTree repositories today is the Pulp Project, which has a Pulp OSTree plugin.
+Еще одним примером программного обеспечения, которое может помочь в управлении репозиториями OSTree сегодня, является 
+[Pulp Project](https://pulpproject.org/), в котором есть [плагин Pulp OSTree](https://repos.fedorapeople.org/pulp/pulp/stable/2/7Server/src/). 
 
-## Mirroring repositories
 
-It’s very common to want to perform a full or partial mirror, in particular across organizational boundaries (e.g. an upstream OS provider, and a user that wants offline and faster access to the content). OSTree supports both full and partial mirroring of the base archive content, although not yet of static deltas.
+## Зеркалирование репозиториев
 
-To create a mirror, first create an archive repository (you don’t need to run this as root), then add the upstream as a remote, then use pull --mirror.
+Очень часто возникает желание выполнить полное или частичное зеркалирование, 
+в частности, за пределами организации (например, вышестоящий поставщик ОС и пользователь, которому нужен автономный и более быстрый доступ к контенту). 
+OSTree поддерживает как полное, так и частичное зеркальное отображение содержимого базового архива, но пока не поддерживает зеркалирование  не статических дельт.
+
+Чтобы создать зеркало, сначала создайте архивный репозиторий (вам не нужно запускать его как root), 
+затем добавьте `upstream` как удаленный, затем используйте `pull --mirror`.
 ```
 ostree --repo=repo init --mode=archive
 ostree --repo=repo remote add exampleos https://exampleos.com/ostree/repo
 ostree --repo=repo pull --mirror exampleos:exampleos/x86_64/standard
 ```
 
-You can use the --depth=-1 option to retrieve all history, or a positive integer like 3 to retrieve just the last 3 commits.
+Вы можете использовать параметр `--depth=-1`, чтобы получить всю историю, или положительное целое число, например `3`, чтобы получить только последние `3` коммита.
 
-See also the rsync-repos script in ostree-releng-scripts.
+См. также сценарий `rsync-repos` в [ostree-relng-scripts](https://github.com/ostreedev/ostree-releng-scripts). 
+
 
 ## Separate development vs release repositories
 
