@@ -176,4 +176,4 @@ $ ostree --repo=/path/to/repo static-delta generate --empty --to=exampleos/x86_6
 $ ostree --repo=/path/to/repo summary -u
 ```
 
-After that, clients fetching that commit will prefer fetching the “scratch” delta if they don’t have the original ref.
+После этого клиенты, получающие эту фиксацию, предпочтут получить «нулевую» дельту, если у них нет исходной ссылки. 
