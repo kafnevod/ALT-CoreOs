@@ -8,23 +8,22 @@
     More sophisticated repository management
         Licensing for this document:
 
-OSTree is not a package system. It does not directly support building source code. Rather, it is a tool for transporting and managing content, along with package-system independent aspects like bootloader management for updates.
+OSTree - это не пакетная система. Он не поддерживает напрямую исходный код сборки. Скорее, это инструмент для транспортировки и управления контентом, наряду с независимыми от системы аспектами, такими как управление загрузчиком при обновлениях.
 
-We’ll assume here that we’re planning to generate commits on a build server, then have client systems replicate it. Doing client-side assembly is also possible of course, but this discussion will focus primarily on server-side concerns.
+Предположим, что мы планируем генерировать коммиты на сервере сборки, а затем заставляем клиентские системы реплицировать их. Выполнение сборки на стороне клиента, конечно, также возможно, но это обсуждение будет сосредоточено в первую очередь на проблемах на стороне сервера.
 
-## Build vs buy
+## Построить самому или покупки
 
-Therefore, you need to either pick an existing tool for writing content into an OSTree repository, or write your own. An example tool is rpm-ostree - it takes as input RPMs, and commits them (currently oriented for server-side, but aiming to do client-side too).
+Следовательно, вам нужно либо выбрать существующий инструмент для записи контента в репозиторий OSTree, либо написать свой собственный. 
+Примером существующего инструмента является rpm-ostree - он принимает в качестве входных список RPM-пакетов и фиксирует их (в настоящее время он ориентирован на серверную сторону, но также возможно его использлвание и  на стороне клиента). 
 
-## Initializing
-
-For this initial discussion, we’re assuming you have a single archive repository:
+Предполагаем, что у вас есть одно хранилище архивов:
 ```
-mkdir repo
-ostree --repo=repo init --mode=archive
+mkdir репо
+ostree --repo = репо init --mode = архив
 ```
 
-You can export this via a static webserver, and configure clients to pull from it.
+Вы можете экспортировать это через статический веб-сервер и настроить клиентов на загрузки дерева с него. 
 
 ## Writing your own OSTree buildsystem
 
