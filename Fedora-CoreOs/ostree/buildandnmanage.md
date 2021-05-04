@@ -58,31 +58,41 @@ ostree --repo=repo commit -s 'build' -b exampleos/x86_64/standard --tree=dir=/pa
 ```
 ostree commit -s 'build' -b exampleos/x86_64/standard --tree=tar=myos.tar
 ```
-## Constructing trees from unions
+## Построение деревьев путем операции объединения
 
-The above is a very simplistic model, and you will quickly notice that it’s slow. This is because OSTree has to re-checksum and recompress the content each time it’s committed. (Most of the CPU time is spent in compression which gets thrown away if the content turns out to be already stored).
+Выше описана очень упрощенная модель, и очевидно, что она медленная. 
+Это связано с тем, что OSTree приходится повторно проверять контрольную сумму и повторно сжимать контент каждый раз, когда происходит коммит. 
+(Большая часть времени ЦП тратится на сжатие, результат которого отбрасывается, если оказывается, что содержимое уже сохранено).
 
-A more advanced approach is to store components in OSTree itself, then union them, and recommit them. At this point, we recommend taking a look at the OSTree API, and choose a programming language supported by GObject Introspection to write your buildsystem scripts. Python may be a good choice, or you could choose custom C code, etc.
+Более продвинутый подход - хранить компоненты в самом OSTree, затем объединять их и повторно объединять. 
+На этом этапе мы рекомендуем взглянуть на OSTree API и выбрать язык программирования, поддерживаемый GObject Introspection, для написания сценариев вашей системы сборки. 
+Python может быть хорошим выбором, или вы можете написать собственный код C и т. д.
 
-For the purposes of this tutorial we will use shell script, but it’s strongly recommended to choose a real programming language for your build system.
+В этом руководстве мы будем использовать сценарий оболочки, но настоятельно рекомендуется выбрать реальный язык программирования для вашей системы сборки.
 
-Let’s say that your build system produces separate artifacts (whether those are RPMs, zip files, or whatever). These artifacts should be the result of make install DESTDIR= or similar. Basically equivalent to RPMs/debs.
+Допустим, ваша система сборки создает отдельные артефакты (будь то RPM-файлы, zip-файлы или что-то еще). 
+Эти артефакты должны быть результатом выполнения команды 
+`make install DESTDIR=`
+или аналогичного. В основном эквивалент RPMs/debs.
 
-Further, in order to make things fast, we will need a separate bare-user repository in order to perform checkouts quickly via hardlinks. We’ll then export content into the archive repository for use by client systems.
+Кроме того, чтобы ускорить процесс, нам понадобится отдельный репозиторий для простых пользователей, чтобы быстро выполнять проверки через жесткие ссылки. 
+Затем мы экспортируем контент в архивный репозиторий для использования клиентскими системами.
 ```
-mkdir build-repo
+mkdir build-репо
 ostree --repo=build-repo init --mode=bare-user
 ```
 
-You can begin committing those as individual branches:
+Вы можете начать коммитить их как отдельные ветки:
 ```
 ostree --repo=build-repo commit -b exampleos/x86_64/bash --tree=tar=bash-4.2-bin.tar.gz
 ostree --repo=build-repo commit -b exampleos/x86_64/systemd --tree=tar=systemd-224-bin.tar.gz
 ```
 
-Set things up so that whenever a package changes, you redo the commit with the new package version - conceptually, the branch tracks the individual package versions over time, and defaults to “latest”. This isn’t required - one could also include the version in the branch name, and have metadata outside to determine “latest” (or the desired version).
+Настройте все так, чтобы всякий раз, когда пакет изменяется, вы повторяете фиксацию с новой версией пакета - 
+концептуально, ветвь отслеживает отдельные версии пакета с течением времени и по умолчанию имеет значение «последняя». 
+Это не обязательно - можно также включить версию в название ветки и иметь внешние метаданные для определения «последней» (или желаемой версии).
 
-Now, to construct our final tree:
+Теперь, чтобы построить наше окончательное дерево:
 ```
 rm -rf exampleos-build
 for package in bash systemd; do
@@ -99,9 +109,12 @@ fusermount -u mnt
 ostree --repo=build-repo commit -b exampleos/x86_64/standard --link-checkout-speedup exampleos-build
 ```
 
-There are a number of interesting things going on here. The major architectural change is that we’re using --link-checkout-speedup. This is a way to tell OSTree that our checkout is made via hardlinks, and to scan the repository in order to build up a reverse (device, inode) -> checksum mapping.
+Здесь происходит ряд интересных вещей. 
+Основное архитектурное изменение заключается в том, что мы используем `--link-checkout-speedup`. 
+Это способ сообщить OSTree, что наша проверка выполняется через жесткие ссылки, и просканировать репозиторий, чтобы создать сопоставление`reverse (device, inode) -> checksum mapping`.
 
-In order for this mapping to be accurate, we needed the rofiles-fuse to ensure that any changed files had new inodes (and hence a new checksum).
+Чтобы это сопоставление было точным, нам нужен `rofiles-fuse`, чтобы гарантировать, что любые измененные файлы имеют новые `inodes` (и, следовательно, новую контрольную сумму). 
+
 
 ## Migrating content between repositories
 
