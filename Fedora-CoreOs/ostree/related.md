@@ -39,33 +39,43 @@ OSTree достаточно гибок, чтобы делать и то, и др
 Обратите внимание, что этот раздел документации почти полностью посвящен модели «дерево для хоста»; 
 Проект Flatpak использует libostree для хранения данных приложения, в отличие от модели управления хост-системой. 
 
-## Combining dpkg/rpm + (BTRFS/LVM)
+## Объединение dpkg / rpm + (BTRFS / LVM)
 
-In this approach, one uses a block/filesystem snapshot tool underneath the system package manager.
+В этом подходе в рамках системного менеджера пакетов используется инструмент для создания моментальных снимков блоков/файловой_системы.
 
-The oVirt Node imgbased tool is an example of this approach, as are a few others below.
+Инструмент [oVirt Node](https://ru.wikipedia.org/wiki/OVirt), работающий с образами, является примером этого подхода, как и некоторые другие ниже.
 
-Regarding BTRFS in particular - the OSTree author believes that Linux storage is a wide world, and while BTRFS is quite good, it is not everywhere now, nor will it be in the near future. There are other recently developed filesystems like f2fs, and Red Hat Enterprise Linux still defaults to XFS.
+Касательно BTRFS как иструмента получения мгнрвенных снимков файловой системы - автор OSTree считает, что хранилище Linux - это обширный мир, и, 
+хотя BTRFS неплох, он не везде исползуется сейчас и не будет везде в ближайшем будущем. 
+Есть и другие недавно разработанные файловые системы, такие как [f2fs](https://en.wikipedia.org/wiki/F2FS), и Red Hat Enterprise Linux по-прежнему использует [XFS](https://en.wikipedia.org/wiki/XFS).
 
-Using a snapshot tool underneath a package manager does help significantly. In the rest of this text, we will use “BTRFS” as a mostly generic tool for filesystem snapshots.
+Использование инструмента создания снимков под менеджером пакетов действительно помогает. 
+В остальной части этого текста мы будем использовать «BTRFS» как основной универсальный инструмент для получения моментальных снимков файловой системы.
 
-The obvious thing to do is layer BTRFS under dpkg/rpm, and have a separate subvolume for /home so rollbacks don’t lose your data. See e.g. Fedora BTRFS Rollback Feature.
+Очевидно, что нужно расположить BTRFS под dpkg/rpm и создать отдельный вложенный том для /home, чтобы при откате не терялись ваши данные. 
+См., Например, [Fedora BTRFS Rollback Feature](https://fedoraproject.org/wiki/Features/SystemRollbackWithBtrfs).
 
-More generally, if you want to use BTRFS to roll back changes made by dpkg/rpm, you have to carefully set up the partition layout so that the files laid out by dpkg/rpm are installed in a subvolume to snapshot.
+В более общем плане, если вы хотите использовать BTRFS для отката изменений, сделанных dpkg/rpm, вы должны тщательно настроить макет раздела, 
+чтобы файлы, размещенные dpkg/rpm, устанавливались в подтоме для создания моментального снимка.
 
-This problem in many ways is addressed by the changes OSTree forces, such as putting all local state in /var (e.g. /usr/local -> /var/usrlocal). Then one can BTRFS snapshot /usr. This gets pretty far, except handling /etc is messy. This is something OSTree does well.
+Эта проблема во многих отношениях решается с помощью изменений OSTree, таких как размещение всего локального состояния в /var (например, /usr/local -> /var/usrlocal). 
+Затем можно сделать снимок BTRFS /usr. 
 
-In general, if one really tries to flesh out the BTRFS approach, a nontrivial middle layer of code between dpkg/rpm and BTRFS (or deep awareness of BTRFS in dpkg/rpm itself) will be required. A good example of this is the snapper.io project.
+В общем, если кто-то действительно пытается конкретизировать подход BTRFS, потребуется нетривиальный промежуточный уровень кода между dpkg/rpm и BTRFS (или глубокая осведомленность о BTRFS в самом dpkg/rpm). Хорошим примером этого является проект [snapper.io](http://snapper.io/).
 
-The OSTree author believes that having total freedom at the block storage layer is better for general purpose operating systems. For example, the ability to choose dm-crypt per deployment is quite useful; not every site wants to pay the performance penalty. One can choose LVM or not, etc.
+Автор OSTree считает, что для операционных систем общего назначения лучше иметь полную свободу на уровне блочного хранилища. 
+Например, весьма полезна возможность выбора dm-crypt для каждого развертывания; не каждый сайт хочет терять производительность. Можно выбрать LVM или нет и т. д.
 
-Where applicable, OSTree does take advantage of copy-on-write/reflink features offered by the kernel for /etc. It uses the now generic ioctl(FICLONE) and copy_file_range().
+Там, где это применимо, OSTree использует возможности copy-on-write/reflink, предлагаемые ядром для / etc. 
+Он использует  ioctl(FICLONE) и copy_file_range().
 
-Another major distinction between the default OSTree usage and package managers is whether updates are “online” or “offline” by default. The default OSTree design writes updates into a new root, leaving the running system unchanged. This means preparing updates is completely non-disruptive and safe - if the system runs out of disk space in the middle, it’s easy to recover. However, there is work in the rpm-ostree project to support online updates as well.
+Еще одно важное различие между использованием OSTree по умолчанию и менеджерами пакетов заключается в том, являются ли обновления по умолчанию «интерактивными» или «автономными». Дизайн OSTree по умолчанию записывает обновления в новый корень, оставляя работающую систему без изменений. Это означает, что подготовка обновлений осуществляется без прерывания работы и является безопасной - если системе не хватает места на диске, его легко восстановить. 
+Однако в проекте rpm-ostree также ведется работа по поддержке онлайн-обновлений.
 
-OSTree supports using “bare-user” repositories, which do not require root to use. Using a filesystem-level layer without root is more difficult and would likely require a setuid helper or privileged service.
+OSTree поддерживает использование репозиториев «bare-user», для использования которых не требуется root. 
+Использование уровня файловой системы без root сложнее и, вероятно, потребует setuid helper или привилегированного сервиса.
 
-Finally, see the next portion around ChromiumOS for why a hybrid but integrated package/image system improves on this.
+Наконец, посмотрите следующую часть ChromiumOS, чтобы узнать, почему гибридная, но интегрированная система пакетов/образов улучшает это. 
 
 ## ChromiumOS updater
 
