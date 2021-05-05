@@ -24,13 +24,20 @@
         Torizon OTA
             Licensing for this document:
 
-OSTree is in many ways very evolutionary. It builds on concepts and ideas introduced from many different projects such as Systemd Stateless, Systemd Bootloader Spec, Chromium Autoupdate, the much older Fedora/Red Hat Stateless Project, Linux VServer and many more.
+OSTree во многих отношениях очень быстро эволюционирует. 
+Он основан на концепциях и идеях, представленных во многих различных проектах, таких как Systemd Stateless, Systemd Bootloader Spec, Chromium Autoupdate, Fedora / Red Hat Stateless Project, Linux VServer и многие другие.
 
-As mentioned elsewhere, OSTree is strongly influenced by package manager designs as well. This page is not intended to be an exhaustive list of such projects, but we will try to keep it up to date, and relatively agnostic.
+Как упоминалось выше, OSTree также сильно зависит от дизайна диспетчера пакетов. 
+Эта раздел не является исчерпывающим списком таких проектов, но мы постараемся поддерживать его в актуальном состоянии.
 
-Broadly speaking, projects in this area fall into two camps; either a tool to snapshot systems on the client side (dpkg/rpm + BTRFS/LVM), or a tool to compose on a server and replicate (ChromiumOS, Clear Linux). OSTree is flexible enough to do both.
+Вообще говоря, проекты в этой области делятся на две категори_
+- инструмент для создания моментальных снимков систем на стороне клиента (dpkg / rpm + BTRFS / LVM);
+- инструмент для создания репозитория на сервере и репликации их клиенту (ChromiumOS, Clear Linux). 
 
-Note that this section of the documentation is almost entirely focused on the “ostree for host” model; the flatpak project uses libostree to store application data, distinct from the host system management model.
+OSTree достаточно гибок, чтобы делать и то, и другое.
+
+Обратите внимание, что этот раздел документации почти полностью посвящен модели «дерево для хоста»; 
+Проект Flatpak использует libostree для хранения данных приложения, в отличие от модели управления хост-системой. 
 
 ## Combining dpkg/rpm + (BTRFS/LVM)
 
