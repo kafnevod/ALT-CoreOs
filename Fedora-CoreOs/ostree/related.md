@@ -79,86 +79,129 @@ OSTree поддерживает использование репозитори�
 
 ## ChromiumOS updater
 
-Many people who look at OSTree are most interested in using it as an updater for embedded or fixed-purpose systems, similar to use cases from the ChromiumOS updater.
+Многие люди, которые смотрят на OSTree, больше всего заинтересованы в использовании его в качестве средства обновления для встроенных или фиксированных систем, 
+аналогично вариантам использования средства обновления ChromiumOS.
 
-The ChromiumOS approach uses two partitions that are swapped via the bootloader. It has a very network-efficient update protocol, using a custom binary delta scheme between filesystem snapshots.
+Подход ChromiumOS использует два раздела, которые меняются местами через загрузчик. 
+Он имеет очень эффективный для сети протокол обновления, использующий настраиваемую двоичную дельта-схему между моментальными снимками файловой системы.
 
-This model even allows for switching filesystem types in an update.
+Эта модель даже позволяет переключать типы файловой системы в обновлении.
 
-A major downside of this approach is that the OS size is doubled on disk always. In contrast, OSTree uses plain Unix hardlinks, which means it essentially only requires disk space proportional to the changed files, plus some small fixed overhead.
+Основным недостатком этого подхода является то, что размер ОС на диске всегда увеличивается вдвое. 
+В отличие от этого, OSTree использует простые жесткие ссылки Unix, что означает, что по существу требуется только дисковое пространство, пропорциональное измененным файлам, плюс небольшие фиксированные накладные расходы.
 
-This means with OSTree, one can easily have more than two trees (deployments). Another example is that the system OSTree repository could also be used for application containers.
+Это означает, что с OSTree можно легко иметь более двух деревьев (развертываний). 
+Другой пример:  репозиторий OSTree также может использоваться для контейнеров приложений.
 
-Finally, the author of OSTree believes that what one really wants for many cases is image replication with the ability to layer on some additional components (e.g. packages) - a hybrid model. This is what rpm-ostree is aiming to support.
+Наконец, автор OSTree считает, что во многих случаях действительно требуется гибридная модель - репликация образов с возможностью наложения на них  некоторых дополнительных компонент (например, пакетов). 
+Именно это и стремится поддерживать rpm-ostree. 
 
-## Ubuntu Image Based Updates
+# Ubuntu Image Based Updates
 
-See https://wiki.ubuntu.com/ImageBasedUpgrades. Very architecturally similar to ChromeOS, although more interesting is discussion for supporting package installation on top, similar to rpm-ostree package layering.
+См. https://wiki.ubuntu.com/ImageBasedUpgrades. 
+Архитектурно очень похоже на ChromeOS, хотя более интересным является обсуждение поддержки установки пакетов поверх, аналогично иерархии пакетов rpm-ostree.
 
 ## Clear Linux Software update
 
-The Clear Linux Software update system is not very well documented. This mailing list post has some reverse-engineered design documentation.
+Система обновления программного обеспечения [Clear Linux](https://clearlinux.org/) не очень хорошо документирована. 
+В [этом списке рассылки](https://lists.clearlinux.org/hyperkitty/) есть некоторая переработанная проектная документация.
 
-Like OSTree static deltas, it also uses bsdiff for network efficiency.
+Как и статические дельты OSTree, он также использует bsdiff для повышения эффективности сетевых обменов данными.
 
-More information will be filled in here over time. The OSTree author believes that at the moment, the “CL updater” is not truly atomic in the sense that because it applies updates live, there is a window where the OS root may be inconsistent.
+Со временем сюда будет добавлена ​​дополнительная информация. 
+Автор OSTree считает, что на данный момент «средство обновления CL» не является полностью атомарным в том смысле, 
+что, поскольку система применяет обновления в реальном времени, существует окно, в котором корень ОС может быть несовместимым.
 
 ## casync
 
-The systemd casync project is relatively new. Currently, it is more of a storage library, and doesn’t support higher level logic for things like GPG signatures, versioning information, etc. This is mostly the OstreeRepo layer. Moving up to the OstreeSysroot level - things like managing the bootloader configuration, and most importantly implementing correct merging for /etc are missing. casync also is unaware of SELinux.
+Проект [systemd casync](https://github.com/systemd/casync) относительно новый. 
+В настоящее время это скорее библиотека хранения, и она не поддерживает логику более высокого уровня для таких вещей, как подписи GPG, информация о версиях и т. Д. 
+Это в основном уровень OstreeRepo. 
+Переход на уровень OstreeSysroot - отсутствуют.
+Такие вещи, как управление конфигурацией загрузчика и, самое главное, правильное слияние для /etc. не реализованы.
+casync также ничего не знает о SELinux.
 
-OSTree is really today a shared library, and has been for quite some time. This has made it easy to build higher level projects such as rpm-ostree which has quite a bit more, such as a DBus API and other projects consume that, such as Cockpit.
+OSTree на самом деле сегодня является общей библиотекой, причем довольно давно. 
+Это упростило создание проектов более высокого уровня, таких как rpm-ostree.
 
-A major issue with casync today is that it doesn’t support garbage collection on the server side. OSTree’s GC works symmetrically on the server and client side.
+Сегодня основная проблема casync заключается в том, что она не поддерживает сборку мусора на стороне сервера. 
+Сборщик мусора OSTree работает симметрично на стороне сервера и клиента.
 
-Broadly speaking, casync is a twist on the dual partition approach, and shares the general purpose disadvantages of those.
+Вообще говоря, casync - это нечто среднее между двумя подходами и он разделяет их общие недостатки.
 
 ## Mender.io
 
-Mender.io is another implementation of the dual partition approach.
+Mender.io - еще одна реализация подхода с двумя разделами. 
 
 ## OLPC update
 
-OSTree is basically a generalization of olpc-update, except using plain HTTP instead of rsync. OSTree has the notion of separate trees that one can track independently or parallel install, while still sharing storage via the hardlinked repository, whereas olpc-update uses version numbers for a single OS.
+OSTree - это в основном обобщение olpc-update, за исключением использования простого HTTP вместо rsync. 
+OSTree имеет понятие отдельных деревьев, которые можно отслеживать независимо или параллельно, 
+но при этом совместно использовать хранилище через репозиторий с жесткой связью, тогда как olpc-update использует номера версий для одной ОС.
 
-OSTree has built-in plain old HTTP replication which can be served from a static webserver, whereas olpc-update uses rsync (more server load, but more efficient on the network side). The OSTree solution to improving network bandwidth consumption is via static deltas.
+OSTree имеет встроенную простую репликацию HTTP, которая может обслуживаться со статического веб-сервера, 
+тогда как olpc-update использует rsync (больше нагрузки на сервер, но более эффективно на сетевой стороне). 
+Решение OSTree для улучшения пропускной способности сети - это статические дельты.
 
-See this comment for a comparison.
+См. [Этот комментарий](https://blog.verbum.org/2013/08/26/ostree-v2013-6-released/#comment-1169) для сравнения. 
 
 ## NixOS / Nix
 
-See NixOS. It was a very influential project for OSTree. NixOS and OSTree both support the idea of independent “roots” that are bootable.
+См. [NixOS](https://nixos.org/). Этоn проект очень похож на OSTree. 
+И NixOS, и OSTree поддерживают идею независимых загрузочных «корневых файловых систем».
 
-In NixOS, files in a package are accessed by a path depending on the checksums of package inputs (build dependencies) - see Nix store. However, OSTree uses a commit/deploy model - it isn’t tied to any particular directory layout, and you can put whatever data you want inside an OSTree, for example the standard FHS layout. A both positive and negative of the Nix model is that a change in the build dependencies (e.g. being built with a newer gcc), requires a cascading rebuild of everything. It’s good because it makes it easy to do massive system-wide changes such as gcc upgrades, and allows installing multiple versions of packages at once. However, a security update to e.g. glibc forces a rebuild of everything from scratch, and so Nix is not practical at scale. OSTree supports using a build system that just rebuilds individual components (packages) as they change, without forcing a rebuild of their dependencies.
+В NixOS доступ к файлам в пакете осуществляется по пути, зависящему от контрольных сумм входных данных пакета (зависимости сборки) - см. 
+[Магазин Nix](https://nixos.org/manual/nix/stable/#chap-package-management/). 
+Однако OSTree использует модель commit/deploy - она ​​не привязана к какому-либо конкретному макету каталога, и вы можете поместить любые данные в OSTree, например, стандартный макет FHS. 
+Как положительный, так и отрицательный момент модели Nix заключается в том, что изменение зависимостей сборки (например, сборка с использованием более новой версии gcc) требует каскадной перестройки всего. 
+Это хорошо, потому что позволяет легко вносить масштабные общесистемные изменения, такие как обновления gcc, и позволяет одновременно устанавливать несколько версий пакетов. 
+Однако обновление безопасности, например, glibc вынуждает перестраивать все с нуля, поэтому Nix непрактичен в определнных условиях. 
+OSTree поддерживает использование системы сборки, которая просто перестраивает отдельные компоненты (пакеты) по мере их изменения без принудительного перестроения их зависимостей.
 
-Nix automatically detects runtime package dependencies by scanning content for hashes. OSTree only supports only system-level images, and doesn’t do dependency management. Nix can store arbitrary files, using nix-store –add, but, more commonly, paths are added as the result of running a derivation file generated using the Nix language. OSTree is build-system agnostic; filesystem trees are committed using a simple C API, and this is the only way to commit files.
+Nix автоматически определяет зависимости пакетов во время выполнения, сканируя содержимое на предмет хэшей. 
+OSTree поддерживает только образы системного уровня и не управляет зависимостями. 
+Nix может хранить произвольные файлы с помощью `nix-store –add`, но чаще всего пути добавляются в результате запуска производного файла, созданного с использованием языка Nix. 
+OSTree не зависит от системы сборки; деревья файловых систем коммитятся с использованием простого C API, и это единственный способ закомиттить файлы.
 
-OSTree automatically shares the storage of identical data using hard links into a content-addressed store. Nix can deduplicate using hard links as well, using the auto-optimise-store option, but this is not on by default, and Nix does not guarantee that all of its files are in the content-addressed store. OSTree provides a git-like command line interface for browsing the content-addressed store, while Nix does not have this functionality.
+OSTree автоматически разделяет хранилище идентичных данных с помощью жестких ссылок. 
+Nix также может выполнять дедупликацию с использованием жестких ссылок, используя параметр `auto-optimize-store`, но он не включен по умолчанию. 
+OSTree предоставляет интерфейс командной строки, похожий на git, для просмотра хранилища с адресным содержимым, в то время как Nix не имеет этой функции.
 
-Nix used to use the immutable bit to prevent modifications to /nix/store, but now it uses a read-only bind mount. The bind mount can be privately remounted, allowing per-process privileged write access. OSTree uses the immutable bit on the root of the deployment, and mounts /usr as read-only.
+Nix использовал неизменяемый бит для предотвращения изменений в `/nix/store`, но теперь он использует монтирование привязки только для чтения. 
+Bind mount может быть перемонтирован в частном порядке, что обеспечивает привилегированный доступ для записи для каждого процесса. 
+OSTree использует неизменяемый бит в корне развертывания и монтирует /usr как доступный только для чтения.
 
-NixOS supports switching OS images on-the-fly, by maintaining both booted-system and current-system roots. It is not clear how well this approach works. OSTree currently requries a reboot to switch images.
+NixOS поддерживает переключение образов ОС на лету, поддерживая корни загруженной системы и текущей системы. Неясно, насколько хорошо работает этот подход. OSTree в настоящее время требует перезагрузки для переключения образов.
 
-Finally, NixOS supports installing user-specific packages from trusted repositories without requiring root, using a trusted daemon. Flatpak, based on OSTree, similarly has a policykit-based system helper that allows you to authenticate via polkit to install into the system repository.
+Наконец, NixOS поддерживает установку пользовательских пакетов из доверенных репозиториев без необходимости получения прав root, используя доверенный демон. 
+Flatpak, основанный на OSTree, также имеет системный помощник на основе набора политик, который позволяет вам аутентифицироваться через polkit для установки в системный репозиторий. 
 
 ## Solaris IPS
 
-See Solaris IPS. Broadly, this is a similar design as to a combination of BTRFS+RPM/deb. There is a bootloader management system which combines with the snapshots. It’s relatively well thought through - however, it is a client-side system assembly. If one wants to image servers and replicate reliably, that’d be a different system.
+См. [Solaris IPS](https://github.com/oracle/solaris-ips). 
+В целом, это дизайн, аналогичный комбинации BTRFS+RPM/deb. Есть система управления загрузчиком, которая комбинируется со снимками. Он относительно хорошо продуман, но представляет собой сборку системы на стороне клиента. Если кто-то хочет создавать образы серверов и надежно реплицировать их, это будет другая система.
 
-## Google servers (custom rsync-like approach, live updates)
+## Серверы Google (индивидуальный подход, подобный rsync, обновления в реальном времени)
 
-This paper talks about how Google was (at least at one point) managing updates for the host systems for some servers: Live Upgrading Thousands of Servers from an Ancient Red Hat Distribution to 10 Year Newer Debian Based One (USENIX LISA 2013)
+В этом документе рассказывается о том, как Google (по крайней мере, в один момент) управлял обновлениями для хост-систем для некоторых серверов: 
+[Live Upgrading Thousands of Servers from an Ancient Red Hat Distribution to 10 Year Newer Debian Based One](https://www.usenix.org/conference/lisa13/technical-sessions/presentation/merlin).
 
-## Conary
+## Конари
 
-See Conary Updates and Rollbacks. If rpm/dpkg are like CVS, Conary is closer to Subversion. It’s not bad, but e.g. its rollback model is rather ad-hoc and not atomic. It also is a fully client side system and doesn’t have an image-like replication with deltas.
+См. [Conary](https://github.com/sassoftware/conary). 
+Если rpm/dpkg похожи на CVS, Conary ближе к Subversion. Это неплохо, но например его модель отката скорее спонтанная, а не атомарная. Это также полностью клиентская система и не имеет репликации, подобной изображению, с дельтами.
 
 # bmap
-See bmap. A tool for optimized copying of disk images. Intended for offline use, so not directly comparable.
+См. [Bmap](https://source.tizen.org/documentation/reference/bmaptool/introduction). 
+Инструмент для оптимизированного копирования образов дисков. Предназначен для использования в автономном режиме, поэтому напрямую не сопоставим.
 
 ## Git
 
-Although OSTree has been called “Git for Binaries”, and the two share the idea of a hashed content store, the implementation details are quite different. OSTree supports extended attributes and uses SHA256 instead of Git’s SHA1. It “checks out” files via hardlinks, rather than copying, and thus requires the checkout to be immutable. At the moment, OSTree commits may have at most one parent, as opposed to Git which allows an arbitrary number. Git uses a smart-delta protocol for updates, while OSTree uses 1 HTTP request per changed file, or can generate static deltas.
+Хотя OSTree был назван «Git for Binaries», и оба они разделяют идею хранилища хешированного содержимого, детали реализации совершенно разные. 
+OSTree поддерживает расширенные атрибуты и использует SHA256 вместо SHA1 Git. 
+Он “checks out” файлы через жесткие ссылки, а не копирует, и поэтому требует, чтобы checksout был неизменным. 
+На данный момент коммиты OSTree могут иметь не более одного родителя, в отличие от Git, который допускает произвольное число. 
+Git использует протокол smart-delta для обновлений, в то время как OSTree использует один HTTP-запрос на каждый измененный файл или может генерировать статические дельты. 
 
 ## Conda
 
