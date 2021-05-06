@@ -241,20 +241,21 @@ Docker (изначально) разделяет хранилище только
 
 ## Docker-related: Balena
 
-The Balena project forks Docker and aims to even use Docker/OCI format for the root filesystem, and adds wire deltas using librsync. See also discussion on libostree-list.
+Проект [Balena](https://github.com/balena-os/balena-engine) разветвляет Docker и нацелен даже на использование формата Docker/OCI для корневой файловой системы и добавляет дельты  с помощью librsync. См. также [обсуждение списка libostree-list](https://mail.gnome.org/archives/ostree-list/2017-December/msg00002.html).
 
-## Torizon Platform
+## Платформа Torizon
 
-Torizon is an open-source software platform that simplifies the development and maintenance of embedded Linux software. It is designed to be used out-of-the-box on devices requiring high reliability, allowing you to focus on your application and not on building and maintaining the operating system.
+[Torizon](https://www.toradex.com/operating-systems/torizon) - это программная платформа с открытым исходным кодом, которая упрощает разработку и обслуживание встроенного программного обеспечения Linux. Он разработан для использования в готовом виде на устройствах, требующих высокой надежности, что позволяет вам сосредоточиться на своем приложении, а не на создании и обслуживании операционной системы.
 
 ### TorizonCore
 
-The platform OS - TorizonCore - is a minimal OS with a Docker runtime and libostree + Aktualizr. The main goal of this system is to allow application developers to use containers, while the maintainers of TorizonCore focus on the base system updates.
+ОС платформы - [TorizonCore](https://developer.toradex.com/knowledge-base/torizoncore-overview) - это минимальная ОС со средой выполнения Docker и libostree + Aktualizr. Основная цель этой системы - позволить разработчикам приложений использовать контейнеры, в то время как разработчики TorizonCore сосредоточены на обновлениях базовой системы.
 
 ### TorizonCore Builder
 
-Since the TorizonCore OS is meant as a binary distribution, OS customization is made easier with TorizonCore Builder, as the tool abstracts the handling of OSTree concepts from the final users.
+Так как TorizonCore OS задумана как двоичный дистрибутив, настройка ОС упрощается с помощью [TorizonCore Builder](https://developer.toradex.com/knowledge-base/torizoncore-builder-tool), 
+поскольку инструмент абстрагирует обработку концепций OSTree от конечных пользователей.
 
-### Torizon OTA
+### Torizon ОТА
 
-Torizon OTA is a hosted OTA update system that provides OS updates to TorizonCore using OSTree and Aktualizr.
+[Torizon OTA](https://developer.toradex.com/knowledge-base/torizon-update-system) - это размещенная система обновлений OTA, которая предоставляет обновления ОС для TorizonCore с помощью OSTree и Aktualizr. 
