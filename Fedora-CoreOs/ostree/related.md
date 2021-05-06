@@ -217,23 +217,27 @@ Git использует протокол smart-delta для обновлени�
 
 ## Docker
 
-It makes sense to compare OSTree and Docker as far as wire formats go. OSTree is not itself a container tool, but can be used as a transport/storage format for container tools.
+Имеет смысл сравнить OSTree и Docker. 
+OSTree сам по себе не является контейнерным инструментом, но может использоваться в качестве формата транспортировки / хранения для контейнерных инструментов.
 
-Docker has (at the time of this writing) two format versions (v1 and v2). v1 is deprecated, so we’ll look at format version 2.
+Docker имеет (на момент написания) две версии формата (v1 и v2). v1 устарела, поэтому мы рассмотрим формат версии 2.
 
-A Docker image is a series of layers, and a layer is essentially JSON metadata plus a tarball. The tarballs capture changes between layers, including handling deleting files in higher layers.
+Образ Docker представляет собой серию слоев, а слой, по сути, представляет собой метаданные JSON и архив. Архивы фиксируют изменения между слоями, включая обработку удаления файлов на более высоких уровнях.
 
-Because the payload format is just tar, Docker hence captures (numeric) uid/gid and xattrs.
+Поскольку формат docker-образа - это просто tar, Docker, следовательно, захватывает (числовые) uid / gid и xattrs.
 
-This “layering” model is an interesting and powerful part of Docker, allowing different images to reference a shared base. OSTree doesn’t implement this natively, but it’s not difficult to implement in higher level tools. For example in flatpak, there’s a concept of a SDK and runtime, and it would make a lot of sense for the SDK to depend on the runtime, to avoid clients downloading data twice (even if it’s deduplicated on disk).
+Эта «многоуровневая» модель - интересная и мощная часть Docker, позволяющая различным образам ссылаться на общую базу. 
+OSTree не реализует это изначально, но это несложно реализовать в инструментах более высокого уровня. 
 
-That gets to an advantage of OSTree over Docker; OSTree checksums individual files (not tarballs), and uses this for deduplication. Docker (natively) only shares storage via layering.
 
-The biggest feature OSTree has over Docker though is support for (static) deltas, and even without pre-configured static deltas, the archive format has “natural” deltas. Particularly for a “base operating system”, one really wants on-wire deltas. It’d likely be possible to extend Docker with this concept.
+Это дает преимущество OSTree перед Docker; OSTree использует контрольные суммы отдельных файлов (не архивов) для дедупликации. 
+Docker (изначально) разделяет хранилище только через слои.
 
-A core challenge both share is around metadata (particularly signing) and search/discovery (the ostree summary file doesn’t scale very well).
+Самая большая фишка OSTree по сравнению с Docker - это поддержка (статических) дельт, и даже без предварительно настроенных статических дельт формат архива имеет «естественные» дельты. 
+Особенно для «базовой операционной системы» действительно нужны дельты. Вероятно, можно будет расширить Docker с помощью этой концепции.
 
-One major issue Docker has is that it checksums compressed data, and furthermore the tar format is flexible, with multiple ways to represent data, making it hard to impossible to reassemble and verify from on-disk state. The tarsum effort was intended to address this, but it was not adopted in the end for v2.
+Одна из основных проблем Docker заключается в том, что он использует контрольные суммы сжатых данных, и, кроме того, формат tar является гибким, с несколькими способами представления данных, что затрудняет повторную сборку и проверку состояния на диске. 
+Усилия по включение в протокол Вщслук tarsum были предназначены для решения этой проблемы, но в итоге не были приняты для v2. 
 
 ## Docker-related: Balena
 
