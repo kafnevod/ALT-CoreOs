@@ -205,15 +205,15 @@ Git использует протокол smart-delta для обновлени�
 
 ## Conda
 
-Conda is an “OS-agnostic, system-level binary package manager and ecosystem”; although most well-known for its accompanying Python distribution anaconda, its scope has been expanding quickly. The package format is very similar to well-known ones such as RPM. However, unlike typical RPMs, the packages are built to be relocatable. Also, the package manager runs natively on Windows. Conda’s main advantage is its ability to install collections of packages into “environments” by unpacking them all to the same directory. Conda reduces duplication across environments using hardlinks, similar to OSTree’s sharing between deployments (although Conda uses package / file path instead of file hash). Overall, it is quite similar to rpm-ostree in functionality and scope.
+[Conda](https://conda.io/en/latest/) - это «менеджер бинарных пакетов системного уровня и экосистема, не зависящий от ОС»; Хотя он наиболее известен своим сопутствующим дистрибутивом Python anaconda, его объем быстро расширяется. Формат пакета очень похож на такие известные форматы, как RPM. Однако, в отличие от типичных RPM, пакеты созданы с возможностью перемещения. Кроме того, менеджер пакетов изначально работает в Windows. Основным преимуществом Conda является ее способность устанавливать коллекции пакетов в «среды», распаковывая их все в один и тот же каталог. Conda уменьшает дублирование между средами с помощью жестких ссылок, аналогично обмену OSTree между развертываниями (хотя Conda использует путь к пакету / файлу вместо хеша файла). В целом, он очень похож на rpm-ostree по функциональности и объему.
 
 ## rpm-ostree
 
-This builds on top of ostree to support building RPMs into OSTree images, and even composing RPMs on-the-fly using an overlay filesystem. It is being developed by Fedora, Red Hat, and CentOS as part of Project Atomic.
+Он построен на основе ostree для поддержки встраивания RPM в образы OSTree и даже создания RPM на лету с использованием файловой системы overlay. Он разрабатывается Fedora, Red Hat и CentOS как часть Project Atomic.
 
 ## GNOME Continuous
 
-This is a service that incrementally rebuilds and tests GNOME on every commit. The need to make and distribute snapshots for this system was the original inspiration for ostree.
+Это сервис, который постепенно перестраивает и тестирует GNOME при каждого коммита. Первоначальным источником вдохновения для ostree была необходимость создавать и распространять снимки состояния этой системы. 
 
 ## Docker
 
