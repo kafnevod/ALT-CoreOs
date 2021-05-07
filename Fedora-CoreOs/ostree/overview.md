@@ -2,10 +2,9 @@
 
 -    Введение
 -    Пример Hello World
--    Comparison with “package managers”
--    Comparison with block/image replication
--    Atomic transitions between parallel-installable read-only filesystem trees
-        Licensing for this document:
+-    Сравнение с «менеджерами пакетов» rpm, dpkg, ...
+-    Сравнение с репликацией блоков/образов (image based)
+
 ## Введение
 
 `OSTree` - это система обновления для операционных систем на базе `Linux`, которая выполняет атомарное обновление полных деревьев файловых систем. 
