@@ -1,5 +1,5 @@
 - [libostree](libostree.md)
-- [OSTree Overview](overview.md)
+- [Обзор OSTree](overview.md)
 - [Anatomy of an OSTree repository](anatomy.md)
 - [Deployments](deployments.md);
 - [Atomic Upgrades](atomic.md);
