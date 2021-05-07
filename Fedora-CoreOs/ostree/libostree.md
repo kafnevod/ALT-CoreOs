@@ -1,12 +1,9 @@
 # libostree
 
-    - Operating systems and distributions using OSTree
-    - Distribution build tools
-    - Projects linking to libostree
+    - Операционные системы и дистрибутивы, использующие OSTree 
+    - Инструменты сборки дистрибутива
+    - Проекты, связанные с libostree
     - Language bindings
-    - Building
-    - Contributing
-    - Licensing
 
 Этот проект теперь известен как «`libostree`», хотя по-прежнему уместно использовать предыдущее название: «`OSTree`» (или «`ostree`»).  Однако в большей части остальной документации мы будем использовать термин «`OSTree`», поскольку он немного короче, и изменять сразу всю документацию нецелесообразно. Мы ожидаем перехода на новое имя со временем. 
 
