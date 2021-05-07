@@ -1,7 +1,7 @@
 - [libostree](libostree.md)
 - [Обзор OSTree](overview.md)
 - [Анатомия репозитория OSTree](anatomy.md)
-- [Deployments](deployments.md);
+- [Разворачивания (Deployments)](deployments.md);
 - [Atomic Upgrades](atomic.md);
 - [Adapting existing mainstream distributions](distributions.md);
 - [OSTree data formats](dataformats.md);
