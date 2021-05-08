@@ -1,16 +1,14 @@
 # Форматы данных OSTree 
 
-    On the topic of “smart servers”
-    The archive format
-    archive efficiency
-    Aside: the bare and bare-user formats
-    Static deltas
-    Static delta repository layout
-    Static delta internal structure
-        The delta superblock
-    A delta part
-    Fallback objects
-        Licensing for this document:
+- По теме «умных серверов»
+- Формат archive
+- Эффективность формата archive
+- bare и bare-user форматы
+- Статические дельты
+- Статический макет дельта-репозитория
+- Статическая дельта - внутренняя структура
+- Дельта суперблок
+- Дельта-часть
 
 ## По теме «умных серверов»
 
