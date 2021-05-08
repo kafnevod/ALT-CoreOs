@@ -3,7 +3,7 @@
 - [Анатомия репозитория OSTree](anatomy.md)
 - [Разворачивания (Deployments)](deployments.md);
 - [Atomic Upgrades](atomic.md);
-- [Adapting existing mainstream distributions](distributions.md);
+- [Адаптация существующих основных дистрибутивов](distributions.md);
 - [OSTree data formats](dataformats.md);
 - [Writing a buildsystem and managing repositories](buildandnmanage.md);
 - [Managing content in OSTree repositories](contentmanage.md);
