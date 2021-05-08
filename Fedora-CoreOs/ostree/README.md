@@ -5,7 +5,7 @@
 - [Атомные апгрейды](atomic.md);
 - [Адаптация существующих основных дистрибутивов](distributions.md);
 - [Форматы данных OSTree](dataformats.md);
-- [Writing a buildsystem and managing repositories](buildandnmanage.md);
+- [Написание системы сборки и управление репозиториями](buildandnmanage.md);
 - [Managing content in OSTree repositories](contentmanage.md);
 - [Related Projects](related.md);
 - [Contributing](contributing.md);
