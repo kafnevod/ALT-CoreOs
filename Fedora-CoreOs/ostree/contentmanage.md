@@ -1,4 +1,4 @@
-# Managing content in OSTree repositories
+# Управление контентом в репозиториях OSTree
 
     Mirroring repositories
     Separate development vs release repositories
