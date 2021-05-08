@@ -1,12 +1,10 @@
 # Разворачивания (Deployments)
 
-    - Обзор
-    - «stateroot» (также известный как «osname»): группа развертываний (deployments) с общим /var
-    Overview
-        “stateroot” (AKA “osname”): Group of deployments that share /var
-        Contents of a deployment
-        The system /boot
-            Licensing for this document:
+- Обзор
+- «stateroot» (также известный как «osname»): группа развертываний (deployments) с общим /var
+  * *Пример структуры файловой системы для Fedora Core*
+- Содержимое развертывания (deployment)
+- Загрузка системы - каталог /boot
 
 ## Обзор
 
@@ -33,11 +31,27 @@
 (например, `/var/cache/$daemonname`) 
 и для управления обновлением форматов данных внутри этих каталогов. 
 
-### Пример структуры файловой системы для Fedora Core
+### *Пример структуры файловой системы для Fedora Core*
 
+На диаграмме показаны два каталога развертывания `stateroot` `fedora-coreos` c общим кататлоги `/var`:
+- 852db2d2695a8fa71b1288509e241f58d39dcc54aacf3867350b7c75485390dd.0 
+- b27505f8f716998347c433e0988d433cef1d7f1b0ebead2bf7377be7122df310.0
 
+Каталог `/var/` располагается тропе `/sysroot/ostree/deploy/fedora-coreos/var/` (`/ostree/deploy/fedora-coreos/var/` по символической ссылке `/ostree` -> /`sysroot/ostree/`).
+Развертывания располагаются в каталоге `/sysroot/ostree/deploy/fedora-coreos/deploy/`(`/ostree/deploy/fedora-coreos/deploy/` по символической ссылке `/ostree` -> `/sysroot/ostree/`).
 
+На этаре развертывания ОС ostree обеспечивает монтирование (`bind mount`) текущего каталога развертывания `852db2d2695a8fa71b1288509e241f58d39dcc54aacf3867350b7c75485390dd` на корневой каталог файловой системы (`/`) и общего каталога `/sysroot/ostree/deploy/fedora-coreos/var/` на корневой каталог `/var/`
 ![Пример структуры файловой системы для Fedora Core](./Images/stateroot.png)
+Символические привязки корневых каталогов:
+- `/home` -> `/var/home`;
+- `/opt` -> `/var/opt`;
+- `/ostree`-> `/sysroot/ostree`;
+- `/root` -> `/var/roothome`;
+- `/sbin` -> `/usr/sbin`;
+- `/srv` -> `/var/srv`;
+- `/usr/local` -> `/var/usrlocal`.
+
+
 
 ## Содержимое развертывания (deployment)
 
