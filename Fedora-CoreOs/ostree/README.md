@@ -7,6 +7,6 @@
 - [Форматы данных OSTree](dataformats.md);
 - [Написание системы сборки и управление репозиториями](buildandnmanage.md);
 - [Управление контентом в репозиториях OSTree](contentmanage.md);
-- [Related Projects](related.md);
+- [Cвязанные проекты](related.md);
 - [Contributing](contributing.md);
 - [OSTree Contributing Tutorial](contribubingTutorial.md);
