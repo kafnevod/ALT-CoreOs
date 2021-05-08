@@ -1,9 +1,9 @@
 # Адаптация существующих основных дистрибутивов 
-    System layout
-    Booting and initramfs technology
-    /usr/lib/passwd
-    Adapting existing package managers
-        Licensing for this document:
+
+- Схема файловой системы
+- Загрузка и технология initramfs
+- /usr/lib/passwd
+- Адаптация существующих менеджеров пакетов
 
 ## Схема файловой системы
 
