@@ -1,4 +1,4 @@
-# Writing a buildsystem and managing repositories
+# Написание системы сборки и управление репозиториями 
 
     Build vs buy
     Initializing
