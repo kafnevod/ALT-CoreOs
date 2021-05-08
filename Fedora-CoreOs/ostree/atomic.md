@@ -1,13 +1,12 @@
- # Atomic Upgrades
-
-    You can turn off the power anytime you want…
-    Simple upgrades via HTTP
-    Upgrades via external tools (e.g. package managers)
-    Assembling a new deployment directory
-    Atomically swapping boot configuration
-    The bootversion
-    The /ostree/boot directory
-        Licensing for this document:
+ # Атомные апгрейды
+ 
+ - Вы можете выключить питание в любое время…
+ - Простое обновление через HTTP
+ - Обновления с помощью внешних инструментов (например, менеджеров пакетов)
+ - Сборка нового каталога развертывания
+ - Атомарная замена загружаемых конфигурации 
+ - Загрузочная версия
+ - Каталог /ostree/boot
 
 ## Вы можете выключить питание в любое время…
 
