@@ -1,12 +1,10 @@
 # Разворачивания (Deployments)
 
-    - Обзор
-    - «stateroot» (также известный как «osname»): группа развертываний (deployments) с общим /var
-    Overview
-        “stateroot” (AKA “osname”): Group of deployments that share /var
-        Contents of a deployment
-        The system /boot
-            Licensing for this document:
+- Обзор
+- «stateroot» (также известный как «osname»): группа развертываний (deployments) с общим /var
+  * *Пример структуры файловой системы для Fedora Core*
+- Содержимое развертывания (deployment)
+- Загрузка системы - каталог /boot
 
 ## Обзор
 
@@ -33,7 +31,7 @@
 (например, `/var/cache/$daemonname`) 
 и для управления обновлением форматов данных внутри этих каталогов. 
 
-### Пример структуры файловой системы для Fedora Core
+### *Пример структуры файловой системы для Fedora Core*
 
 
 
