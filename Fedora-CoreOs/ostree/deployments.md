@@ -59,6 +59,18 @@
 На данный момент `OSTree` поддерживает обновление только одного `refspec`. 
 Однако в будущем `OSTree `может поддерживать синтаксис для создания слоев деревьев. 
 
+## Загрузка системы - каталог /boot
+
+Кроме поддержки разворачиваний в каталоге `ostree/deploy` OSTree  должен управлять системным каталогом `/boot` для начальной загрузки системы. 
+Это поддерживается через спецификацию загрузчика, которая является стандартом для файлов конфигурации, не зависящих от загрузчика.
+
+Когда дерево развернуто, у него будет сгенерированный файл конфигурации вида  `/boot/loader/entries/ostree-$stateroot-$checksum.$serial.conf`. 
+Этот файл конфигурации будет включать специальный аргумент `ostree = kernel`, который позволяет `initramfs` найти (и `chroot()` в) указанное развертывание.
+
+В настоящее время не все загрузчики реализуют `BootLoaderSpec`, поэтому `OSTree` содержит код для некоторых из них для восстановления собственных файлов конфигурации 
+(таких как `/boot/syslinux/syslinux.conf`). 
+
+
 ### *Пример структуры файловой системы для Fedora Core*
 
 На диаграмме показаны два каталога развертывания `stateroot` `fedora-coreos` c общим кататлоги `/var`:
@@ -80,15 +92,21 @@
 - `/usr/local` -> `/var/usrlocal`.
 
  Каталог `/usr/etc` содержит конфигурацию развертывания по умолчению каталога `/etc`. 
-
-
-## Загрузка системы - каталог /boot
-
-Кроме поддержки разворачиваний в каталоге `ostree/deploy` OSTree  должен управлять системным каталогом `/boot` для начальной загрузки системы. 
-Это поддерживается через спецификацию загрузчика, которая является стандартом для файлов конфигурации, не зависящих от загрузчика.
-
-Когда дерево развернуто, у него будет сгенерированный файл конфигурации вида  `/boot/loader/entries/ostree-$stateroot-$checksum.$serial.conf`. 
-Этот файл конфигурации будет включать специальный аргумент `ostree = kernel`, который позволяет `initramfs` найти (и `chroot()` в) указанное развертывание.
-
-В настоящее время не все загрузчики реализуют `BootLoaderSpec`, поэтому `OSTree` содержит код для некоторых из них для восстановления собственных файлов конфигурации 
-(таких как `/boot/syslinux/syslinux.conf`). 
+ 
+ Содержимое файлов каталога `/boot/loader/entries/`:
+ - ostree-1-fedora-coreos.conf:
+ ```
+ title Fedora CoreOS 33.20210412.3.0 (ostree:1)
+version 1
+options mitigations=auto,nosmt systemd.unified_cgroup_hierarchy=0 console=tty0 console=ttyS0,115200n8 ignition.platform.id=metal $ignition_firstboot ostree=/ostree/boot.0/fedora-coreos/a9e9f9f34c4f1ee9f39e17a75fc97c62034cbae378484823d56cac6107e5834a/0 root=UUID=1c62da21-1137-4f3c-9a62-b0b086de7c36 rw rootflags=prjquota
+linux /ostree/fedora-coreos-a9e9f9f34c4f1ee9f39e17a75fc97c62034cbae378484823d56cac6107e5834a/vmlinuz-5.10.19-200.fc33.x86_64
+initrd /ostree/fedora-coreos-a9e9f9f34c4f1ee9f39e17a75fc97c62034cbae378484823d56cac6107e5834a/initramfs-5.10.19-200.fc33.x86_64.img
+```
+- ostree-2-fedora-coreos.conf:
+```
+title Fedora CoreOS 33.20210426.3.0 (ostree:0)
+version 2
+options mitigations=auto,nosmt systemd.unified_cgroup_hierarchy=0 console=tty0 console=ttyS0,115200n8 ignition.platform.id=metal $ignition_firstboot ostree=/ostree/boot.0/fedora-coreos/ff06852db1347503e4a59eb2ffd20772fd415f2bdd0abc7dd4b41272a56b3579/0 root=UUID=1c62da21-1137-4f3c-9a62-b0b086de7c36 rw rootflags=prjquota
+linux /ostree/fedora-coreos-ff06852db1347503e4a59eb2ffd20772fd415f2bdd0abc7dd4b41272a56b3579/vmlinuz-5.11.15-200.fc33.x86_64
+initrd /ostree/fedora-coreos-ff06852db1347503e4a59eb2ffd20772fd415f2bdd0abc7dd4b41272a56b3579/initramfs-5.11.15-200.fc33.x86_64.img
+```
