@@ -4,7 +4,7 @@
 - [Разворачивания (Deployments)](deployments.md);
 - [Атомные апгрейды](atomic.md);
 - [Адаптация существующих основных дистрибутивов](distributions.md);
-- [OSTree data formats](dataformats.md);
+- [Форматы данных OSTree](dataformats.md);
 - [Writing a buildsystem and managing repositories](buildandnmanage.md);
 - [Managing content in OSTree repositories](contentmanage.md);
 - [Related Projects](related.md);
