@@ -1,4 +1,4 @@
-# Related Projects
+# Cвязанные проекты
 
     Combining dpkg/rpm + (BTRFS/LVM)
     ChromiumOS updater
