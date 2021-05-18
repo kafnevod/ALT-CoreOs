@@ -5,6 +5,7 @@
 - [Описание дистрибутива Fedore CoreOs](Fedora-CoreOs/README.md)
 - [Сравнение программного обеспечения Fedora Core и дистрибутивов ALT](softwareCompare.md)
 - [Адаптация](adaptation.md)
+- [Доклад на конференции в Переславль-Залесском](pereslavl/README.md)
 
 ## Ссылки:
 - [Установка Fedora CoreOs потоков Stable, Testing, Next](https://getfedora.org/ru/coreos);
