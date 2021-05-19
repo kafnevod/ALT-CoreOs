@@ -9,5 +9,9 @@
 
 ## Список литературы
 
+## Ссылки
+
+- [Fedora CoreOS Introduction - Dusty Mabe (Red Hat)](https://www.youtube.com/watch?v=JepNm7R0LSo)
+
 
 
