@@ -11,6 +11,17 @@
 
 ![Предшественники](./Images/parents.png)
 
+- Заимствования из Container Linux: 
+  * Философия
+  * Стек поддержки (Provision Stack?)
+  * опыт развертывания в облаках различного типа.
+- Заимствования из Atomic Host:
+  * Fedora Foundation;
+  * Стек обновления дистрибутива;
+  * SeLinux Enhanced Security.
+
+
+
 ## Список литературы
 
 ## Ссылки
