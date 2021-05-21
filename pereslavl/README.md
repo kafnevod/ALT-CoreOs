@@ -83,8 +83,8 @@
 `ignition` | Утилита для управления дисками во время начальной установки системы | **портирована**
 `dracut` | Инструментарий создания  файловой системы начальной загрузки  `initramfs` | **портирован**  | В рамках ALTLinux используется собственный технологический процесс создания `initrams` 
 `butane` | Утилита конвертации файлов описания конфигурации из формата `YAML` в формат `JSON Ignition` | - | Достаточно простая утилита
-`coreos-installer` | Поограмма установки `CoreOs` | - | Возможно создание собственной программы
-`rpm-ostree` | Аналог программы установки RPM-пакетов в файловую систему `ostree` | - | Возможно потребуется не весь функционал
+`coreos-installer` | Программа установки `CoreOs` | - | Возможно создание собственной программы
+`rpm-ostree` | Аналог программы `apt-get` установки RPM-пакетов в файловую систему `ostree` | - | Возможно потребуется не весь функционал
 
 
 
@@ -92,10 +92,12 @@
 
 
 ## Список литературы
-
-## Ссылки
-
+- [Fedora CoreOS Documentation](https://docs.fedoraproject.org/en-US/fedora-coreos/);
+- [Ostee Documentation](https://ostreedev.github.io/ostree/)
 - [Fedora CoreOS Introduction - Dusty Mabe (Red Hat)](https://www.youtube.com/watch?v=JepNm7R0LSo)
+- [Fedora IoT.Основа для экосистем Интернета вещей и Device Edge](https://getfedora.org/ru/iot/)
+- [Российский разработчик операционных систем «Альт»](https://www.basealt.ru/)
+- [Репозиторий Sisyphus](http://www.sisyphus.ru/)
 
 
 
