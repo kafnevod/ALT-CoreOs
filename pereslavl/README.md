@@ -103,7 +103,7 @@
 - [Ostee Documentation](https://ostreedev.github.io/ostree/)
 - [Fedora CoreOS Introduction - Dusty Mabe (Red Hat)](https://www.youtube.com/watch?v=JepNm7R0LSo)
 - [Let's Talk About Fedora CoreOS (FCOS)](https://www.youtube.com/watch?v=yT5BP_hnqRE)
-- Интернет вещей (Вики) - https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82_%D0%B2%D0%B5%D1%89%D0%B5%D0%B9
+- [Интернет вещей (Вики)](https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82_%D0%B2%D0%B5%D1%89%D0%B5%D0%B9)
 - [Fedora IoT.Основа для экосистем Интернета вещей и Device Edge](https://getfedora.org/ru/iot/)
 - [Российский разработчик операционных систем «Альт»](https://www.basealt.ru/)
 - [Репозиторий Sisyphus](http://www.sisyphus.ru/)
