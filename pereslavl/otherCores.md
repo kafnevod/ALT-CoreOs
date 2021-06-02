@@ -4,6 +4,7 @@
   * [What is Ubuntu Core?](https://ubuntu.com/core/docs/what-is-ubuntu-core)
   * [Image building](https://ubuntu.com/core/docs/image-building)
 - [CoreOS](https://ru.wikipedia.org/wiki/CoreOS)
+- [Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/)
 
 ## Обзор
 
@@ -27,4 +28,4 @@
 
 Судя по ссылкам полностью поглощена RedHat
 
-
+### 
