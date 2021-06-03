@@ -15,7 +15,8 @@
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core 
 ------------|---------------|------------|-------------------------|-------------
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ububtu 
-Платформа   | x86_64 | x86_64, aarch64, armhfp |                   |
+Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS
+Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      |
 Ниша | Cloud, VM, BM        |  E         |                        |
 ПО мультидеплоя | ostree    | ostree      |                        | snap
 Ignition    |  Да           | Да          | Да                     | 
