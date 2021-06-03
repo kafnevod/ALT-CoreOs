@@ -11,8 +11,8 @@
 
 ## Обзор
 
-Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core 
-------------|---------------|------------|-------------------------|-------------
+Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS
+------------|---------------|------------|-------------------------|-------------|-----------|----------
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu 
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64
