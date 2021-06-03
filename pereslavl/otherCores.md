@@ -41,4 +41,26 @@ Fedora IoT | Frdora |  | Интернет вещей | ostree | Да| разве
 [Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS)|  | | | | | | | | |
 [GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous)|  | | | | | | | | | 
 
+Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core 
+------------|---------------|------------|-------------------------|-------------
+Пакетная база | Fedora      | Fedora     | Gentoo                  | Ububtu 
+Платформа   | x86_64 | x86_64, aarch64, armhfp |                   |
+Ниша | Cloud, VM, BM        |  E          |                        |
+ПО мультидеплоя | ostree    | ostree      |                        |
+Ignition    |  Да           | Да          | Да                     | 
+Атомарность | развертывания | развертывания | развертывания        | 
+Автообновление | Да         | Да          | Да                     | 
+Хранение развертываний | H  | H           | S 
+Откат(rollback) | Да         | Да          | 
+ReadOnly дерево | /usr      | /usr        |
+
+Нишы:
+- Cloud - мультиоблачный кластер
+- VM - вирруальные машины
+- BM - голое железо (Bare Metal)
+- E - встраиваемые устройства (Embedded devices )
+
+Хранение развертываний:
+- H - Деревья rfnfkjujd залинкованных (HardLink) на общую базу файлов-объектов
+- S - Отдельные (Separate) деревья
 
