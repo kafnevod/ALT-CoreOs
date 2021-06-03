@@ -4,7 +4,7 @@
   * [What is Ubuntu Core?](https://ubuntu.com/core/docs/what-is-ubuntu-core)
   * [Image building](https://ubuntu.com/core/docs/image-building)
 - [CoreOS](https://ru.wikipedia.org/wiki/CoreOS)
-- [Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/)
+- [Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (CoreOS Container Linux)
 - [Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades)
 - [Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS)
 - [GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous)
