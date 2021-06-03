@@ -11,7 +11,6 @@
 
 ## Обзор
 
-
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core 
 ------------|---------------|------------|-------------------------|-------------
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ububtu 
@@ -19,6 +18,7 @@
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      |
 Ниша | Cloud, VM, BM        |  E         |                        |
 ПО мультидеплоя | ostree    | ostree      |                        | snap
+Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy 
 Ignition    |  Да           | Да          | Да                     | 
 Атомарность | развертывания | развертывания | развертывания        | 
 Автообновление | Да         | Да          | Да                     | 
