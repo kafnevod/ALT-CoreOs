@@ -20,7 +20,7 @@
   *  Signing a model assertion
   *  Building the image
 
-### CoreOS (Cmtainer Linux
+### CoreOS (Container Linux)
 - Fork Chromium OS
 - ориентирована на севреные облачные плаиформы
 - нет пакетного менеджера - все ПО в контейнерах
