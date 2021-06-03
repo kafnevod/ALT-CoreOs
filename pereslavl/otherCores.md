@@ -30,15 +30,15 @@
 
 ### 
 
-Дистрибутив | Ниша | Платформы | ПО мультидеплоя | Атомарность на уровне | Хранение развертываний | Откат | ReadOnly дерево | Обновление /etc  
-------------|------|-----------|-----------------|-----------------------|------------------------|----------|-----------------|-----------------
-Fedora CoreOS |  |мультиоблачный кластер | ostree | развертывания | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
-Fedora IoT |  | Интернет вещей | ostree | развертывания |  Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
-[Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (CoreOS Containet Linux)| | | | | | | |
-[Ububtu Core](https://ubuntu.com/core) | | Интернет вещей | snapd | пакета | | | |
-[Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades) | | | | | | | |
-[NixOS](https://nixos.org/guides/how-nix-works.html) | | | | | | | |
-[Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS) | | | | | | | |
-[GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous) | | | | | | | |
+Дистрибутив | Ниша | Платформы | ПО мультидеплоя | Атомарность на уровне | Автообновление |Хранение развертываний | Откат | ReadOnly дерево | Обновление /etc  
+------------|------|-----------|-----------------|-----------------------|----------------|-----------------------|----------|-----------------|-----------------
+Fedora CoreOS |  |мультиоблачный кластер | ostree | развертывания | Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
+Fedora IoT |  | Интернет вещей | ostree | развертывания |  Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
+[Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (CoreOS Containet Linux)| | | | | | | | |
+[Ububtu Core](https://ubuntu.com/core) | | Интернет вещей | snapd | пакета | | | | |
+[Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades) | | | | | | | | |
+[NixOS](https://nixos.org/guides/how-nix-works.html) | | | | | | | | |
+[Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS) | | | | | | | | |
+[GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous) | | | | | | | | | 
 
 
