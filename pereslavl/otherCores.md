@@ -5,6 +5,9 @@
   * [Image building](https://ubuntu.com/core/docs/image-building)
 - [CoreOS](https://ru.wikipedia.org/wiki/CoreOS)
 - [Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/)
+- [Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades)
+- [Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS)
+- [GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous)
 
 ## Обзор
 
@@ -30,23 +33,12 @@
 
 ### 
 
-Дистрибутив | Дистр | Платформы | Ниша | ПО мультидеплоя | Ignition | Атомарность на уровне | Автообновление |Хранение развертываний | Откат | ReadOnly дерево | Обновление /etc  
-------------|-------|-----------|-----------|------------|----------|-----------------------|----------------|-----------------------|----------|-----------------|-----------------
-Fedora CoreOS | Frdora |  | мультиоблачный кластер | ostree | Да | развертывания | Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
-Fedora IoT | Frdora |  | Интернет вещей | ostree | Да| развертывания |  Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
-[Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (форк CoreOS Containet Linux)| Gentoo | мультиоблачный кластер | | | Да | | | | | | |
-[Ubuntu Core](https://ubuntu.com/core) |Ubuntu | Интернет вещей | | snapd | | пакета |  | | | | |
-[Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades) | Ubuntu | | | | | | | | |
-[NixOS](https://nixos.org/guides/how-nix-works.html)|  | | | | | | | | |
-[Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS)|  | | | | | | | | |
-[GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous)|  | | | | | | | | | 
-
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core 
 ------------|---------------|------------|-------------------------|-------------
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ububtu 
 Платформа   | x86_64 | x86_64, aarch64, armhfp |                   |
-Ниша | Cloud, VM, BM        |  E          |                        |
-ПО мультидеплоя | ostree    | ostree      |                        |
+Ниша | Cloud, VM, BM        |  E         |                        |
+ПО мультидеплоя | ostree    | ostree      |                        | snap
 Ignition    |  Да           | Да          | Да                     | 
 Атомарность | развертывания | развертывания | развертывания        | 
 Автообновление | Да         | Да          | Да                     | 
