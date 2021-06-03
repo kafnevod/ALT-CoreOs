@@ -34,7 +34,7 @@
 ------------|------|-----------|-----------------|-----------------------|----------------|-----------------------|----------|-----------------|-----------------
 Fedora CoreOS |  |мультиоблачный кластер | ostree | развертывания | Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
 Fedora IoT |  | Интернет вещей | ostree | развертывания |  Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
-[Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (CoreOS Containet Linux)| | | | | | | | |
+[Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (форк CoreOS Containet Linux)| | | | | | | | |
 [Ububtu Core](https://ubuntu.com/core) | | Интернет вещей | snapd | пакета | | | | |
 [Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades) | | | | | | | | |
 [NixOS](https://nixos.org/guides/how-nix-works.html) | | | | | | | | |
