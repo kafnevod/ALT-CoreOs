@@ -11,27 +11,6 @@
 
 ## Обзор
 
-### Ubuntu Core
-
-- ориентировано тольео на IoT (нет stansalone)
-- основное ПО ставится как snap-пакеты (ReadOnly FS)
-- генерация образа через [Ubuntu image builder](https://github.com/CanonicalLtd/ubuntu-image)
-- заназные (bespoke) образы производится хточно также (https://ubuntu.com/core/docs/custom-images) 
-  *  Model assertion
-  *  Prerequisites
-  *  Custom model assertion
-  *  Signing a model assertion
-  *  Building the image
-
-### CoreOS (Container Linux)
-- Fork Chromium OS
-- ориентирована на севреные облачные плаиформы
-- нет пакетного менеджера - все ПО в контейнерах
-- две фйловые системе - рабочая RO и  следующая RWпсоле установки ПО меняются местами
-
-Судя по ссылкам полностью поглощена RedHat
-
-### 
 
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core 
 ------------|---------------|------------|-------------------------|-------------
@@ -56,3 +35,22 @@ ReadOnly дерево | /usr      | /usr        |
 - H - Деревья rfnfkjujd залинкованных (HardLink) на общую базу файлов-объектов
 - S - Отдельные (Separate) деревья
 
+### Ubuntu Core
+
+- ориентировано тольео на IoT (нет stansalone)
+- основное ПО ставится как snap-пакеты (ReadOnly FS)
+- генерация образа через [Ubuntu image builder](https://github.com/CanonicalLtd/ubuntu-image)
+- заназные (bespoke) образы производится хточно также (https://ubuntu.com/core/docs/custom-images) 
+  *  Model assertion
+  *  Prerequisites
+  *  Custom model assertion
+  *  Signing a model assertion
+  *  Building the image
+
+### CoreOS (Container Linux)
+- Fork Chromium OS
+- ориентирована на севреные облачные плаиформы
+- нет пакетного менеджера - все ПО в контейнерах
+- две фйловые системе - рабочая RO и  следующая RWпсоле установки ПО меняются местами
+
+Судя по ссылкам полностью поглощена RedHat
