@@ -30,15 +30,15 @@
 
 ### 
 
-Дистрибутив | Ниша | Платформы | ПО мультидеплоя | Атомарность на уровне | Автообновление |Хранение развертываний | Откат | ReadOnly дерево | Обновление /etc  
-------------|------|-----------|-----------------|-----------------------|----------------|-----------------------|----------|-----------------|-----------------
-Fedora CoreOS |  |мультиоблачный кластер | ostree | развертывания | Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
-Fedora IoT |  | Интернет вещей | ostree | развертывания |  Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
-[Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (форк CoreOS Containet Linux)| | | | | | | | |
-[Ububtu Core](https://ubuntu.com/core) | | Интернет вещей | snapd | пакета | | | | |
-[Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades) | | | | | | | | |
-[NixOS](https://nixos.org/guides/how-nix-works.html) | | | | | | | | |
-[Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS) | | | | | | | | |
-[GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous) | | | | | | | | | 
+Дистрибутив | Дистр | Платформы | Ниша | ПО мультидеплоя | Атомарность на уровне | Автообновление |Хранение развертываний | Откат | ReadOnly дерево | Обновление /etc  
+------------|-------|-----------|-----------|-----------------|-----------------------|----------------|-----------------------|----------|-----------------|-----------------
+Fedora CoreOS | Frdora |  |мультиоблачный кластер | ostree | развертывания | Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
+Fedora IoT | Frdora |  | Интернет вещей | ostree | развертывания |  Да | Деревья залинкованных на общую базу файлов | Да | /usr | трехстороноее слияние
+[Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (форк CoreOS Containet Linux)| Gentoo | | | | | | | | |
+[Ubuntu Core](https://ubuntu.com/core) |Ubuntu | Интернет вещей | | snapd | пакета |  | | | | |
+[Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades) | Ubuntu | | | | | | | | |
+[NixOS](https://nixos.org/guides/how-nix-works.html)|  | | | | | | | | |
+[Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS)|  | | | | | | | | |
+[GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous)|  | | | | | | | | | 
 
 
