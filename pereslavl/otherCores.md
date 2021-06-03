@@ -16,7 +16,7 @@
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ububtu 
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      |
-Ниша | Cloud, VM, BM        |  E         |                        |
+Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED
 ПО мультидеплоя | ostree    | ostree      |                        | snap
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy 
 Ignition    |  Да           | Да          | Да                     | 
@@ -32,7 +32,7 @@ ReadOnly дерево | /usr      | /usr        |
 - Cloud - мультиоблачный кластер
 - VM - вирруальные машины
 - BM - голое железо (Bare Metal)
-- E - встраиваемые устройства (Embedded devices )
+- ED - встраиваемые устройства (Embedded devices )
 
 Хранение развертываний:
 - H - Деревья rfnfkjujd залинкованных (HardLink) на общую базу файлов-объектов
