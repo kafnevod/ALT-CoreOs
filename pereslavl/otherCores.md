@@ -30,7 +30,7 @@ Ignition    |  Да           | Да          | Да                     | Не�
 Откат(rollback) | Да         | Да         | Да                     | Да
 ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 Шифрование диска |  Да      |  Да         | ?                      | Да
-Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |   | portainer | systemd, docker
+Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |  |  portainer, systemd, docker, podman
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
