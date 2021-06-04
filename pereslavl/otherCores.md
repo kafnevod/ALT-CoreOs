@@ -26,13 +26,14 @@ Ignition    |  Да           | Да          | Да                     | Не�
 Откат(rollback) | Да         | Да         | Да                     | только ядро
 ReadOnly дерево | /usr      | /usr        |
 Шифрование диска |  Да      |  Да         |                        | Да
-Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere
+Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd, 
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
 - zincati - [Zincati](https://github.com/coreos/zincati) is an auto-update agent for Fedora CoreOS hosts.
 - parces - [PARSEC](https://fedoraproject.org/wiki/Changes/PARSEC) (Platform AbstRaction for SECurity) is an initiative started out of Arm to provide a straight forward API for accessing secure credentials stored in hardware. It's a sandbox project in the CNCF. 
 - Zezere -  [Zezere](https://github.com/fedora-iot/zezere) is a provisioning server for Fedora IoT. It can be used for deploying Fedora IoT to devices without needing a physical console
+- etcd - [etcd](https://etcd.io/) - A distributed, reliable key-value store for the most critical data of a distributed system
 
 Нишы:
 - Cloud - мультиоблачный кластер
