@@ -16,12 +16,12 @@
 
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS | Endless OS | TorizonCore
 ------------|---------------|------------|-------------------------|-------------|-----------|----------|------------|-------------
-Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gentoo    |          |            | Yocto Project
+Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gentoo    |          |            | Yocto Project (Poky)
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |          |            |
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64, arm64 |     |            | arm64       
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED           | D        | D        | D          |
 Контейнеризация | podman, mobyengine | podman |                    |              |          |  flatpak |            | docker (debian images)
-ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree | ostree| ostree
+ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot | 
 Ignition    |  Да           | Да          | Да                     | Нет
 Атомарность | развертывания | развертывания | развертывания        | Ядро?
@@ -30,7 +30,7 @@ Ignition    |  Да           | Да          | Да                     | Не�
 Откат(rollback) | Да         | Да         | Да                     | Да
 ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 Шифрование диска |  Да      |  Да         | ?                      | Да
-Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd |  | flatpak, ostree |   | portainer
+Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |   | portainer | systemd, docker
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
