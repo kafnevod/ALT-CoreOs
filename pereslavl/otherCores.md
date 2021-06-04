@@ -1,6 +1,6 @@
 # Другие Core's
 
-- [Ububtu Core](https://ubuntu.com/core)
+- [Ubuntu Core](https://ubuntu.com/core)
   * [What is Ubuntu Core?](https://ubuntu.com/core/docs/what-is-ubuntu-core)
   * [Image building](https://ubuntu.com/core/docs/image-building)
 - [CoreOS](https://ru.wikipedia.org/wiki/CoreOS)
@@ -16,11 +16,12 @@
 
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS | Endless OS | TorizonCore
 ------------|---------------|------------|-------------------------|-------------|-----------|----------|------------|-------------
-Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gentoo    |
-Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |
-Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64. arm64 
+Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gentoo    |          |            |  
+Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |          |            |
+Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64, arm64 |     |            | arm64       
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED           | D        | D        | D          |
-ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree | ostree
+Контейнеризация | podman, mobyengine | podman |                    |              |          |  flatpak |            | docker
+ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree | ostree| ostree
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot | 
 Ignition    |  Да           | Да          | Да                     | Нет
 Атомарность | развертывания | развертывания | развертывания        | Ядро?
@@ -29,7 +30,7 @@ Ignition    |  Да           | Да          | Да                     | Не�
 Откат(rollback) | Да         | Да         | Да                     | Да
 ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 Шифрование диска |  Да      |  Да         | ?                      | Да
-Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd |  | flatpak, ostree
+Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd |  | flatpak, ostree |   | portainer
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
