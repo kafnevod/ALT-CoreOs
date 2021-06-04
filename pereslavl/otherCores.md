@@ -31,6 +31,7 @@ Ignition    |  Да           | Да          | Да                     | Не�
 ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 Шифрование диска |  Да      |  Да         | ?                      | Да
 Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |  |  portainer, systemd, docker, podman
+Сборка образа | dracut     |              |                        |             |          |           |           | bitbake
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
