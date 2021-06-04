@@ -21,12 +21,12 @@
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy 
 Ignition    |  Да           | Да          | Да                     | Нет
 Атомарность | развертывания | развертывания | развертывания        | Ядро?
-Автообновление | Да         | Нет         | Да                     | 
-Хранение развертываний | H  | H           | S (USR-A, USR-B)       |      
-Откат(rollback) | Да         | Да         | Да                     | только ядро
-ReadOnly дерево | /usr      | /usr        | /usr
+Автообновление | Да         | Нет         | Да                     | Да 
+Хранение развертываний | H  | HL          | PS(USR-A, USR-B)       | SNAP     
+Откат(rollback) | Да         | Да         | Да                     | Да
+ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 Шифрование диска |  Да      |  Да         | ?                      | Да
-Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd, 
+Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
@@ -42,8 +42,9 @@ ReadOnly дерево | /usr      | /usr        | /usr
 - ED - встраиваемые устройства (Embedded devices )
 
 Хранение развертываний:
-- H - Деревья развертываний залинкованных (HardLink) на общую базу файлов-объектов
-- S - Отдельные (Separate) деревья
+- HL - Деревья развертываний залинкованных (HardLink) на общую базу файлов-объектов
+- PS - Отдельные деревья в разных  партициях
+- SMAP - раздельное хранение пакетов вместе с зависимыми бинарниками
 
 ### Flatcar Container Linu
 
