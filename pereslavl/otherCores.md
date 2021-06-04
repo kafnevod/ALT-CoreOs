@@ -7,18 +7,19 @@
 - [Flatcar Container Linux](https://kinvolk.io/flatcar-container-linux/) (CoreOS Container Linux)
 - [Ubuntu ImageBasedUpgrades](https://wiki.ubuntu.com/ImageBasedUpgrades)
 - [Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS)
+  * [Ebuild FAQ](https://chromium.googlesource.com/chromiumos/docs/+/HEAD/portage/ebuild_faq.md)
 - [GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous)
 
 ## Обзор
 
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS
 ------------|---------------|------------|-------------------------|-------------|-----------|----------
-Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      |           |
+Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gento     |
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64. arm64 
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED
 ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap
-Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy 
+Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot | 
 Ignition    |  Да           | Да          | Да                     | Нет
 Атомарность | развертывания | развертывания | развертывания        | Ядро?
 Автообновление | Да         | Нет         | Да                     | Да 
@@ -26,7 +27,7 @@ Ignition    |  Да           | Да          | Да                     | Не�
 Откат(rollback) | Да         | Да         | Да                     | Да
 ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 Шифрование диска |  Да      |  Да         | ?                      | Да
-Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd
+Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd |  | flatpak
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
