@@ -17,7 +17,7 @@
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases | 
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED
-ПО мультидеплоя | ostree    | ostree      |                        | snap
+ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy 
 Ignition    |  Да           | Да          | Да                     | Нет
 Атомарность | развертывания | развертывания | развертывания        | Ядро?
