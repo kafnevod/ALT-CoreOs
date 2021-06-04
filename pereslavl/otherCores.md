@@ -1,4 +1,4 @@
-# Другие Ciore
+# Другие Core's
 
 - [Ububtu Core](https://ubuntu.com/core)
   * [What is Ubuntu Core?](https://ubuntu.com/core/docs/what-is-ubuntu-core)
