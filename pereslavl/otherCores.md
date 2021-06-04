@@ -14,7 +14,7 @@
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS
 ------------|---------------|------------|-------------------------|-------------|-----------|----------
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu 
-Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS
+Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases | 
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED
 ПО мультидеплоя | ostree    | ostree      |                        | snap
@@ -22,10 +22,10 @@
 Ignition    |  Да           | Да          | Да                     | Нет
 Атомарность | развертывания | развертывания | развертывания        | Ядро?
 Автообновление | Да         | Нет         | Да                     | 
-Хранение развертываний | H  | H           | S                      |      
+Хранение развертываний | H  | H           | S (USR-A, USR-B)       |      
 Откат(rollback) | Да         | Да         | Да                     | только ядро
-ReadOnly дерево | /usr      | /usr        |
-Шифрование диска |  Да      |  Да         |                        | Да
+ReadOnly дерево | /usr      | /usr        | /usr
+Шифрование диска |  Да      |  Да         | ?                      | Да
 Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd, 
 
 Системные сервисы
@@ -44,6 +44,12 @@ ReadOnly дерево | /usr      | /usr        |
 Хранение развертываний:
 - H - Деревья развертываний залинкованных (HardLink) на общую базу файлов-объектов
 - S - Отдельные (Separate) деревья
+
+### Flatcar Container Linu
+
+- [Документация](https://kinvolk.io/docs/flatcar-container-linux/latest/)
+- [Flatcar Container Linux disk layout](https://kinvolk.io/docs/flatcar-container-linux/latest/reference/developer-guides/sdk-disk-partitions/)
+
 
 ### Ubuntu Core
 
