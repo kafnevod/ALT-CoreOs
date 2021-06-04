@@ -9,16 +9,18 @@
 - [Chrome OS](https://ru.wikipedia.org/wiki/Chrome_OS)
   * [Ebuild FAQ](https://chromium.googlesource.com/chromiumos/docs/+/HEAD/portage/ebuild_faq.md)
 - [GNOME OS](https://wiki.gnome.org/action/show//GnomeOS?action=show&redirect=Projects%2FGnomeContinuous)
+- [Endless OS](https://endlessos.com/)
+- [TorizonCore](https://developer.toradex.com/knowledge-base/torizoncore-overview)
 
 ## Обзор
 
-Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS
-------------|---------------|------------|-------------------------|-------------|-----------|----------
+Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS | Endless OS | TorizonCore
+------------|---------------|------------|-------------------------|-------------|-----------|----------|------------|-------------
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gentoo    |
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64. arm64 
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED
-ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap
+ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree | ostree
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot | 
 Ignition    |  Да           | Да          | Да                     | Нет
 Атомарность | развертывания | развертывания | развертывания        | Ядро?
