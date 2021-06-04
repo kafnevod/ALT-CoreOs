@@ -19,7 +19,7 @@
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gentoo    |
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64. arm64 
-Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED
+Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED           | D        | D        | D          |
 ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree | ostree
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot | 
 Ignition    |  Да           | Да          | Да                     | Нет
@@ -29,7 +29,7 @@ Ignition    |  Да           | Да          | Да                     | Не�
 Откат(rollback) | Да         | Да         | Да                     | Да
 ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 Шифрование диска |  Да      |  Да         | ?                      | Да
-Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd |  | flatpak
+Системные сервисы | systemd, sssd , zincati | systemd, parces, zezere | systemd, etcd | snapd |  | flatpak, ostree
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
@@ -43,6 +43,7 @@ ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
 - VM - вирруальные машины
 - BM - голое железо (Bare Metal)
 - ED - встраиваемые устройства (Embedded devices )
+- D - Десктопы
 
 Хранение развертываний:
 - HL - Деревья развертываний залинкованных (HardLink) на общую базу файлов-объектов
