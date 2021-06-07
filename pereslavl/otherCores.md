@@ -22,16 +22,16 @@
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED           | D        | D        | D          |
 Контейнеризация | podman, mobyengine | podman |                    |              |          |  flatpak |   flatpak  | docker (debian images)
 ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
-Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot | 
-Ignition    |  Да           | Да          | Да                     | Нет
-Атомарность | развертывания | развертывания | развертывания        | Ядро?
-Автообновление | Да         | Нет         | Да                     | Да 
-Хранение развертываний | H  | HL          | PS(USR-A, USR-B)       | SNAP     
-Откат(rollback) | Да         | Да         | Да                     | Да
-ReadOnly дерево | /usr      | /usr        | /usr                   | /snap
-Шифрование диска |  Да      |  Да         | ?                      | Да
-Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |  |  portainer, systemd, docker, podman
-Сборка образа | dracut     |              |                        |             |          |           |           | bitbake
+Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot |        | deb-ostree-builder, apt, dpkg  | 
+Ignition    |  Да           | Да          | Да                     | Нет          | ?         |    ?    | Нет        | ?
+Атомарность | развертывания | развертывания | развертывания        | Ядро?        | ?         |    ?    | Да         | ?
+Автообновление | Да         | Нет         | Да                     | Да           | ?         |    ?    | Да         | ?
+Хранение развертываний | H  | HL          | PS(USR-A, USR-B)       | SNAP         | ?         |    ?    | Да         | Да 
+Откат(rollback) | Да         | Да         | Да                     | Да           | ?         |    ?    | Да         | ?
+ReadOnly дерево | /usr      | /usr        | /usr                   | /snap        | ?         |    ?    | /usr       | ?
+Шифрование диска |  Да      |  Да         | ?                      | Да           | ?         |    ?    | ?          | ?    
+Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |  eos-stage-ostree, eos-autoupdater |  portainer, systemd, docker, podman
+Сборка образа | dracut     |              |                        |             |          |           |  dracut       | bitbake
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
