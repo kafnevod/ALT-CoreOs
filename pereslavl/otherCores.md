@@ -24,13 +24,13 @@
 ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot |        | deb-ostree-builder, apt, dpkg  | 
 Ignition    |  Да           | Да          | Да                     | Нет          | ?         |    ?    | Нет        | ?
-Атомарность | развертывания | развертывания | развертывания        | Ядро?        | ?         |    ?    | Да         | ?
-Автообновление | Да         | Нет         | Да                     | Да           | ?         |    ?    | Да         | ?
-Хранение развертываний | H  | HL          | PS(USR-A, USR-B)       | SNAP         | ?         |    ?    | Да         | Да 
-Откат(rollback) | Да         | Да         | Да                     | Да           | ?         |    ?    | Да         | ?
-ReadOnly дерево | /usr      | /usr        | /usr                   | /snap        | ?         |    ?    | /usr       | ?
+Атомарность | развертывания | развертывания | развертывания        | Ядро?        | ?         |    Да    | Да         | ?
+Автообновление | Да         | Нет         | Да                     | Да           | ?         |    Да   | Да         | ?
+Хранение развертываний | H  | HL          | PS(USR-A, USR-B)       | SNAP         | ?         |    Да   | Да         | Да 
+Откат(rollback) | Да         | Да         | Да                     | Да           | ?         |    Да   | Да         | ?
+ReadOnly дерево | /usr      | /usr        | /usr                   | /snap        | ?         |    Да   | /usr       | ?
 Шифрование диска |  Да      |  Да         | ?                      | Да           | ?         |    ?    | ?          | ?    
-Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |  eos-stage-ostree, eos-autoupdater |  portainer, systemd, docker, podman
+Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |  eos-stage-ostree, eos-autoupdater, ostree |  portainer, systemd, docker, podman
 Сборка образа | dracut     |              |                        |             |          |           |  dracut       | bitbake
 
 Системные сервисы
