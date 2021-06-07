@@ -17,10 +17,10 @@
 Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar Container Linux | Ubuntu Core | Chrome OS | GNOME OS | Endless OS | TorizonCore
 ------------|---------------|------------|-------------------------|-------------|-----------|----------|------------|-------------
 Пакетная база | Fedora      | Fedora     | Gentoo                  | Ubuntu      | Gentoo    |          |  Debian    | Yocto Project (Poky)
-Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |          |            |
+Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |          | Edge, Beta, Alpha, Stable           |
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64, arm64 |     |            | arm64       
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED           | D        | D        | D          |
-Контейнеризация | podman, mobyengine | podman |                    |              |          |  flatpak |            | docker (debian images)
+Контейнеризация | podman, mobyengine | podman |                    |              |          |  flatpak |   flatpak  | docker (debian images)
 ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot | 
 Ignition    |  Да           | Да          | Да                     | Нет
