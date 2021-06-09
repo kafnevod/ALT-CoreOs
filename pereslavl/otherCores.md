@@ -20,8 +20,8 @@
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |          | Edge, Beta, Alpha, Stable           |
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64      | amd64. arm64 | x86_64, arm64 |     |            | arm64       
 Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM        | ED           | D        | D        | D          |
-Контейнеризация | podman, mobyengine | podman |                    |              |          |  flatpak |   flatpak  | docker (debian images)
-ПО мультидеплоя | ostree    | ostree      |  - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
+Контейнеризация | podman, mobyengine | podman |     docker, rkt    |              |          |  flatpak |   flatpak  | docker (debian images)
+ПО мультидеплоя | ostree    | ostree      |  lvm - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                    | Snappy  | portage, chroot |        | deb-ostree-builder, apt, dpkg  | 
 Ignition    |  Да           | Да          | Да                     | Нет          | ?         |    ?    | Нет        | ?
 Атомарность | развертывания | развертывания | развертывания        | Ядро?        | ?         |    Да    | Да         | ?
@@ -30,8 +30,9 @@ Ignition    |  Да           | Да          | Да                     | Не�
 Откат(rollback) | Да         | Да         | Да                     | Да           | ?         |    Да   | Да         | ?
 ReadOnly дерево | /usr      | /usr        | /usr                   | /snap        | ?         |    Да   | /usr       | ?
 Шифрование диска |  Да      |  Да         | ?                      | Да           | ?         |    ?    | ?          | ?    
-Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker | snapd |  | flatpak, ostree |  eos-stage-ostree, eos-autoupdater, ostree |  portainer, systemd, docker, podman
+Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker, rtk | snapd |  | flatpak, ostree |  eos-stage-ostree, eos-autoupdater, ostree |  portainer, systemd, docker, podman
 Сборка образа | dracut     |              |                        |             |          |           |  dracut       | bitbake
+kexec          | Да?       | Да?          | Да                     |  ?          | ?        | ?         |    ?          |   ?
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
