@@ -23,9 +23,9 @@
 Контейнеризация | podman, mobyengine | podman |     docker, rkt             |              |          |  flatpak |   flatpak  | docker (debian images)
 ПО мультидеплоя | ostree    | ostree      |  lvm - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                             | Snappy  | portage, chroot |        | deb-ostree-builder, apt, dpkg  | 
-Ignition    |  Да           | Да          | Да                              | Нет          | ?         |    ?    | Нет        | ?
+Ignition    |  Да           | Да          | Да                              | Нет          | Нет        |   Нет    | Нет        | ?
 Атомарность | развертывания | развертывания | развертывания                 | Ядро?        | ?         |    Да    | Да         | ?
-Автообновление | Да         | Нет         | Да                              | Да           | ?         |    Да   | Да         | ?
+Автообновление | Да         | Нет         | Да                              | Да           | Да        |    Да   | Да         | ?
 Хранение развертываний | HL  | HL          | PS(USR-A, USR-B)                | SNAP         | PS       |    HL   | HL         | HL 
 Откат(rollback) | Да         | Да         | Да                              | Да           | ?         |    Да   | Да         | ?
 ReadOnly дерево | /usr      | /usr        | /usr                            | /snap        | ?         |  /usr   | /usr       | /usr
