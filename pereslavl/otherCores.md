@@ -14,25 +14,25 @@
 
 ## Обзор
 
-Дистрибутив | Fedora CoreOS | Fedora IoT | Flatcar (CoreOS) Container Linux | Ubuntu Core | Chrome OS | GNOME OS | Endless OS | TorizonCore
+Дистрибутив | Fedora CoreOS | Fedora IoT | FlatCar (CoreOS) Container Linux | Ubuntu Core | Chrome OS | GNOME OS | Endless OS | TorizonCore
 ------------|---------------|------------|----------------------------------|-------------|-----------|----------|------------|-------------
 Пакетная база | Fedora      | Fedora     | Gentoo                           | Ubuntu      | Gentoo    |          |  Debian    | Yocto Project (Poky)
 Потоки(Streams) | Next, Testing, Stable |  Stable | Alpha, Beta, Stable, LTS | Releases |    |          | Edge, Beta, Alpha, Stable           |
 Платформа   | x86_64 | x86_64, aarch64, armhfp | amd64. arm64               | amd64. arm64 | x86_64, arm64 |     |            | arm64       
-Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM                 | ED           | D        | D        | D          |
+Ниша | Cloud, VM, BM        |  ED         |   Cloud, VM, BM                 | ED           | D        | D        | D          | ED
 Контейнеризация | podman, mobyengine | podman |     docker, rkt             |              |          |  flatpak |   flatpak  | docker (debian images)
 ПО мультидеплоя | ostree    | ostree      |  lvm - (две партиции USRA, USRB) | snap   |            | ostree | ostree     |  ostree, Uptane
 Пакетный менеджер | rpm-ostree | rpm-ostree | -                             | Snappy  | portage, chroot |        | deb-ostree-builder, apt, dpkg  | 
 Ignition    |  Да           | Да          | Да                              | Нет          | ?         |    ?    | Нет        | ?
 Атомарность | развертывания | развертывания | развертывания                 | Ядро?        | ?         |    Да    | Да         | ?
 Автообновление | Да         | Нет         | Да                              | Да           | ?         |    Да   | Да         | ?
-Хранение развертываний | H  | HL          | PS(USR-A, USR-B)                | SNAP         | ?         |    Да   | Да         | Да 
+Хранение развертываний | HL  | HL          | PS(USR-A, USR-B)                | SNAP         | PS       |    HL   | HL         | HL 
 Откат(rollback) | Да         | Да         | Да                              | Да           | ?         |    Да   | Да         | ?
-ReadOnly дерево | /usr      | /usr        | /usr                            | /snap        | ?         |    Да   | /usr       | ?
+ReadOnly дерево | /usr      | /usr        | /usr                            | /snap        | ?         |  /usr   | /usr       | /usr
 Шифрование диска |  Да      |  Да         | ?                               | Да           | ?         |    ?    | ?          | ?    
 Системные сервисы | systemd, sssd , zincati, podman, docker | systemd, parces, zezere, podman | systemd, etcd, docker, rtk, fleet | snapd |  | flatpak, ostree |  eos-stage-ostree, eos-autoupdater, ostree |  portainer, systemd, docker, podman
 Сборка образа | dracut     |  dracut      |                                 |             |          |           |  dracut       | bitbake
-kexec          | Да?       | Да?          | Да                              |  ?          | ?        | ?         |    ?          |   ?
+kexec          | Да?       | Да?          | Да                              |  ?          | ?        | Да?       |    Да?        |   Да?
 
 Системные сервисы
 - sssd - [System Security Services Daemon](https://en.wikipedia.org/wiki/System_Security_Services_Daemon)
