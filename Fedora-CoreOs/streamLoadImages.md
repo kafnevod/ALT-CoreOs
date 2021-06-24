@@ -269,3 +269,4 @@ drwxr-sr-x   2 root     root            0 Jun 14 20:18 etc
 - [The CoreOS Assembler](https://github.com/coreos/coreos-assembler)
 - [Building Fedora CoreOS](https://github.com/coreos/coreos-assembler/blob/main/docs/building-fcos.md)
 - [osmet: efficient packing/unpacking of CoreOS metal images](https://github.com/coreos/coreos-installer/pull/187)
+- [ISOLINUX](https://wiki.syslinux.org/wiki/index.php?title=ISOLINUX)
