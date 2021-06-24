@@ -14,3 +14,5 @@
 - [Установка дистрибутива](./install.md);
 - [Описание структуры файловой системы Fedora Core](./roottree.md);
 - [Перевод документации по ostree](./ostree/README.md)
+- [Описание процедуры загрузки образа Fedora CoreOs для различных потоков](streamLoadImages.md)
+
