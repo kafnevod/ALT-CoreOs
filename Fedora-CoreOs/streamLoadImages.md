@@ -103,6 +103,23 @@ qemu                |     |     |     |      V   |        |           |        |
 vmware              |     |   V |     |          |        |           |        |        |         |
 vultr               |     |     |     |          |    V   |           |        |        |         |
 
-
+ФОрмат описания среды `pxe` отличается от описанного выше и имеет вид:
+```
+            "kernel": {
+                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/...",
+               "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/....sig",
+                "sha256": "..."
+            },
+            "initramfs": {
+                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/...img",
+                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/....img.sig",
+                "sha256": "..."
+            },
+            "rootfs": {
+                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/...img",
+                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/...img.sig",
+                "sha256": "..."
+            }
+```
 
 
