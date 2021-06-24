@@ -263,3 +263,9 @@ drwxr-sr-x   2 root     root            0 Jun 14 20:18 etc
 -rw-------   1 root     root      5440320 Jun 14 20:20 fedora-coreos-34.20210529.3.0-metal4k.x86_64.raw.osmet
 1272213 блоков
 ```
+
+
+## Ссылки:
+- [The CoreOS Assembler](https://github.com/coreos/coreos-assembler)
+- [Building Fedora CoreOS](https://github.com/coreos/coreos-assembler/blob/main/docs/building-fcos.md)
+- [osmet: efficient packing/unpacking of CoreOS metal images](https://github.com/coreos/coreos-installer/pull/187)
