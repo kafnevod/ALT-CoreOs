@@ -4,7 +4,6 @@
 
 - [Описание дистрибутива Fedore CoreOs](Fedora-CoreOs/README.md)
 - [Сравнение программного обеспечения Fedora Core и дистрибутивов ALT](softwareCompare.md)
-- [Описание процедуры загрузки образа Fedora CoreOs для различных потоков](streamLoadImages.md)
 - [Адаптация](adaptation.md)
 - [Доклад на конференции в Переславль-Залесском](pereslavl/README.md)
 
