@@ -166,6 +166,42 @@ dr-xr-xr-x 2 root root    2048 июн 14 20:24 pxeboot
 -r-xr-xr-x 1 root root  26696 июн 14 20:26 vesamenu.c32
 ```
 
+Файл `images/efiboot.img` представляет собой FAT-раздел:
+```
+# file images/efiboot.img 
+/mnt/fedora/images/efiboot.img: DOS/MBR boot sector, code offset 0x3c+2, OEM-ID "mkfs.fat", sectors/cluster 4, reserved sectors 4, root entries 512, sectors 14070 (volumes <=32 MB), Media descriptor 0xf8, sectors/FAT 12, sectors/track 14, heads 1, serial number 0x5265a69d, unlabeled, FAT (12 bit)
+```
+со следующей структурой:
+```
+# ls -lR
+.:
+итого 2
+drwxr-xr-x 4 root root 2048 янв  1  1980 EFI
+
+./EFI:
+итого 4
+drwxr-xr-x 2 root root 2048 янв  1  1980 BOOT
+drwxr-xr-x 3 root root 2048 янв  1  1980 fedora
+
+./EFI/BOOT:
+итого 994
+-rwxr-xr-x 1 root root 928592 июн 14 20:26 BOOTX64.EFI
+-rwxr-xr-x 1 root root  87152 июн 14 20:26 fbx64.efi
+
+./EFI/fedora:
+итого 5130
+-rwxr-xr-x 1 root root     110 июн 14 20:26 BOOTX64.CSV
+drwxr-xr-x 2 root root    2048 янв  1  1980 fonts
+-rwxr-xr-x 1 root root 2536712 июн 14 20:26 grubx64.efi
+-rwxr-xr-x 1 root root  850032 июн 14 20:26 mmx64.efi
+-rwxr-xr-x 1 root root  928592 июн 14 20:26 shim.efi
+-rwxr-xr-x 1 root root  928592 июн 14 20:26 shimx64.efi
+
+./EFI/fedora/fonts:
+итого 0
+```
+
+
 Содержание файла ``EFI/fedora/grub.cfg:
 ```
 # Note this file mostly matches the grub.cfg file from within the
@@ -201,4 +237,29 @@ menuentry 'Fedora CoreOS (Live)' --class fedora --class gnu-linux --class gnu --
 	linux /images/pxeboot/vmlinuz mitigations=auto,nosmt coreos.liveiso=fedora-coreos-34.20210529.3.0 ignition.firstboot ignition.platform.id=metal
 ################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################ COREOS_KARG_EMBED_AREA
 	initrd /images/pxeboot/initrd.img /images/ignition.img
+```
+
+Содержимое файла `/images/pxeboot/initrd.img`:
+```
+$ cpio -ivt < /mnt/fedora/images/pxeboot/initrd.img
+drwxr-xr-x   3 root     root            0 Jan  1  1970 .
+-rw-r--r--   1 root     root            2 Jan  1  1970 early_cpio
+drwxr-xr-x   3 root     root            0 Jan  1  1970 kernel
+drwxr-xr-x   3 root     root            0 Jan  1  1970 kernel/x86
+drwxr-xr-x   2 root     root            0 Jan  1  1970 kernel/x86/microcode
+-rw-r--r--   1 root     root        19700 Jan  1  1970 kernel/x86/microcode/AuthenticAMD.bin
+-rw-r--r--   1 root     root      3623936 Jan  1  1970 kernel/x86/microcode/GenuineIntel.bin
+```
+
+Файл `/images/ignition.img` имеет размер `256Kb` (`262144B`) и содержит нулевый байты.
+
+ Файл `/images/pxeboot/rootfs.img` содержит следующие файлы:
+```
+# cpio -ivt < /images/pxeboot/rootfs.img 
+-rw-r--r--   1 root     root     640294912 Jun 14 20:24 root.squashfs
+drwxr-sr-x   2 root     root            0 Jun 14 20:18 etc
+-rw-r--r--   1 root     root           16 Jun 14 20:18 etc/coreos-live-rootfs
+-rw-------   1 root     root      5636695 Jun 14 20:19 fedora-coreos-34.20210529.3.0-metal.x86_64.raw.osmet
+-rw-------   1 root     root      5440320 Jun 14 20:20 fedora-coreos-34.20210529.3.0-metal4k.x86_64.raw.osmet
+1272213 блоков
 ```
