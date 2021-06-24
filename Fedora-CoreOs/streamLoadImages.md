@@ -68,4 +68,22 @@
 - `arfifacts` содержащий описания образов для различный `облачных платформ`, `голого железа` и `qemy`.
 - `images` - содержащий дополнитаельныю информацию по облачным платформам `aws` и `gcp`.
 
+### Описние платформ `artifacts`
+
+Описание платформы формируется по шаблону:
+```
+        {
+            "release": "34.20210529.3.0",
+            "formats": {
+            "<формат>": {
+                "disk": {
+                    "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/...",
+                    "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/34.20210529.3.0/x86_64/...sig",
+                    "sha256": "...",
+                    "uncompressed-sha256": "..."
+                }
+            },
+        }
+```
+В случае, если образ не сжат поле `uncompressed-sha256` отсутсвует.
 
