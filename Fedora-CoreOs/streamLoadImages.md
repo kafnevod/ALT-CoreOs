@@ -263,6 +263,8 @@ drwxr-sr-x   2 root     root            0 Jun 14 20:18 etc
 -rw-------   1 root     root      5440320 Jun 14 20:20 fedora-coreos-34.20210529.3.0-metal4k.x86_64.raw.osmet
 1272213 блоков
 ```
+Файла `root.squashfs` представляет собой `ostree-дерево` сохраненное в формате файловой системы `squashfs`.
+
 
 Содержимое `/isolinux/isolinux.cfg`
 ```
